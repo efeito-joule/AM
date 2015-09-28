@@ -1,7 +1,11 @@
 package br.com.joule.teste;
 
+import javax.persistence.EntityManager;
+
+import br.com.joule.singleton.EMFactorySingleton;
 import br.com.joule.daoimpl.UsuarioDAOImpl;
-import br.com.joule.model.Aluno;
+import br.com.joule.entity.Aluno;
+import br.com.joule.exceptions.DBCommitException;
 
 public class Teste {
 
@@ -12,8 +16,14 @@ public class Teste {
 		usuario.setNomeUsuario("efeito_joule");
 		usuario.setEmail("efeitojouleoficial@gmail.com");
 		
-		UsuarioDAOImpl<Aluno> usuarioDAO = new UsuarioDAOImpl<Aluno>();
-		usuarioDAO.save(usuario);
+		EntityManager em = EMFactorySingleton.getInstance().createEntityManager();	
+		UsuarioDAOImpl usuarioDAO = new UsuarioDAOImpl(em);
+		try {
+			usuarioDAO.create(usuario);
+		} catch (DBCommitException e) {
+			
+			e.printStackTrace();
+		}
 		
 	}
 }

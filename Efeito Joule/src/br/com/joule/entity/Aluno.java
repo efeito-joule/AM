@@ -1,4 +1,4 @@
-package br.com.joule.model;
+package br.com.joule.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -6,7 +6,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity
-@Table(name = "aluno")
+@Table(name = "T_SEJ_ALUNO")
 public class Aluno extends Pessoa {
 
 	@Transient

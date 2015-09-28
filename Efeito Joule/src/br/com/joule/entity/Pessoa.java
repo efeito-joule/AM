@@ -1,4 +1,4 @@
-package br.com.joule.model;
+package br.com.joule.entity;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -19,7 +19,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 @Entity
-@Table(name = "pessoa")
+@Table(name = "T_SEJ_PESSOA")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Pessoa implements Serializable {
 

@@ -1,4 +1,4 @@
-package br.com.joule.model;
+package br.com.joule.entity;
 
 import java.io.Serializable;
 import java.util.List;
@@ -15,7 +15,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity
-@Table(name = "curso")
+@Table(name="T_SEJ_CURSO")
 public class Curso implements Serializable {
 
 	@Transient
@@ -24,7 +24,8 @@ public class Curso implements Serializable {
 	@Id
 	@SequenceGenerator(name = "cursoSequence", sequenceName = "CURSO_SEQ")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cursoSequence")
-	private int id;
+	@Column(name="cd_curso")
+	private long id;
 	
 	@Column(name = "nome")
 	private String nome;
@@ -40,11 +41,11 @@ public class Curso implements Serializable {
 		super();
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

@@ -1,4 +1,4 @@
-package br.com.joule.model;
+package br.com.joule.entity;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -18,7 +18,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 @Entity
-@Table(name = "matricula")
+@Table(name="T_SEJ_MATRICULA")
 public class Matricula implements Serializable {
 
 	@Transient
@@ -27,6 +27,7 @@ public class Matricula implements Serializable {
 	@Id
 	@SequenceGenerator(name = "matriculaSequence", sequenceName = "MATRICULA_SEQ")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "matriculaSequence")
+	@Column(name="cd_matricula")
 	private long id;
 	
 	@Temporal(TemporalType.TIMESTAMP)

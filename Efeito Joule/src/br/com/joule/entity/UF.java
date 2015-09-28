@@ -1,4 +1,4 @@
-package br.com.joule.model;
+package br.com.joule.entity;
 
 import java.io.Serializable;
 
@@ -12,29 +12,29 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity
-@Table(name = "sexo")
-public class Sexo implements Serializable {
+@Table(name = "T_SEJ_UF")
+public class UF implements Serializable {
 
 	@Transient
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name = "sexoSequence", sequenceName = "SEXO_SEQ")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sexoSequence")
-	private byte id;
+	@SequenceGenerator(name = "ufSequence", sequenceName = "UF_SEQ")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ufSequence")
+	private short id;
 	
 	@Column(name = "descricao")
 	private String descricao;
 
-	public Sexo() {
+	public UF() {
 		super();
 	}
 
-	public byte getId() {
+	public short getId() {
 		return id;
 	}
 
-	public void setId(byte id) {
+	public void setId(short id) {
 		this.id = id;
 	}
 
