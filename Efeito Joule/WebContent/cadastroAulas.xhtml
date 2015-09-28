@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+	<ui:composition template="_templateMenu.xhtml">
+		<ui:define name="head"></ui:define>
+		<ui:define name="body">
+			<h:form>
+				<div class="row">
+					<h1>Cadastro de Aulas</h1>
+				</div>
+				<div class="row">
+					<div class="col-md-5">
+						<label>Nome da Aula:</label>
+						<h:inputText styleClass="form-control input-sm" value="#{cadastroAulaController.aula.nome}" />
+					</div>
+					<div class="col-md-6">
+						<label>URL do Vídeo:</label>
+						<h:inputText styleClass="form-control input-sm" value="#{cadastroAulaController.aula.urlVideo}" />
+					</div>
+				</div>
+				<div class="row">
+						<h1>Cadastro de Questões</h1>
+					</div>
+					<div class="row">
+						<div class="col-md-5">
+							<label>Pergunta:</label>
+							<h:inputText styleClass="form-control input-sm" value="#{cadastroAulaController.questao.pergunta}" />
+						</div>
+					</div>
+					<div class="row" style="margin-top: 10px;">
+						<div class="col-md-5">
+							<label>Descrição:</label>
+							<h:inputTextarea styleClass="form-control input-sm" value="#{cadastroAulaController.questao.descricao}"></h:inputTextarea>
+						</div>
+					</div>
+					<div class="row" style="margin-top: 20px;">
+						<div class="col-md-6">
+							<label>Alternativas:</label>
+						</div>
+						<div class="col-md-6">
+							<label>Resposta Correta:</label>
+						</div>
+					</div>
+					<div class="row" style="margin-top: 8px;">
+						<div class="col-md-6">
+							<h:inputText styleClass="form-control input-sm" value="#{cadastroAulaController.alternativa01}" />
+						</div>
+						<div class="col-md-1">
+							<div class="radio-inline">
+								<input type="radio" name="resposta" />
+								<h:inputHidden value="#{cadastroAulaController.resposta01}" />
+							</div>
+						</div>
+					</div>
+					<div class="row" style="margin-top: 8px;">
+						<div class="col-md-6">
+							<h:inputText styleClass="form-control input-sm" value="#{cadastroAulaController.alternativa02}" />
+						</div> 
+						<div class="col-md-1">
+							<div class="radio-inline">
+								<input type="radio" name="resposta" />
+								<h:inputHidden value="#{cadastroAulaController.resposta02}" />
+							</div>
+						</div>
+					</div>
+					<div class="row" style="margin-top: 8px;">
+						<div class="col-md-6">
+							<h:inputText styleClass="form-control input-sm" value="#{cadastroAulaController.alternativa03}" />
+						</div>
+						<div class="col-md-1">
+							<div class="radio-inline">
+								<input type="radio" name="resposta" />
+								<h:inputHidden value="#{cadastroAulaController.resposta03}" />
+							</div>
+						</div>
+					</div>
+					<div class="row" style="margin-top: 8px;">
+						<div class="col-md-6">
+							<h:inputText styleClass="form-control input-sm" value="#{cadastroAulaController.alternativa04}" />
+						</div>
+						<div class="col-md-1">
+							<div class="radio-inline">
+								<input type="radio" name="resposta" />
+								<h:inputHidden value="#{cadastroAulaController.resposta04}" />
+							</div>
+						</div>
+					</div>
+					<div class="row" style="margin-top: 8px;">
+						<div class="col-md-6">
+							<h:inputText styleClass="form-control input-sm" value="#{cadastroAulaController.alternativa05}" />
+						</div>
+						<div class="col-md-1">
+							<div class="radio-inline">
+								<input type="radio" name="resposta" />
+								<h:inputHidden value="#{cadastroAulaController.resposta05}" />
+							</div>
+						</div>
+					</div>
+					<div class="row" style="margin-top: 20px;">
+						<div class="col-md-3">
+							<h:commandButton styleClass="btn btn-default" value="Cadastrar" actionListener="#{cadastroAulaController.cadastrar}" />
+						</div>
+					</div>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+	<h:head>
+	
+		<!-- CSS -->
+		<link rel="stylesheet" type="text/css" href="resources/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="resources/css/font-awesome.min.css" />
+		
+		<ui:insert name="head">
+		
+		</ui:insert>
+	</h:head>
+	<h:body>
+		<div class="container">
+			
+			<!-- MENU -->
+			<div class="row">
+				<nav class="navbar navbar-default navbar-fixed-top">
+					<div class="container-fluid">
+						<div class="navbar-header">
+							<a class="navbar-brand" href="meusCursos.xhtml">Efeito Joule</a>
+						</div>
+						<ul class="nav navbar-nav navbar-left">
+							<li><a href="meusCursos.xhtml">Meus Cursos</a></li>
+							<li class="dropdown">
+								<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" 
+								   aria-expanded="false">Curso <span class="fa fa-caret-down"></span></a>
+								
+								<ul class="dropdown-menu">
+									<li><a href="cadastroCurso.xhtml">Cadastrar curso</a></li>
+									<li><a href="editarCursos.xhtml">Editar curso</a></li>
+									<li><a href="escolherCurso.xhtml">Cursos</a></li>
+								</ul>
+							</li>
+							<li class="dropdown">
+								<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" 
+								   aria-expanded="false">Aulas <span class="fa fa-caret-down"></span></a>
+								   
+								<ul class="dropdown-menu">
+									<li><a href="cadastroAulas.xhtml">Cadastrar Aulas</a></li>
+									<li><a href="editarAulas.xhtml">Editar Aulas</a></li>
+								</ul>
+							</li>
+							<li class="dropdown">
+								<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" 
+								   aria-expanded="false">Usuários <span class="fa fa-caret-down"></span></a>
+								
+								<ul class="dropdown-menu">
+									<li><a href="cadastroUsuario.xhtml">Cadastrar Usuário</a></li>
+									<li><a href="editarUsuario.xhtml">Editar Usuário</a></li>
+								</ul>
+							</li>
+						</ul>
+						<ul class="nav navbar-nav navbar-right">
+							<li>
+								<a href="login.xhtml" class="fa fa-power-off fa-2x" data-toggle="tooltip" data-placement="bottom" 
+								   title="Sair" id="sair"></a>
+							</li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+			<div class="row" style="margin-top: 40px;">
+				<ui:insert name="body">
+			
+				</ui:insert>
+			</div>
+		</div>
+	
+		<!-- JS -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
+		<script>
+			$('#sair').tooltip();
+		</script>
+		
+		<ui:insert name="end_code">
+		
+		</ui:insert>
+		
+	</h:body>
+</html>
