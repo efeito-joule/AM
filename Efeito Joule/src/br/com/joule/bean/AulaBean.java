@@ -25,7 +25,6 @@ public class AulaBean {
 	private List<Aula> lista;
 	private long codigo; //Remoção
 
-
 	@PostConstruct
 	public void init() {
 		aula = new Aula();
@@ -33,7 +32,6 @@ public class AulaBean {
 		aulaDAO = new AulaDAOImpl(em);
 		lista = aulaDAO.list();
 	}
-	
 
 	public void cadastrar() {
 		FacesMessage msg;
@@ -100,7 +98,6 @@ public class AulaBean {
 	public long getCodigo() {
 		return codigo;
 	}
-
 
 	public void setCodigo(long codigo) {
 		this.codigo = codigo;
