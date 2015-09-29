@@ -23,7 +23,7 @@ public class CursoBean {
 	private CursoDAO dao;
 	private String nomeBusca;
 	private List<Curso> lista;
-	private long codigo; //Remoção
+	private long codigo; 
 	
 
 	@PostConstruct
@@ -36,13 +36,18 @@ public class CursoBean {
 	
 	public void cadastrar() {
 		FacesMessage msg;
-		try {
-			dao.create(curso);
-			msg = new FacesMessage("Curso cadastrado!");
-		} catch (DBCommitException e) {
-			msg = new FacesMessage("Erro ao cadastrar!");
-			e.printStackTrace();
-		}
+		if (dao.buscarPorNome(curso.getNome().toUpperCase())==null) {
+			try {
+				curso.getNome().toUpperCase();
+				dao.create(curso);
+				msg = new FacesMessage("Curso cadastrado!");
+			} catch (DBCommitException e) {
+				msg = new FacesMessage("Erro ao cadastrar!");
+				e.printStackTrace();
+			}
+		}else {
+			msg = new FacesMessage("Um curso com o mesmo nome já foi cadastrado!");
+		}	
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 	
@@ -63,12 +68,11 @@ public class CursoBean {
 	public void buscar(){
 		FacesMessage msg;
 		try {
-			lista =dao.buscarPorNome(nomeBusca);
-				
 			if(nomeBusca == null){
 				msg=new FacesMessage("Informe o nome do curso");
 			}else{
 					msg=new FacesMessage("O curso escolhido foi: " + nomeBusca);
+					lista =dao.buscarNomes(nomeBusca);
 			}
 			} catch (Exception e) {
 					e.printStackTrace();
@@ -81,6 +85,7 @@ public class CursoBean {
 		public void atualizar(){
 				FacesMessage msg;
 				try {
+					curso.getNome().toUpperCase();
 					dao.update(curso);
 					msg=new FacesMessage("Curso Atualizado");
 					lista=dao.list();

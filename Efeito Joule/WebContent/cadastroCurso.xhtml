@@ -13,13 +13,18 @@
 					<h1>Cadastro de Curso</h1>
 				</div>
 				<div class="row">
-					<div class="col-md-5">
+					<div class="col-md-4">
+						<h:messages styleClass="alert alert-info" autoUpdate="true"/>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
 						<label>Nome do Curso</label>
 						<h:inputText styleClass="form-control" id="nome" value="#{cursoBean.curso.nome}"/>
 					</div>
 				</div>
 				<div class="row" style="margin-top: 10px;">
-					<div class="col-md-5">
+					<div class="col-md-6">
 						<label>Descrição:</label>
 						<h:inputTextarea styleClass="form-control input-sm" value="#{cursoBean.curso.descricao}"></h:inputTextarea>
 					</div>
@@ -30,6 +35,56 @@
 					</div>
 				</div>
 			</h:form>
+			
+			<h:form id="formulario">
+				<div class="row">
+					<h1>Busca de cursos cadastrados</h1>
+				</div>
+				<div class="row" style="margin-top: 20px;">
+					<div class="col-md-6">
+					<label>Nome:</label>
+						<h:inputText styleClass="form-control input-sm" id="busca"
+						value="#{cursoBean.nomeBusca}"/>
+					</div>
+				</div>
+				<div class="row" style="margin-top: 20px;">
+					<div class="col-md-3">
+						<h:commandButton styleClass="btn btn-default" value="Buscar"
+						actionListener="#{cursoBean.buscar}" update="tabela"/>
+					</div>
+				</div>
+				<h:panelGrid columns="3" class="col-md-10" style="margin-top: 20px;">
+	   				<h:dataTable value="#{cursoBean.lista}" var="c" styleClass="table" id="tabela">
+	   					<h:column>
+	   						<f:facet name="header">Nome</f:facet>
+	   						#{c.nome}
+	   					</h:column>
+	   					<h:column>
+	   						<f:facet name="header">Descricao</f:facet>
+	   						#{c.descricao}
+	   					</h:column>
+	   					<h:inputHidden>
+	   						#{a.id}
+	   					</h:inputHidden>
+	   					<h:column>
+							<h:commandButton class="btn btn-danger"  value="Excluir">
+								<f:setPropertyActionListener actionListener="#{cursoBean.excluir}" value="#{c.id}" target="#{cursoBean.codigo}" />
+							</h:commandButton>
+						</h:column>
+						<h:column>
+							<h:commandButton class="btn btn-success"  value="Editar">
+								<f:setPropertyActionListener  actionListener="#{cursoBean.editar}" value="#{c.id}" target="#{cursoBean.codigo}" />
+							</h:commandButton>
+						</h:column>
+						<h:column>
+							<h:commandButton class="btn btn-default" actionListener="#{aulaBean.buscar}" value="Cadastrar Aulas">
+								<f:setPropertyActionListener value="#{a.id}" target="#{aulaBean.nomeBusca}" />
+							</h:commandButton>
+						</h:column>
+	   				</h:dataTable> 
+	    		</h:panelGrid>
+			</h:form>
+			
 		</ui:define>
 	</ui:composition>
 </html>

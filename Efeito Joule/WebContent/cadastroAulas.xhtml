@@ -13,7 +13,7 @@
 					<h1>Cadastro de Aulas</h1>
 				</div>
 				<div class="row">
-					<div class="col-md-3">
+					<div class="col-md-4">
 						<h:messages styleClass="alert alert-info" autoUpdate="true"/>
 					</div>
 				</div>
@@ -35,10 +35,11 @@
 					</div>
 				</div>
 			</h:form>
-			<div class="row">
-				<h1>Busca de aulas cadastradas</h1>
-			</div>
+			
 			<h:form id="formulario">
+				<div class="row">
+					<h1>Busca de aulas cadastradas</h1>
+				</div>
 				<div class="row" style="margin-top: 20px;">
 					<div class="col-md-6">
 					<label>Nome:</label>
@@ -76,8 +77,8 @@
 							</h:commandButton>
 						</h:column>
 						<h:column>
-							<h:commandButton class="btn btn-default" actionListener="#{questaoBean.cadastrar}" value="Cadastrar Questões">
-								<f:setPropertyActionListener value="#{a.id}" target="#{aulaBean.codigo}" />
+							<h:commandButton class="btn btn-default" actionListener="#{questaoBean.buscar}" value="Cadastrar Questões">
+								<f:setPropertyActionListener value="#{a.nome}" target="#{aulaBean.a.nome}" />
 							</h:commandButton>
 						</h:column>
 	   				</h:dataTable> 
