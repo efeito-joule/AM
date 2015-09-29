@@ -7,9 +7,7 @@
 		xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 	<ui:composition template="WEB-INF/_templateMenu.xhtml">
-		<ui:define name="head">
-		</ui:define>
-		<ui:define name="body">
+		<ui:define name="content">
 			<h:form>
 				<div class="row">
 					<h1>Cadastro de Curso</h1>
@@ -17,54 +15,21 @@
 				<div class="row">
 					<div class="col-md-5">
 						<label>Nome do Curso</label>
-						<h:inputText styleClass="form-control input-sm" />
+						<h:inputText styleClass="form-control" id="nome" value="#{cursoBean.curso.nome}"/>
 					</div>
 				</div>
 				<div class="row" style="margin-top: 10px;">
 					<div class="col-md-5">
 						<label>Descrição:</label>
-						<h:inputTextarea styleClass="form-control input-sm"></h:inputTextarea>
-					</div>
-				</div>
-				<div class="row" style="margin-top: 20px;">
-					<div class="col-md-5">
-						<label>Aulas:</label>
-						<h:selectOneMenu styleClass="form-control input-sm">
-							<f:selectItem itemLabel="Selecione..." noSelectionOption="true" />
-						</h:selectOneMenu>
-					</div>
-					<div class="col-md-1">
-						<a href="#" class="btn btn-default fa fa-plus" style="margin-top: 25px;" data-toggle="tooltip" data-placement="top" 
-						   title="adicionar" id="adicionar"></a>
-					</div> 
-				</div>
-				<div class="row" style="margin-top: 30px;">
-					<div class="col-md-6">
-						<h:dataTable styleClass="table">
-							<h:column>
-								<f:facet name="header">Aulas</f:facet>
-								<h:outputText value="Teste" />
-								<h:outputText value="Teste" />
-								<h:outputText value="Teste" />
-								<h:outputText value="Teste" />
-								<h:outputText value="Teste" />
-								<h:outputText value="Teste" />
-							</h:column>
-						</h:dataTable>
+						<h:inputTextarea styleClass="form-control input-sm" value="#{cursoBean.curso.descricao}"></h:inputTextarea>
 					</div>
 				</div>
 				<div class="row" style="margin-top: 20px;">
 					<div class="col-dm-3">
-						<h:commandButton styleClass="btn btn-default" value="Cadastrar" />
+						<h:commandButton styleClass="btn btn-default" value="Cadastrar" actionListener="#{cursoBean.cadastrar}" />
 					</div>
 				</div>
 			</h:form>
-		</ui:define>
-		<ui:define name="end_code">
-			<!-- Script -->
-			<script>
-				$('#adicionar').tooltip();
-			</script>
 		</ui:define>
 	</ui:composition>
 </html>
