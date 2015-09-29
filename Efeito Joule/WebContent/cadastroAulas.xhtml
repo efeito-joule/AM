@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+	<ui:composition template="WEB-INF/_templateMenu.xhtml">
+		<ui:define name="content">
+			<h:form>
+				<div class="row">
+					<h1>Cadastro de Aulas</h1>
+				</div>
+				<div class="row">
+					<div class="col-md-3">
+						<h:messages styleClass="alert alert-info" autoUpdate="true"/>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<label>Nome da Aula:</label>
+						<h:inputText styleClass="form-control input-sm" value="#{aulaBean.aula.nome}" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<label>URL do Vídeo:</label>
+						<h:inputText styleClass="form-control input-sm" value="#{aulaBean.aula.urlVideo}" />
+					</div>
+				</div>
+				<div class="row" style="margin-top: 20px;">
+					<div class="col-md-3">
+							<h:commandButton styleClass="btn btn-default" value="Cadastrar" actionListener="#{aulaBean.cadastrar}" />
+					</div>
+				</div>
+			</h:form>
+			<div class="row">
+				<h1>Busca de aulas cadastradas</h1>
+			</div>
+			<h:form id="formulario">
+				<div class="row" style="margin-top: 20px;">
+					<div class="col-md-6">
+					<label>Nome:</label>
+						<h:inputText styleClass="form-control input-sm" id="busca"
+						value="#{aulaBean.nomeBusca}"/>
+					</div>
+				</div>
+				<div class="row" style="margin-top: 20px;">
+					<div class="col-md-3">
+						<h:commandButton styleClass="btn btn-default" value="Buscar"
+						actionListener="#{aulaBean.buscar}" update="tabela"/>
+					</div>
+				</div>
+				<h:panelGrid columns="3" class="col-md-10" style="margin-top: 20px;">
+	   				<h:dataTable value="#{aulaBean.lista}" var="a" styleClass="table" id="tabela">
+	   					<h:column>
+	   						<f:facet name="header">Nome</f:facet>
+	   						#{a.nome}
+	   					</h:column>
+	   					<h:column>
+	   						<f:facet name="header">Vídeo</f:facet>
+	   						#{a.urlVideo}
+	   					</h:column>
+	   					<h:inputHidden>
+	   						#{a.id}
+	   					</h:inputHidden>
+	   					<h:column>
+							<h:commandButton class="btn btn-danger"  value="Excluir">
+								<f:setPropertyActionListener actionListener="#{aulaBean.excluir}" value="#{a.id}" target="#{aulaBean.codigo}" />
+							</h:commandButton>
+						</h:column>
+						<h:column>
+							<h:commandButton class="btn btn-success"  value="Editar">
+								<f:setPropertyActionListener  actionListener="#{aulaBean.editar}" value="#{a.id}" target="#{aulaBean.codigo}" />
+							</h:commandButton>
+						</h:column>
+						<h:column>
+							<h:commandButton class="btn btn-default" actionListener="#{questaoBean.cadastrar}" value="Cadastrar Questões">
+								<f:setPropertyActionListener value="#{a.id}" target="#{aulaBean.codigo}" />
+							</h:commandButton>
+						</h:column>
+	   				</h:dataTable> 
+	    		</h:panelGrid>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</html>
