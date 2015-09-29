@@ -28,10 +28,10 @@ public class Alternativa implements Serializable {
 	@Column(name="cd_alternativa")
 	private long id;
 	
-	@Column(name = "ds_descricao")
+	@Column(name="ds_descricao", nullable=false)
 	private String descricao;
 	
-	@Column(name = "vl_resposta")
+	@Column(name="vl_resposta", nullable=false)
 	private boolean resposta;
 	
 	@ManyToOne()

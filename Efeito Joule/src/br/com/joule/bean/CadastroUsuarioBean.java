@@ -30,7 +30,7 @@ public class CadastroUsuarioBean {
 		try {
 			usuarioDAO.create(usuario);
 		} catch (DBCommitException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	}
