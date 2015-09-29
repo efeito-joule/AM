@@ -7,9 +7,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import br.com.joule.entity.Questao;
 
 @Entity
 @Table(name = "T_SEJ_ALTERNATIVA")
@@ -29,6 +33,10 @@ public class Alternativa implements Serializable {
 	
 	@Column(name = "vl_resposta")
 	private boolean resposta;
+	
+	@ManyToOne()
+	@JoinColumn(name="cd_questao")
+	private Questao questao;
 
 	public Alternativa() {
 		super();
@@ -56,5 +64,13 @@ public class Alternativa implements Serializable {
 
 	public void setResposta(boolean resposta) {
 		this.resposta = resposta;
+	}
+	
+	public Questao getQuestao() {
+		return questao;
+	}
+
+	public void setQuestao(Questao questao) {
+		this.questao = questao;
 	}
 }

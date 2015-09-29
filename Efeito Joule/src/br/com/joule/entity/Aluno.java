@@ -12,13 +12,13 @@ public class Aluno extends Pessoa {
 	@Transient
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "nome_usuario")
+	@Column(name = "nm_usuario")
 	private String nomeUsuario;
 	
-	@Column(name = "email")
+	@Column(name="ds_email", nullable=false,length=300)
 	private String email;
 	
-	@Column(name = "senha")
+	@Column(name="ds_senha")
 	private String senha;
 
 	public Aluno() {

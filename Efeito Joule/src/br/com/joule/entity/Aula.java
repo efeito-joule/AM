@@ -9,10 +9,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import br.com.joule.entity.Curso;
+import br.com.joule.entity.Historico;
 
 @Entity
 @Table (name="T_SEJ_AULA")
@@ -27,15 +31,23 @@ public class Aula implements Serializable {
 	@Column(name="cd_aula")
 	private long id;
 	
-	@Column(name = "nome")
+	@Column(name="nm_aula", nullable=false)
 	private String nome;
 
 	@Column(name = "url_video")
 	private String urlVideo;
 	
-	@OneToMany
-	@JoinColumn(name = "questao_id")
+	@OneToMany(mappedBy="aula")
+	@Column(name="cd_questao")
 	private List<Questao> questoes;
+	
+	@ManyToOne
+	@JoinColumn(name="cd_curso")
+	private Curso curso;
+	
+	@OneToMany(mappedBy="aula")
+	@Column(name="cd_historico")
+	private List<Historico> historico;
 
 	public Aula() {
 		super();

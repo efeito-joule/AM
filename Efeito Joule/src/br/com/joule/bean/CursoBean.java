@@ -20,7 +20,7 @@ import br.com.joule.singleton.EMFactorySingleton;
 public class CursoBean {
 
 	private Curso curso;
-	private CursoDAO cursoDAO;
+	private CursoDAO dao;
 	private String nomeBusca;
 	private List<Curso> lista;
 	private long codigo; //Remoção
@@ -30,14 +30,14 @@ public class CursoBean {
 	public void init() {
 		curso = new Curso();
 		EntityManager em = EMFactorySingleton.getInstance().createEntityManager();
-		cursoDAO = new CursoDAOImpl(em);
-		lista = cursoDAO.list();
+		dao = new CursoDAOImpl(em);
+		lista = dao.list();
 	}
 	
 	public void cadastrar() {
 		FacesMessage msg;
 		try {
-			cursoDAO.create(curso);
+			dao.create(curso);
 			msg = new FacesMessage("Curso cadastrado!");
 		} catch (DBCommitException e) {
 			msg = new FacesMessage("Erro ao cadastrar!");
@@ -49,15 +49,47 @@ public class CursoBean {
 	public void excluir(){
 		FacesMessage msg;
 		try {
-			cursoDAO.delete(codigo);;
+			dao.delete(codigo);;
 			msg = new FacesMessage("Curso excluido!");
-			lista = cursoDAO.list(); //Atualizar a tabela...
+			lista = dao.list(); //Atualizar a tabela...
 		} catch (Exception e) {
 			e.printStackTrace();
 			msg = new FacesMessage("Erro ao excluir!");
 		}
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
+	
+	//Busca o curso pelo Nome
+	public void buscar(){
+		FacesMessage msg;
+		try {
+			lista =dao.buscarPorNome(nomeBusca);
+				
+			if(nomeBusca == null){
+				msg=new FacesMessage("Informe o nome do curso");
+			}else{
+					msg=new FacesMessage("O curso escolhido foi: " + nomeBusca);
+			}
+			} catch (Exception e) {
+					e.printStackTrace();
+					msg=new FacesMessage("Curso não encontrado");
+			}
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
+		
+		// Método para atualizar o curso
+		public void atualizar(){
+				FacesMessage msg;
+				try {
+					dao.update(curso);
+					msg=new FacesMessage("Curso Atualizado");
+					lista=dao.list();
+				} catch (DBCommitException e) {
+					e.printStackTrace();
+					msg=new FacesMessage("Curso não Atualizado");
+				}
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
 
 	public Curso getCurso() {
 		return curso;

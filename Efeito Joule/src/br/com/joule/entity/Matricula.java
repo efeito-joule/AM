@@ -1,7 +1,7 @@
 package br.com.joule.entity;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,21 +32,18 @@ public class Matricula implements Serializable {
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "data_inicio")
-	private Date dataInicio;
+	private Calendar dataInicio;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "data_termino")
-	private Date dataTermino;
-	
-	@Column(name = "descricao")
-	private String descricao;
+	private Calendar dataTermino;
 	
 	@OneToOne
-	@JoinColumn(name = "usuario_id")
-	private Aluno usuario;
+	@JoinColumn(name="cd_aluno")
+	private Aluno aluno;
 	
 	@ManyToOne
-	@JoinColumn(name = "curso_id")
+	@JoinColumn(name="cd_curso")
 	private Curso curso;
 
 	public Matricula() {
@@ -61,36 +58,28 @@ public class Matricula implements Serializable {
 		this.id = id;
 	}
 
-	public Date getDataInicio() {
+	public Calendar getDataInicio() {
 		return dataInicio;
 	}
 
-	public void setDataInicio(Date dataInicio) {
+	public void setDataInicio(Calendar dataInicio) {
 		this.dataInicio = dataInicio;
 	}
 
-	public Date getDataTermino() {
+	public Calendar getDataTermino() {
 		return dataTermino;
 	}
 
-	public void setDataTermino(Date dataTermino) {
+	public void setDataTermino(Calendar dataTermino) {
 		this.dataTermino = dataTermino;
 	}
 
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
 	public Aluno getUsuario() {
-		return usuario;
+		return aluno;
 	}
 
 	public void setUsuario(Aluno usuario) {
-		this.usuario = usuario;
+		this.aluno = usuario;
 	}
 
 	public Curso getCurso() {

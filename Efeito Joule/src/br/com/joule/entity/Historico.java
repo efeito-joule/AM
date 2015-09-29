@@ -11,15 +11,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="T_SEJ_HISTORICO")
 public class Historico implements Serializable {
 
 	
-	/**
-	 * 
-	 */
+	@Transient
 	private static final long serialVersionUID = 1L;
 	
 	@Id

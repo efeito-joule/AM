@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
+import javax.xml.soap.SOAPException;
 
 import br.com.joule.singleton.EMFactorySingleton;
 import br.com.joule.dao.AulaDAO;
@@ -20,7 +21,7 @@ import br.com.joule.exceptions.DBCommitException;
 public class AulaBean {
 
 	private Aula aula;
-	private AulaDAO aulaDAO;
+	private AulaDAO dao;
 	private String nomeBusca;
 	private List<Aula> lista;
 	private long codigo; //Remoção
@@ -29,18 +30,23 @@ public class AulaBean {
 	public void init() {
 		aula = new Aula();
 		EntityManager em = EMFactorySingleton.getInstance().createEntityManager();
-		aulaDAO = new AulaDAOImpl(em);
-		lista = aulaDAO.list();
+		dao = new AulaDAOImpl(em);
+		lista = dao.list();
 	}
 
 	public void cadastrar() {
 		FacesMessage msg;
-		try {
-			aulaDAO.create(aula);
-			msg = new FacesMessage("Aula cadastrada!");
-		} catch (DBCommitException e) {
-			msg = new FacesMessage("Erro ao cadastrar!");
-			e.printStackTrace();
+		if (dao.buscarPorNome(aula.getNome().toUpperCase())== null) {
+			try {
+				aula.setNome(aula.getNome().toUpperCase());
+				dao.create(aula);
+				msg = new FacesMessage("Aula cadastrada!");
+			} catch (DBCommitException e) {
+				msg = new FacesMessage("Erro ao cadastrar!");
+				e.printStackTrace();
+			}
+		}else {
+			msg = new FacesMessage("Uma aula com o mesmo nome já foi cadastrada!");
 		}
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
@@ -48,9 +54,9 @@ public class AulaBean {
 	public void excluir(){
 		FacesMessage msg;
 		try {
-			aulaDAO.delete(codigo);;
+			dao.delete(codigo);;
 			msg = new FacesMessage("Excluido!");
-			lista = aulaDAO.list(); //Atualizar a tabela...
+			lista = dao.list(); //Atualizar a tabela...
 		} catch (Exception e) {
 			e.printStackTrace();
 			msg = new FacesMessage("Erro ao excluir!");
@@ -58,17 +64,24 @@ public class AulaBean {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 	
-
 	public void buscar(){
 		FacesMessage msg;
-		lista = aulaDAO.buscarPorNome(nomeBusca);
-		
 		if(nomeBusca==""){
 			msg=new FacesMessage("Informe o nome da aula para a busca");
 		}else{
 			msg= new FacesMessage("Busca pela aula: " + nomeBusca);
+			lista = dao.buscarPorNome(nomeBusca);
 		}
 		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+	
+	public void atualizar() throws SOAPException{
+		try {
+			aula.setNome(aula.getNome().toUpperCase());
+			dao.update(aula);
+		} catch (DBCommitException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public Aula getAula() {

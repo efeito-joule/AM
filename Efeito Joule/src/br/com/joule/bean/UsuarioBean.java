@@ -16,19 +16,19 @@ import br.com.joule.singleton.EMFactorySingleton;
 public class UsuarioBean {
 
 	private Aluno usuario;
-	private UsuarioDAO usuarioDAO;
+	private UsuarioDAO dao;
 
 	@PostConstruct
 	public void init() {
 		usuario = new Aluno();
 		EntityManager em = EMFactorySingleton.getInstance().createEntityManager();
-		usuarioDAO = new UsuarioDAOImpl(em);
+		dao = new UsuarioDAOImpl(em);
 	}
 	
 	public void save() {
 		
 		try {
-			usuarioDAO.create(usuario);
+			dao.create(usuario);
 		} catch (DBCommitException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

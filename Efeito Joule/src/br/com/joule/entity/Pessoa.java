@@ -1,7 +1,7 @@
 package br.com.joule.entity;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,15 +31,15 @@ public abstract class Pessoa implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pessoaSequence")
 	private long id;
 	
-	@Column(name = "nome")
+	@Column(name="nm_aluno", nullable=false,length=300)
 	private String nome;
 	
-	@Column(name = "sobrenome")
+	@Column(name = "nm_sobrenome")
 	private String sobrenome;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "data_nascimento")
-	private Date dataNascimento;
+	@Column(name = "dt_nascimento")
+	private Calendar dataNascimento;
 	
 	@OneToOne
 	@JoinColumn(name = "sexo_id")
@@ -77,11 +77,11 @@ public abstract class Pessoa implements Serializable {
 		this.sobrenome = sobrenome;
 	}
 
-	public Date getDataNascimento() {
+	public Calendar getDataNascimento() {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(Date dateNascimento) {
+	public void setDataNascimento(Calendar dateNascimento) {
 		this.dataNascimento = dateNascimento;
 	}
 
