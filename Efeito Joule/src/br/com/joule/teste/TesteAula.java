@@ -3,8 +3,11 @@ package br.com.joule.teste;
 import javax.persistence.EntityManager;
 
 import br.com.joule.dao.AulaDAO;
+import br.com.joule.dao.CursoDAO;
 import br.com.joule.daoimpl.AulaDAOImpl;
+import br.com.joule.daoimpl.CursoDAOImpl;
 import br.com.joule.entity.Aula;
+import br.com.joule.entity.Curso;
 import br.com.joule.exceptions.DBCommitException;
 import br.com.joule.exceptions.IdNotFoundException;
 import br.com.joule.singleton.EMFactorySingleton;
@@ -16,9 +19,22 @@ public class TesteAula {
 		EntityManager em = EMFactorySingleton.getInstance().createEntityManager();
 		Aula aula = new Aula();
 		AulaDAO dao = new AulaDAOImpl(em);
+		Curso curso = new Curso();
+		CursoDAO cursoDAO = new CursoDAOImpl(em);
+		
+		curso.setNome("Eletricidade");
+		curso.setDescricao("Mais um curso de eletricidade");
+		
+		try {
+			cursoDAO.create(curso);
+		} catch (DBCommitException e1) {
+		
+			e1.printStackTrace();
+		}
 		
 		aula.setNome("aula 1");
-		aula.setUrlVideo("http:ddd");;
+		aula.setUrlVideo("http:ddd");
+		aula.setCurso(curso);
 		
 		try {
 			dao.create(aula);
@@ -38,6 +54,9 @@ public class TesteAula {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		System.out.println("");
+		System.out.println("Buscar por codigo");
 		
 	}
 }

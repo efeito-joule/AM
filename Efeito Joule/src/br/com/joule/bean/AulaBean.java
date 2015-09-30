@@ -47,6 +47,7 @@ public class AulaBean {
 			if (dao.buscarPorNome(aula.getNome().toUpperCase())== null) {
 			try {
 				aula.setNome(aula.getNome().toUpperCase());
+				aula.setCurso(curso);
 				dao.create(aula);
 				msg = new FacesMessage("Aula cadastrada!");
 				aula = new Aula();
@@ -70,7 +71,7 @@ public class AulaBean {
 			lista = dao.list();
 		} catch (Exception e) {
 			e.printStackTrace();
-			msg = new FacesMessage("Erro ao excluir!");
+			msg = new FacesMessage("Erro ao excluir! ");
 			lista = dao.list();
 		}
 		FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -158,6 +159,5 @@ public class AulaBean {
 	public void setCurso(Curso curso) {
 		this.curso = curso;
 	}
-
 	
 }

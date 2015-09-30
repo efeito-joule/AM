@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -37,7 +38,7 @@ public class Aula implements Serializable {
 	@Column(name = "url_video")
 	private String urlVideo;
 	
-	@OneToMany(mappedBy="aula")
+	@OneToMany(mappedBy="aula", fetch=FetchType.LAZY)
 	@Column(name="cd_questao")
 	private List<Questao> questoes;
 	
@@ -45,7 +46,7 @@ public class Aula implements Serializable {
 	@JoinColumn(name="cd_curso")
 	private Curso curso;
 	
-	@OneToMany(mappedBy="aula")
+	@OneToMany(mappedBy="aula", fetch=FetchType.LAZY)
 	@Column(name="cd_historico")
 	private List<Historico> historico;
 
@@ -84,4 +85,21 @@ public class Aula implements Serializable {
 	public void setQuestoes(List<Questao> questoes) {
 		this.questoes = questoes;
 	}
+
+	public Curso getCurso() {
+		return curso;
+	}
+
+	public void setCurso(Curso curso) {
+		this.curso = curso;
+	}
+
+	public List<Historico> getHistorico() {
+		return historico;
+	}
+
+	public void setHistorico(List<Historico> historico) {
+		this.historico = historico;
+	}
+	
 }

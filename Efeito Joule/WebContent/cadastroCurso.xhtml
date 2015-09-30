@@ -19,13 +19,13 @@
 				</div>
 				<div class="row">
 					<div class="col-md-6">
-						<label>Nome do Curso</label>
+						<h:outputLabel>Nome do Curso</h:outputLabel>
 						<h:inputText styleClass="form-control" id="nome" value="#{cursoBean.curso.nome}"/>
 					</div>
 				</div>
 				<div class="row" style="margin-top: 10px;">
 					<div class="col-md-6">
-						<label>Descrição:</label>
+						<h:outputLabel>Descrição:</h:outputLabel>
 						<h:inputTextarea styleClass="form-control input-sm" value="#{cursoBean.curso.descricao}"></h:inputTextarea>
 					</div>
 				</div>
@@ -42,7 +42,7 @@
 				</div>
 				<div class="row" style="margin-top: 20px;">
 					<div class="col-md-6">
-					<label>Nome:</label>
+					<h:outputLabel>Nome:</h:outputLabel>
 						<h:inputText styleClass="form-control input-sm" id="busca"
 						value="#{cursoBean.nomeBusca}"/>
 					</div>

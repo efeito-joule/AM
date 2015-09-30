@@ -21,9 +21,9 @@
 				</div>
 				<div class="row" >
 					<div class="col-md-6">
-					<label>Nome da aula:</label>
+					<h:outputLabel>Nome da aula:</h:outputLabel>
 						<h:inputText styleClass="form-control input-sm" id="busca"
-						value="#{questaoBean.nomeAula}"/>
+						value="#{questaoBean.nomeAula}" required="true" requiredMessage="O nome da aula é obrigatório"/>
 					</div>
 				</div>
 				<div class="row" style="margin-top: 20px;">
@@ -49,22 +49,24 @@
 		<h:form>
 			<div class="row">
 				<div class="col-md-5">
-					<label>Pergunta:</label>
-						<h:inputText styleClass="form-control input-sm" value="#{questaoBean.questao.pergunta}" />
+					<h:outputLabel for="pergunta">Pergunta:</h:outputLabel>
+						<h:inputText id="pergunta" styleClass="form-control input-sm" value="#{questaoBean.questao.pergunta}" 
+						 required="true" requiredMessage="O campo Pergunta é obrigatório"/>
 					</div>
 				</div>
 				<div class="row" style="margin-top: 10px;">
 					<div class="col-md-5">
-						<label>Descrição:</label>
-						<h:inputTextarea styleClass="form-control input-sm" value="#{questaoBean.questao.descricao}"></h:inputTextarea>
+						<h:outputLabel>Descrição:</h:outputLabel>
+						<h:inputTextarea styleClass="form-control input-sm" value="#{questaoBean.questao.descricao}"
+						required="true" requiredMessage="Uma descrição para a questão é obrigatório"></h:inputTextarea>
 					</div>
 				</div>
 					<div class="row" style="margin-top: 20px;">
 						<div class="col-md-6">
-							<label>Alternativas:</label>
+							<h:outputLabel>Alternativas:</h:outputLabel>
 					</div>
 					<div class="col-md-6">
-							<label>Resposta Correta:</label>
+							<h:outputLabel>Resposta Correta:</h:outputLabel>
 					</div>
 				</div>
 				<div class="row" style="margin-top: 8px;">
@@ -73,8 +75,7 @@
 					</div>
 					<div class="col-md-1">
 						<div class="radio-inline">
-							<input type="radio" name="resposta" />
-							<h:inputHidden value="#{questaoBean.resposta01}" />
+							<input type="radio" name="resposta"  checked="checked" value="@#{questaoBean.resposta01=true}"/>
 						</div>
 					</div>
 				</div>
@@ -84,8 +85,7 @@
 					</div> 
 					<div class="col-md-1">
 						<div class="radio-inline">
-							<input type="radio" name="resposta" />
-							<h:inputHidden value="#{questaoBean.resposta02}" />
+							<input type="radio" name="resposta" checked="checked"  value="@#{questaoBean.resposta02=true}" />
 						</div>
 					</div>
 				</div>
@@ -94,9 +94,8 @@
 						<h:inputText styleClass="form-control input-sm" value="#{questaoBean.descricao03}" />
 					</div>
 					<div class="col-md-1">
-						<div class="radio-inline">
-							<input type="radio" name="resposta" />
-							<h:inputHidden value="#{questaoBean.resposta03}" />
+						<div class="radio-inline"> 
+							<input type="radio" name="resposta" checked="checked" value="@#{questaoBean.resposta03=true}" />
 						</div>
 					</div>
 				</div>
@@ -106,8 +105,7 @@
 					</div>
 					<div class="col-md-1">
 						<div class="radio-inline">
-							<input type="radio" name="resposta" />
-							<h:inputHidden value="#{questaoBean.resposta04}" />
+							<input type="radio" name="resposta" checked="checked"  value="@#{questaoBean.resposta04=true}"/>
 						</div>
 					</div>
 				</div>
@@ -117,8 +115,7 @@
 					</div>
 					<div class="col-md-1">
 						<div class="radio-inline">
-							<input type="radio" name="resposta" />
-							<h:inputHidden value="#{questaoBean.resposta05}" />
+							<input type="radio" name="resposta" checked="checked" value="@#{questaoBean.resposta05=true}" />
 						</div>
 					</div>
 				</div>
@@ -128,6 +125,21 @@
 					</div>
 				</div>
 			</h:form>
+			<h:panelGrid columns="3" class="col-md-8" style="margin-top: 20px;">
+	   				<h:dataTable value="#{questaoBean.questoes}" var="q" styleClass="table" id="tabela">
+	   					<h:column>
+	   						<f:facet name="header">Nome</f:facet>
+	   						#{q.pergunta}
+	   					</h:column>
+	   					<h:column>
+	   						<h:commandButton styleClass="btn btn-danger" value="Excluir"
+							actionListener="#{aulaBean.excluir(q)}" update="tabela"/>
+						</h:column>
+	   					<h:column>
+							<h:commandLink styleClass="btn btn-success" actionListener="#{aulaBean.editar(a)}" value="Editar"/>
+						</h:column>
+	   				</h:dataTable> 
+	    		</h:panelGrid>
 		</ui:define>
 	</ui:composition>
 </html>

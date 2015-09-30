@@ -33,6 +33,19 @@ public class TesteQuestaoAlternativa {
 		} catch (SOAPException e1) {
 			e1.printStackTrace();
 		}*/
+		
+		final boolean resposta01;
+		final boolean resposta02;
+		final boolean resposta03;
+		final boolean resposta04;
+		final boolean resposta05;
+
+		resposta01=false;
+		resposta02=false;
+		resposta03=false;
+		resposta04=false;
+		resposta05=false;
+		
 		aula = aulaDAO.buscarPorNome("Eletricidade");
 		questao.setAula(aula);
 		questao.setDescricao("Entender o conceito de trajetória nível 8");
@@ -40,27 +53,27 @@ public class TesteQuestaoAlternativa {
 		
 		Alternativa alternativa = new Alternativa();
 		alternativa.setDescricao("12 mestros");
-		alternativa.setResposta(false);
+		alternativa.setResposta(resposta01);
 		alternativa.setQuestao(questao);
 		
 		Alternativa alternativa2 = new Alternativa();
 		alternativa2.setDescricao("12 centímetros");
-		alternativa2.setResposta(false);
+		alternativa2.setResposta(resposta02);
 		alternativa2.setQuestao(questao);
 		
 		Alternativa alternativa3 = new Alternativa();
 		alternativa3.setDescricao("12 cm");
-		alternativa3.setResposta(false);
+		alternativa3.setResposta(resposta03);
 		alternativa3.setQuestao(questao);
 		
 		Alternativa alternativa4 = new Alternativa();
 		alternativa4.setDescricao("12 Km");
-		alternativa4.setResposta(false);
+		alternativa4.setResposta(resposta04);
 		alternativa4.setQuestao(questao);
 		
 		Alternativa alternativa5 = new Alternativa();
 		alternativa5.setDescricao("12 min");
-		alternativa5.setResposta(true);
+		alternativa5.setResposta(resposta05);
 		alternativa5.setQuestao(questao);
 		
 		List<Alternativa> alternativas = new ArrayList<Alternativa>(); 
@@ -72,14 +85,25 @@ public class TesteQuestaoAlternativa {
 		
 		questao.setListaAlternativas(alternativas);
 		
-	
-		try {
-			dao.create(questao);
-			System.out.println("Questão cadastrada");
-		} catch (DBCommitException e) {
+		if (!(resposta01==true || resposta02==true
+							|| resposta03==true || resposta04==true
+									|| resposta05==true)) {
+			System.out.println("Indique uma alternativa correta");
+		}else{
 			
-			e.printStackTrace();
+			
+		try {				
+			
+			dao.create(questao);
+			questao = new Questao();
+			System.out.println("Questao cadastrada!");
+							
+		} catch (DBCommitException e) {
+				System.out.println("Erro ao cadastrar!");
+				e.printStackTrace();
+			}
+		}
+
 		}
 	
 	}
-}

@@ -6,11 +6,37 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-<ui:composition template="WEB-INF/_templateAluno.xhtml">
+<ui:composition template="WEB-INF/_templateMenu.xhtml">
 	<ui:define name="header">
 	</ui:define>
 	<ui:define name="body">
-	    <h1>Editar Aula</h1>
+	    	<h:form>
+				<div class="row">
+					<h1>Edição de Aulas</h1>
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+						<h:messages styleClass="alert alert-info" autoUpdate="true"/>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<h:outputLabel>Nome da Aula:</h:outputLabel>
+						<h:inputText styleClass="form-control input-sm" value="#{aulaBean.aula.nome}" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<h:outputLabel>URL do Vídeo:</h:outputLabel>
+						<h:inputText styleClass="form-control input-sm" value="#{aulaBean.aula.urlVideo}" />
+					</div>
+				</div>
+				<div class="row" style="margin-top: 20px;">
+					<div class="col-md-3">
+							<h:commandButton styleClass="btn btn-default" value="Editar" actionListener="#{aulaBean.atualizar}" />
+					</div>
+				</div>
+			</h:form>
 	</ui:define>
 </ui:composition>
 </html>
