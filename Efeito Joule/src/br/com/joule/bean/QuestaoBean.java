@@ -6,13 +6,14 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 
 import br.com.joule.singleton.EMFactorySingleton;
 import br.com.joule.dao.AulaDAO;
 import br.com.joule.dao.QuestaoDAO;
+import br.com.joule.daoimpl.AulaDAOImpl;
 import br.com.joule.daoimpl.QuestaoDAOImpl;
 import br.com.joule.entity.Alternativa;
 import br.com.joule.entity.Aula;
@@ -20,7 +21,7 @@ import br.com.joule.entity.Questao;
 import br.com.joule.exceptions.DBCommitException;
 
 @ManagedBean(name = "questaoBean")
-@RequestScoped
+@ViewScoped
 public class QuestaoBean {
 
 	private Questao questao;
@@ -45,74 +46,90 @@ public class QuestaoBean {
 	@PostConstruct
 	public void init() {
 		questao = new Questao();
+		aula = new Aula();
 		EntityManager em = EMFactorySingleton.getInstance().createEntityManager();
 		dao = new QuestaoDAOImpl(em);
-		questoes = buscarPorAula(aula.getId());
+		aulaDAO = new AulaDAOImpl(em);
+		questoes = null;
 		alternativas = null;
 	}
 
 	public void cadastrar() {
 		FacesMessage msg;
 		questao.setAula(aula);
-		if (aula==null) {
-			msg = new FacesMessage("Escolha uma aula");
-		}else {
-			if (buscarPorPergunta(questao.getPergunta().toUpperCase()) != null) {
+		//if (aula==null) {
+		//msg = new FacesMessage("Busque uma aula");
+		//}else {
+		//if (buscarPorPergunta(questao.getPergunta().toUpperCase()) != null) {
 				
 				alternativas = new ArrayList<Alternativa>();
 				
 				Alternativa alternativa = new Alternativa();
 				alternativa.setDescricao(descricao01);
 				alternativa.setResposta(resposta01);
+				alternativa.setQuestao(questao);
 				
 				alternativas.add(alternativa);
 
 				Alternativa alternativa2 = new Alternativa();
 				alternativa2.setDescricao(descricao02);
 				alternativa2.setResposta(resposta02);
+				alternativa2.setQuestao(questao);
 				
 				alternativas.add(alternativa2);
 				
 				Alternativa alternativa3 = new Alternativa();
 				alternativa3.setDescricao(descricao03);
 				alternativa3.setResposta(resposta03);
+				alternativa3.setQuestao(questao);
 				
 				alternativas.add(alternativa3);
 				
 				Alternativa alternativa4 = new Alternativa();
 				alternativa4.setDescricao(descricao04);
 				alternativa4.setResposta(resposta04);
+				alternativa4.setQuestao(questao);
 				
 				alternativas.add(alternativa4);
 				
 				Alternativa alternativa5 = new Alternativa();
 				alternativa5.setDescricao(descricao05);
 				alternativa5.setResposta(resposta05);
+				alternativa5.setQuestao(questao);
 				
 				alternativas.add(alternativa5);
-				if (alternativas.isEmpty()) {
-					msg = new FacesMessage("Digite as alternativas");
-				}else {
-					try {
-						questao.setPergunta(questao.getPergunta().toUpperCase());
+				if (resposta01==false && resposta02==false
+						&& resposta03==false && resposta04==false
+						&& resposta05==false) {
+					msg = new FacesMessage("Indique uma alternativa correta");
+				}else{
+					if (descricao01=="" || descricao02==""
+						|| descricao03=="" || descricao04==""
+						|| descricao05=="") {
+						msg = new FacesMessage("Digite todas as alternativas");
+					}else {
+						try {
+							questao.setPergunta(questao.getPergunta().toUpperCase());
 						
-						questao.setListaAlternativas(alternativas);
-						dao.create(questao);
-						msg = new FacesMessage("Questao cadastrada!");
-						questoes = buscarPorAula(aula.getId());
-					} catch (DBCommitException e) {
-						msg = new FacesMessage("Erro ao cadastrar!");
-						e.printStackTrace();
+							questao.setListaAlternativas(alternativas);
+							dao.create(questao);
+							questao = new Questao();
+							msg = new FacesMessage("Questao cadastrada!");
+						
+						} catch (DBCommitException e) {
+							msg = new FacesMessage("Erro ao cadastrar!");
+							e.printStackTrace();
+						}
 					}
 				}
-			}else {
-				msg = new FacesMessage("Já existe uma pergunta igual a esta cadastrada");
-			}
-		}
+					//	}else {
+					//	msg = new FacesMessage("Já existe uma pergunta igual a esta cadastrada");
+						//	}
+					//}
 		
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
-	
+	/*
 	public void excluir(){
 		FacesMessage msg;
 		try {
@@ -125,18 +142,18 @@ public class QuestaoBean {
 		}
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
-	
+	*/
 	public void buscarAula(){
 		FacesMessage msg;
 		if(nomeAula==""){
 			msg=new FacesMessage("Informe o nome da aula para a busca");
 		}else{
-			aula = aulaDAO.buscarPorNome(nomeAula);			
+			aula=aulaDAO.buscarPorNome(nomeAula);			
 			msg= new FacesMessage("Busca por: " + nomeAula);
 		}
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
-	
+	/*
 	public void atualizar() {
 		FacesMessage msg;
 		questao.setAula(aula);
@@ -197,6 +214,8 @@ public class QuestaoBean {
 		}
 		FacesContext.getCurrentInstance().addMessage(null, msg);		
 	}
+	*/
+	
 	
 	public Questao buscarPorPergunta(String pergunta){
 		return dao.buscarPorPergunda(pergunta);
@@ -333,6 +352,6 @@ public class QuestaoBean {
 	public void setResposta05(boolean resposta05) {
 		this.resposta05 = resposta05;
 	}
-	
-	
+
+
 }

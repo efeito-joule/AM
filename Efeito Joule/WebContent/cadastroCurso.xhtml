@@ -29,7 +29,7 @@
 						<h:inputTextarea styleClass="form-control input-sm" value="#{cursoBean.curso.descricao}"></h:inputTextarea>
 					</div>
 				</div>
-				<div class="row" style="margin-top: 20px;">
+				<div class="row" style="margin-top: 10px;">
 					<div class="col-dm-3">
 						<h:commandButton styleClass="btn btn-default" value="Cadastrar" actionListener="#{cursoBean.cadastrar}" />
 					</div>
@@ -53,7 +53,7 @@
 						actionListener="#{cursoBean.buscar}" update="tabela"/>
 					</div>
 				</div>
-				<h:panelGrid columns="3" class="col-md-10" style="margin-top: 20px;">
+				<h:panelGrid columns="3" class="col-md-8" style="margin-top: 20px;">
 	   				<h:dataTable value="#{cursoBean.lista}" var="c" styleClass="table" id="tabela">
 	   					<h:column>
 	   						<f:facet name="header">Nome</f:facet>
@@ -63,23 +63,12 @@
 	   						<f:facet name="header">Descricao</f:facet>
 	   						#{c.descricao}
 	   					</h:column>
-	   					<h:inputHidden>
-	   						#{a.id}
-	   					</h:inputHidden>
 	   					<h:column>
-							<h:commandButton class="btn btn-danger"  value="Excluir">
-								<f:setPropertyActionListener actionListener="#{cursoBean.excluir}" value="#{c.id}" target="#{cursoBean.codigo}" />
-							</h:commandButton>
+	   						<h:commandButton styleClass="btn btn-danger" value="Excluir"
+							actionListener="#{cursoBean.excluir(c)}" update="tabela"/>
 						</h:column>
-						<h:column>
-							<h:commandButton class="btn btn-success"  value="Editar">
-								<f:setPropertyActionListener  actionListener="#{cursoBean.editar}" value="#{c.id}" target="#{cursoBean.codigo}" />
-							</h:commandButton>
-						</h:column>
-						<h:column>
-							<h:commandButton class="btn btn-default" actionListener="#{aulaBean.buscar}" value="Cadastrar Aulas">
-								<f:setPropertyActionListener value="#{a.id}" target="#{aulaBean.nomeBusca}" />
-							</h:commandButton>
+	   					<h:column>
+							<h:commandLink styleClass="btn btn-success" actionListener="#{cursoBean.editar(c)}" value="Editar"/>
 						</h:column>
 	   				</h:dataTable> 
 	    		</h:panelGrid>

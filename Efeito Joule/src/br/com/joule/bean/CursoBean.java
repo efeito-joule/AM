@@ -5,7 +5,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 
@@ -16,7 +16,7 @@ import br.com.joule.exceptions.DBCommitException;
 import br.com.joule.singleton.EMFactorySingleton;
 
 @ManagedBean(name = "cursoBean")
-@RequestScoped
+@ViewScoped
 public class CursoBean {
 
 	private Curso curso;
@@ -41,6 +41,8 @@ public class CursoBean {
 				curso.getNome().toUpperCase();
 				dao.create(curso);
 				msg = new FacesMessage("Curso cadastrado!");
+				curso = new Curso();
+				lista = dao.list();
 			} catch (DBCommitException e) {
 				msg = new FacesMessage("Erro ao cadastrar!");
 				e.printStackTrace();
@@ -51,15 +53,16 @@ public class CursoBean {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 	
-	public void excluir(){
+	public void excluir(Curso curso){
 		FacesMessage msg;
 		try {
-			dao.delete(codigo);;
+			dao.delete(curso.getId());;
 			msg = new FacesMessage("Curso excluido!");
-			lista = dao.list(); //Atualizar a tabela...
+			lista = dao.list(); 
 		} catch (Exception e) {
 			e.printStackTrace();
 			msg = new FacesMessage("Erro ao excluir!");
+			lista = dao.list();
 		}
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
@@ -81,7 +84,11 @@ public class CursoBean {
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 		
-		// Método para atualizar o curso
+		public String editar(Curso c){
+			curso = c;
+			return "editarCurso";
+		}
+		
 		public void atualizar(){
 				FacesMessage msg;
 				try {
@@ -94,7 +101,7 @@ public class CursoBean {
 					msg=new FacesMessage("Curso não Atualizado");
 				}
 				FacesContext.getCurrentInstance().addMessage(null, msg);
-			}
+		}
 
 	public Curso getCurso() {
 		return curso;

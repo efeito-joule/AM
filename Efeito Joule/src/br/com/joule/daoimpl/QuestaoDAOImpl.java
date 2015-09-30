@@ -31,7 +31,7 @@ public class QuestaoDAOImpl extends DAOImpl<Questao, Long> implements QuestaoDAO
 	}
 
 	@Override
-	public List<Questao> buscarPorAula(int codigo) {
+	public List<Questao> buscarPorAula(long codigo) {
 		TypedQuery<Questao> query =
 				em.createQuery("from Questao q where "
 				+ "q.aula.codigo = :codigo",
