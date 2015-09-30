@@ -10,7 +10,112 @@
 	<ui:define name="header">
 	</ui:define>
 	<ui:define name="body">
-	    <h1>Editar Aluno</h1>
+	    <h:form>
+				<div class="row" style="border-bottom: 1px solid silver;">
+					<div class="col-md-6 col-md-offset-3">
+						<h:graphicImage library="img" name="banner-joule.png" width="100%"  />
+					</div>
+				</div>
+				<div class="row" style="margin-top: 50px;">
+		    		<div class="col-md-3 col-md-offset-3">
+		    			<label>Usuário:</label>
+		    			<div class="input-group">
+		    				<span class="input-group-addon"><i class="fa fa-user"></i></span>
+		    				<h:inputText value="#{UsuarioBean.usuario.nomeUsuario}" styleClass="form-control input-sm" />
+		    			</div>
+		    		</div>
+		    		<div class="col-md-3">
+		    			<label>E-mail:</label>
+		    			<div class="input-group">
+		    				<span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
+		    				<h:inputText value="#{UsuarioBean.usuario.email}" styleClass="form-control input-sm" />
+		    			</div>
+		    		</div>
+		    	</div>
+		    	<div class="row" style="margin-top: 10px;">
+		    		<div class="col-md-3 col-md-offset-3">
+		    			<label>Senha:</label>
+		    			<div class="input-group">
+		    				<span class="input-group-addon"><i class="fa fa-key"></i></span>
+		    				<h:inputSecret value="#{UsuarioBean.usuario.senha}" styleClass="form-control input-sm" />
+		    			</div>
+		    		</div>
+		    		<div class="col-md-3">
+		    			<label>Confirmar Senha:</label>
+		    			<div class="input-group">
+		    				<span class="input-group-addon"><i class="fa fa-key"></i></span>
+		    				<h:inputSecret styleClass="form-control input-sm" />
+		    			</div>
+		    		</div>
+		    	</div>
+		    	<div class="row" style="margin-top: 20px;">
+		    		<div class="col-md-6 col-md-offset-3" style="border-bottom: 1px solid silver;"></div>
+		    	</div>
+		    	<div class="row" style="margin-top: 20px;">
+		    		<div class="col-md-3 col-md-offset-3">
+		    			<label>Nome:</label>
+		    			<h:inputText value="#{UsuarioBean.usuario.nome}" styleClass="form-control input-sm" />
+		    		</div>
+		    		<div class="col-md-3">
+		    			<label>Sobrenome:</label>
+		    			<h:inputText value="#{UsuarioBean.usuario.sobrenome}" styleClass="form-control input-sm" />
+		    		</div>
+		    	</div>
+		    	<!--  <div class="row" style="margin-top: 20px;">
+		    		<div class="col-md-3 col-md-offset-5">
+		    			<label class="radio-inline">
+		    				<input type="radio" name="sexo" /> Masculino
+		    			</label>
+		    			<label class="radio-inline">
+		    				<input type="radio" name="sexo" /> Feminino
+		    			</label>
+		    		</div>
+		    	</div>-->
+		    	 <div class="row" style="margin-top: 10px;">
+		    		<!-- <div class="col-md-3 col-md-offset-3">
+		    			 <label>Data Nascimento:</label>
+		    			 <h:inputText styleClass="form-control input-sm" />
+		    		</div> -->
+		    		<div class="col-md-3">
+		    			<label>Fone:</label>
+		    			<h:inputText styleClass="form-control input-sm" />
+		    		</div>
+		    	</div>
+		    	<div class="row" style="margin-top: 10px">
+		    		<div class="col-md-4 col-md-offset-3">
+		    			<label>Endereço:</label>
+		    			<h:inputText styleClass="form-control input-sm" />
+		    		</div>
+		    		<div class="col-md-2">
+		    			<label>Complemento:</label>
+		    			<h:inputText styleClass="form-control input-sm" />
+		    		</div>
+		    	</div>
+		    	<div class="row" style="margin-top: 10px">
+		    		<div class="col-md-2 col-md-offset-3">
+		    			<label>Bairro:</label>
+		    			<h:inputText styleClass="form-control input-sm" />
+		    		</div>
+		    		<div class="col-md-2">
+		    			<label>Cidade:</label>
+		    			<h:inputText styleClass="form-control input-sm" />
+		    		</div>
+		    		<div class="col-md-2">
+		    			<label>UF:</label>
+		    			<h:selectOneMenu styleClass="form-control input-sm">
+		    				<f:selectItem itemLabel="Selecione..." noSelectionOption="true" />
+		    			</h:selectOneMenu>
+		    		</div>
+		    	</div>
+		    	<div class="row" style="margin-top: 20px;">
+		    		<div class="col-md-6 col-md-offset-3" style="border-bottom: 1px solid silver;"></div>
+		    	</div>
+		    	<div class="row" style="margin-top: 20px;">
+		    		<div class="col-md-2 col-md-offset-3">
+		    			<a href="meusCursos.xhtml" class="btn btn-success btn-lg">Salvar</a>
+		    		</div>
+		    	</div>
+	    	</h:form>
 	</ui:define>
 </ui:composition>
 </html>
