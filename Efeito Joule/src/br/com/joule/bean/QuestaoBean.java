@@ -123,7 +123,6 @@ public class QuestaoBean {
 					resposta04=false;
 					resposta05=false;
 					questoes = dao.buscarPorAula(aula);
-					
 					msg = new FacesMessage("Questao cadastrada!");
 						
 					} catch (DBCommitException e) {
@@ -155,7 +154,7 @@ public class QuestaoBean {
 			msg=new FacesMessage("Informe o nome da aula para a busca");
 		}else{
 			aula=aulaDAO.buscarPorNome(nomeAula);			
-			msg= new FacesMessage(null);
+			msg= new FacesMessage("Buscando aula");
 			if (aula!=null) {
 				questoes = dao.buscarPorAula(aula);
 			}
@@ -163,7 +162,6 @@ public class QuestaoBean {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 	
-	/*
 	public void atualizar() {
 		FacesMessage msg;
 		questao.setAula(aula);
@@ -211,7 +209,7 @@ public class QuestaoBean {
 						
 						questao.setListaAlternativas(alternativas);
 						dao.update(questao);
-						questoes = buscarPorAula(aula.getId());
+						questoes = dao.buscarPorAula(aula);
 						msg = new FacesMessage("Questao atualizada!");
 					} catch (DBCommitException e) {
 						msg = new FacesMessage("Erro ao atualizar!");
@@ -224,7 +222,6 @@ public class QuestaoBean {
 		}
 		FacesContext.getCurrentInstance().addMessage(null, msg);		
 	}
-	*/
 	
 	public String editar(Questao questao){
 		this.questao = questao;

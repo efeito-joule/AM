@@ -127,11 +127,11 @@
 				<div class="row" style="margin-top: 20px;">
 					<div class="col-md-3">
 							<h:commandButton styleClass="btn btn-default" value="Cadastrar" rendered="#{questaoBean.questao.pergunta==null}"
-							actionListener="#{aulaBean.cadastrar}" update="tabela" />
+							actionListener="#{questaoBean.cadastrar}" update="tabela" />
 					</div>
 					<div class="col-dm-3">
 						<h:commandButton styleClass="btn btn-default" value="Atualizar" rendered="#{questaoBean.questao.pergunta!=null}"
-						actionListener="#{aulaBean.atualizar}" />
+						actionListener="#{questaoBean.atualizar}" />
 					</div>
 				</div>
 			</h:form>
