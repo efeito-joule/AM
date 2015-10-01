@@ -37,6 +37,7 @@ public class AulaBean {
 		dao = new AulaDAOImpl(em);
 		lista = dao.list();
 		cursoDAO = new CursoDAOImpl(em);
+		curso = new Curso();
 	}
 
 	public void cadastrar() {
@@ -69,6 +70,7 @@ public class AulaBean {
 			dao.delete(a.getId());;
 			msg = new FacesMessage("Excluido!");
 			lista = dao.list();
+			aula = new Aula();
 		} catch (Exception e) {
 			e.printStackTrace();
 			msg = new FacesMessage("Erro ao excluir! ");
@@ -77,7 +79,7 @@ public class AulaBean {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 	
-	public String buscar(){
+	public void buscar(){
 		FacesMessage msg;
 		if(nomeBusca==""){
 			msg=new FacesMessage("Informe o nome da aula para a busca");
@@ -89,7 +91,6 @@ public class AulaBean {
 			msg= new FacesMessage("Busca por: " + nomeBusca);
 		}
 		FacesContext.getCurrentInstance().addMessage(null, msg);
-		return "cadastroAula";
 	}
 	
 	public String atualizar(Aula a) {
@@ -97,16 +98,16 @@ public class AulaBean {
 			aula.setNome(aula.getNome().toUpperCase());
 			dao.update(aula);
 			lista = dao.list();
-			aula = new Aula();
 		} catch (DBCommitException e) {
 			e.printStackTrace();
 		}
 		return "cadastroAulas";
 	}
 	
-	public String editar(Aula a) {
-		aula = a;
-		return "editarAula";
+	public String editar(Aula aula) {
+		this.aula = aula;
+		
+		return "editarAula.xhtml";
 	}
 	
 	

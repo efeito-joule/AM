@@ -23,9 +23,7 @@ public class CursoBean {
 	private CursoDAO dao;
 	private String nomeBusca;
 	private List<Curso> lista;
-	private long codigo; 
 	
-
 	@PostConstruct
 	public void init() {
 		curso = new Curso();
@@ -59,6 +57,7 @@ public class CursoBean {
 			dao.delete(curso.getId());;
 			msg = new FacesMessage("Curso excluido!");
 			lista = dao.list(); 
+			curso = new Curso();
 		} catch (Exception e) {
 			e.printStackTrace();
 			msg = new FacesMessage("Erro ao excluir!");
@@ -67,7 +66,6 @@ public class CursoBean {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 	
-	//Busca o curso pelo Nome
 	public void buscar(){
 		FacesMessage msg;
 		try {
@@ -125,14 +123,6 @@ public class CursoBean {
 
 	public void setLista(List<Curso> lista) {
 		this.lista = lista;
-	}
-
-	public long getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(long codigo) {
-		this.codigo = codigo;
 	}
 
 }

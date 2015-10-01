@@ -1,5 +1,6 @@
 package br.com.joule.teste;
 
+
 import javax.persistence.EntityManager;
 
 import br.com.joule.dao.AulaDAO;
@@ -9,7 +10,6 @@ import br.com.joule.daoimpl.CursoDAOImpl;
 import br.com.joule.entity.Aula;
 import br.com.joule.entity.Curso;
 import br.com.joule.exceptions.DBCommitException;
-import br.com.joule.exceptions.IdNotFoundException;
 import br.com.joule.singleton.EMFactorySingleton;
 
 public class TesteAula {
@@ -22,8 +22,7 @@ public class TesteAula {
 		Curso curso = new Curso();
 		CursoDAO cursoDAO = new CursoDAOImpl(em);
 		
-		curso.setNome("Eletricidade");
-		curso.setDescricao("Mais um curso de eletricidade");
+		curso = cursoDAO.buscarPorNome("Eletricidade");
 		
 		try {
 			cursoDAO.create(curso);
@@ -32,7 +31,7 @@ public class TesteAula {
 			e1.printStackTrace();
 		}
 		
-		aula.setNome("aula 1");
+		aula.setNome("Eletricidade");
 		aula.setUrlVideo("http:ddd");
 		aula.setCurso(curso);
 		
@@ -44,6 +43,7 @@ public class TesteAula {
 			e.printStackTrace();
 		}
 		
+		/*
 		try {
 			dao.delete(aula.getId());
 			System.out.println("Aula do id "+aula.getId()+" deletada");
@@ -57,6 +57,6 @@ public class TesteAula {
 		
 		System.out.println("");
 		System.out.println("Buscar por codigo");
-		
+		*/
 	}
 }

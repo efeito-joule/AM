@@ -3,16 +3,21 @@ package br.com.joule.teste;
 import java.util.ArrayList;
 import java.util.List;
 
+import javassist.expr.NewArray;
+
 import javax.persistence.EntityManager;
 
 import br.com.joule.entity.Alternativa;
 import br.com.joule.entity.Aula;
+import br.com.joule.entity.Curso;
 import br.com.joule.entity.Questao;
 import br.com.joule.exceptions.DBCommitException;
 import br.com.joule.singleton.EMFactorySingleton;
 import br.com.joule.dao.AulaDAO;
+import br.com.joule.dao.CursoDAO;
 import br.com.joule.dao.QuestaoDAO;
 import br.com.joule.daoimpl.AulaDAOImpl;
+import br.com.joule.daoimpl.CursoDAOImpl;
 import br.com.joule.daoimpl.QuestaoDAOImpl;
 
 public class TesteQuestaoAlternativa {
@@ -25,6 +30,9 @@ public class TesteQuestaoAlternativa {
 		QuestaoDAO dao = new QuestaoDAOImpl(em);
 		Aula aula = new Aula();
 		AulaDAO aulaDAO = new AulaDAOImpl(em);
+		Curso curso = new Curso();
+		CursoDAO cursoDAO = new CursoDAOImpl(em);
+		List<Questao> questoes = new ArrayList<Questao>();
 		
 		//deletar a questao de codigo 4
 		/*
@@ -44,9 +52,11 @@ public class TesteQuestaoAlternativa {
 		resposta02=false;
 		resposta03=false;
 		resposta04=false;
-		resposta05=false;
+		resposta05=true;
 		
+		curso = cursoDAO.buscarPorNome("Eletricidade");
 		aula = aulaDAO.buscarPorNome("Eletricidade");
+		aula.setCurso(curso);
 		questao.setAula(aula);
 		questao.setDescricao("Entender o conceito de trajetória nível 8");
 		questao.setPergunta("Qual das opções abaixo não corresponde a uma medida de de trajetória?");
@@ -102,6 +112,11 @@ public class TesteQuestaoAlternativa {
 				System.out.println("Erro ao cadastrar!");
 				e.printStackTrace();
 			}
+		}
+		
+		questoes = dao.buscarPorAula(aula);
+		for (Questao q : questoes) {
+			System.out.println("pergunta da questao"+q.getPergunta());
 		}
 
 		}

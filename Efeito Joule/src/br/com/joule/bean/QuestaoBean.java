@@ -107,15 +107,23 @@ public class QuestaoBean {
 			}else {
 				try {
 					questao.setPergunta(questao.getPergunta().toUpperCase());
-						
 					questao.setListaAlternativas(alternativas);
+					
 					dao.create(questao);
+			
 					questao = new Questao();
 					alternativa = new Alternativa();
 					alternativa2 = new Alternativa();
 					alternativa3 = new Alternativa();
 					alternativa4 = new Alternativa();
 					alternativa5 = new Alternativa();
+					resposta01=false;
+					resposta02=false;
+					resposta03=false;
+					resposta04=false;
+					resposta05=false;
+					questoes = dao.buscarPorAula(aula);
+					
 					msg = new FacesMessage("Questao cadastrada!");
 						
 					} catch (DBCommitException e) {
@@ -126,20 +134,21 @@ public class QuestaoBean {
 			}
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
-	/*
-	public void excluir(){
+	
+	public void excluir(Questao questao){
 		FacesMessage msg;
 		try {
-			dao.delete(codigo);;
+			dao.delete(questao.getId());;
 			msg = new FacesMessage("Excluido!");
-			questoes = buscarPorAula(aula.getId());
+			questoes = dao.buscarPorAula(aula);
+			questao = new Questao();
 		} catch (Exception e) {
 			e.printStackTrace();
 			msg = new FacesMessage("Erro ao excluir!");
 		}
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
-	*/
+	
 	public void buscarAula(){
 		FacesMessage msg;
 		if(nomeAula==""){
@@ -148,6 +157,7 @@ public class QuestaoBean {
 			aula=aulaDAO.buscarPorNome(nomeAula);			
 			msg= new FacesMessage(null);
 			if (aula!=null) {
+				questoes = dao.buscarPorAula(aula);
 			}
 		}
 		FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -216,14 +226,15 @@ public class QuestaoBean {
 	}
 	*/
 	
+	public String editar(Questao questao){
+		this.questao = questao;
+		return "editarQuestao";
+	}
 	
 	public Questao buscarPorPergunta(String pergunta){
 		return dao.buscarPorPergunda(pergunta);
 	}
 	
-	public List<Questao> buscarPorAula(Aula aula){
-		return dao.buscarPorAula(aula);
-	}
 
 	public Questao getQuestao() {
 		return questao;

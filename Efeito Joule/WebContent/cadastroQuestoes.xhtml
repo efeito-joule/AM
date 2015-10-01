@@ -125,6 +125,7 @@
 					</div>
 				</div>
 			</h:form>
+			<h:form id="formulario2">
 			<h:panelGrid columns="3" class="col-md-8" style="margin-top: 20px;">
 	   				<h:dataTable value="#{questaoBean.questoes}" var="q" styleClass="table" id="tabela">
 	   					<h:column>
@@ -133,13 +134,15 @@
 	   					</h:column>
 	   					<h:column>
 	   						<h:commandButton styleClass="btn btn-danger" value="Excluir"
-							actionListener="#{aulaBean.excluir(q)}" update="tabela"/>
+							actionListener="#{questaoBean.excluir(q)}" update="tabela"/>
 						</h:column>
-	   					<h:column>
-							<h:commandLink styleClass="btn btn-success" actionListener="#{aulaBean.editar(a)}" value="Editar"/>
+						<h:column>
+							<h:commandButton styleClass="btn btn-success" value="Editar"
+							actionListener="#{questaoBean.editar(q)}" update="tabela"/>
 						</h:column>
 	   				</h:dataTable> 
 	    		</h:panelGrid>
+	    	</h:form>
 		</ui:define>
 	</ui:composition>
 </html>

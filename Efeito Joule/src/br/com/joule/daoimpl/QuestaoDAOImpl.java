@@ -14,7 +14,7 @@ public class QuestaoDAOImpl extends DAOImpl<Questao, Long> implements QuestaoDAO
 
 	public QuestaoDAOImpl(EntityManager em) {
 		super(em);
-		// TODO Auto-generated constructor stub
+	
 	}
 
 	@Override
@@ -37,7 +37,7 @@ public class QuestaoDAOImpl extends DAOImpl<Questao, Long> implements QuestaoDAO
 				em.createQuery("from Questao q where "
 				+ "q.aula = :aula",
 				Questao.class);
-			query.setParameter("codigo", aula);
+			query.setParameter("aula", aula);
 			return query.getResultList();
 	}
 
