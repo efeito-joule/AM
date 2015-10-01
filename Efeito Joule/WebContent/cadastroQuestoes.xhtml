@@ -58,7 +58,7 @@
 					<div class="col-md-5">
 						<h:outputLabel>Descrição:</h:outputLabel>
 						<h:inputTextarea styleClass="form-control input-sm" value="#{questaoBean.questao.descricao}"
-						required="true" requiredMessage="Uma descrição para a questão é obrigatório"></h:inputTextarea>
+						required="true" requiredMessage="Uma descrição para a questão é obrigatória"></h:inputTextarea>
 					</div>
 				</div>
 					<div class="row" style="margin-top: 20px;">
@@ -71,7 +71,8 @@
 				</div>
 				<div class="row" style="margin-top: 8px;">
 					<div class="col-md-6">
-						<h:inputText styleClass="form-control input-sm" value="#{questaoBean.descricao01}" />
+						<h:inputText styleClass="form-control input-sm" value="#{questaoBean.descricao01}"
+						required="true" requiredMessage="Informe as cinco alternativas"/>
 					</div>
 					<div class="col-md-1">
 						<div class="radio-inline">
@@ -81,7 +82,8 @@
 				</div>
 				<div class="row" style="margin-top: 8px;">
 					<div class="col-md-6">
-						<h:inputText styleClass="form-control input-sm" value="#{questaoBean.descricao02}" />
+						<h:inputText styleClass="form-control input-sm" value="#{questaoBean.descricao02}"
+						required="true" requiredMessage="Informe as cinco alternativas"/>
 					</div> 
 					<div class="col-md-1">
 						<div class="radio-inline">
@@ -91,7 +93,8 @@
 				</div>
 				<div class="row" style="margin-top: 8px;">
 					<div class="col-md-6">
-						<h:inputText styleClass="form-control input-sm" value="#{questaoBean.descricao03}" />
+						<h:inputText styleClass="form-control input-sm" value="#{questaoBean.descricao03}"
+						required="true" requiredMessage="Informe as cinco alternativas"/>
 					</div>
 					<div class="col-md-1">
 						<div class="radio-inline"> 
@@ -101,7 +104,8 @@
 				</div>
 				<div class="row" style="margin-top: 8px;">
 					<div class="col-md-6">
-						<h:inputText styleClass="form-control input-sm" value="#{questaoBean.descricao04}" />
+						<h:inputText styleClass="form-control input-sm" value="#{questaoBean.descricao04}"
+						required="true" requiredMessage="Informe as cinco alternativas"/>
 					</div>
 					<div class="col-md-1">
 						<div class="radio-inline">
@@ -111,7 +115,8 @@
 				</div>
 				<div class="row" style="margin-top: 8px;">
 					<div class="col-md-6">
-						<h:inputText styleClass="form-control input-sm" value="#{questaoBean.descricao05}" />
+						<h:inputText styleClass="form-control input-sm" value="#{questaoBean.descricao05}"
+						required="true" requiredMessage="Informe as cinco alternativas"/>
 					</div>
 					<div class="col-md-1">
 						<div class="radio-inline">
@@ -121,7 +126,12 @@
 				</div>
 				<div class="row" style="margin-top: 20px;">
 					<div class="col-md-3">
-						<h:commandButton styleClass="btn btn-default" value="Cadastrar" actionListener="#{questaoBean.cadastrar}" />
+							<h:commandButton styleClass="btn btn-default" value="Cadastrar" rendered="#{questaoBean.questao.pergunta==null}"
+							actionListener="#{aulaBean.cadastrar}" update="tabela" />
+					</div>
+					<div class="col-dm-3">
+						<h:commandButton styleClass="btn btn-default" value="Atualizar" rendered="#{questaoBean.questao.pergunta!=null}"
+						actionListener="#{aulaBean.atualizar}" />
 					</div>
 				</div>
 			</h:form>

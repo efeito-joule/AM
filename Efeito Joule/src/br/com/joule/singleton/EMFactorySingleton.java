@@ -18,7 +18,7 @@ public class EMFactorySingleton {
 		if (factory == null){
 			factory = 
 		Persistence
-		.createEntityManagerFactory("joule");
+		.createEntityManagerFactory("CLIENTE_ORACLE");
 		}
 		return factory;
 	}

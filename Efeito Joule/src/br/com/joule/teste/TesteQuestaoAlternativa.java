@@ -3,7 +3,7 @@ package br.com.joule.teste;
 import java.util.ArrayList;
 import java.util.List;
 
-import javassist.expr.NewArray;
+//import javassist.expr.NewArray;
 
 import javax.persistence.EntityManager;
 

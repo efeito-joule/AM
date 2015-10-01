@@ -22,7 +22,7 @@
 				<div class="col-md-4">
 				<h:outputLabel>Nome do curso:</h:outputLabel>
 					<h:inputText styleClass="form-control input-sm" id="busca"
-						value="#{aulaBean.nomeCurso}"/>
+						value="#{aulaBean.nomeCurso}" required="true" requiredMessage="É preciso um nome para a busca!"/>
 				</div>
 			</div>
 			<div class="row" style="margin-top: 10px;">
@@ -51,19 +51,25 @@
 				<div class="row">
 					<div class="col-md-6">
 						<h:outputLabel>Nome da Aula:</h:outputLabel>
-						<h:inputText styleClass="form-control input-sm" value="#{aulaBean.aula.nome}" />
+						<h:inputText styleClass="form-control input-sm" value="#{aulaBean.aula.nome}"
+						required="true" requiredMessage="O nome da aula é obrigatório"/>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-6">
 						<h:outputLabel>URL do Vídeo:</h:outputLabel>
-						<h:inputText styleClass="form-control input-sm" value="#{aulaBean.aula.urlVideo}" />
+						<h:inputText styleClass="form-control input-sm" value="#{aulaBean.aula.urlVideo}"
+						required="true" requiredMessage="Digite a URL do vídeo"/>
 					</div>
 				</div>
 				<div class="row" style="margin-top: 20px;">
 					<div class="col-md-3">
-							<h:commandButton styleClass="btn btn-default" value="Cadastrar"
+							<h:commandButton styleClass="btn btn-default" value="Cadastrar" rendered="#{aulaBean.aula.nome==null}"
 							actionListener="#{aulaBean.cadastrar}" update="tabela" />
+					</div>
+					<div class="col-dm-3">
+						<h:commandButton styleClass="btn btn-default" value="Atualizar" rendered="#{aulaBean.aula.nome!=null}"
+						actionListener="#{aulaBean.atualizar}" />
 					</div>
 				</div>
 			</h:form>
@@ -76,7 +82,7 @@
 					<div class="col-md-6">
 					<h:outputLabel>Nome:</h:outputLabel>
 						<h:inputText styleClass="form-control input-sm" id="busca"
-						value="#{aulaBean.nomeBusca}"/>
+						value="#{aulaBean.nomeBusca}" />
 					</div>
 				</div>
 				<div class="row" style="margin-top: 20px;">

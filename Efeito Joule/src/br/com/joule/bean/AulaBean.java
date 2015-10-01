@@ -29,6 +29,7 @@ public class AulaBean {
 	private String nomeCurso;
 	private CursoDAO cursoDAO;
 	private Curso curso;
+	private long id;
 
 	@PostConstruct
 	public void init() {
@@ -81,7 +82,7 @@ public class AulaBean {
 	
 	public void buscar(){
 		FacesMessage msg;
-		if(nomeBusca==""){
+		if(nomeBusca==null){
 			msg=new FacesMessage("Informe o nome da aula para a busca");
 		}else{
 			if (lista==null) {
@@ -93,20 +94,28 @@ public class AulaBean {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 	
-	public String atualizar(Aula a) {
+	public void atualizar() {
+		FacesMessage msg;
 		try {
 			aula.setNome(aula.getNome().toUpperCase());
 			dao.update(aula);
+			msg=new FacesMessage("Aula Atualizada");
 			lista = dao.list();
 		} catch (DBCommitException e) {
 			e.printStackTrace();
+			msg=new FacesMessage("Aula Não Atualizada");
 		}
-		return "cadastroAulas";
+		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 	
-	public String editar(Aula aula) {
-		this.aula = aula;
+	/*public String editar() {
+		aula = dao.findById(getId());
 		
+		return "editarAula.xhtml";
+	}*/
+	
+	public String editar(Aula a){
+		aula = a;
 		return "editarAula.xhtml";
 	}
 	
@@ -159,6 +168,14 @@ public class AulaBean {
 
 	public void setCurso(Curso curso) {
 		this.curso = curso;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 	
 }

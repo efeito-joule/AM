@@ -20,18 +20,24 @@
 				<div class="row">
 					<div class="col-md-6">
 						<h:outputLabel>Nome do Curso</h:outputLabel>
-						<h:inputText styleClass="form-control" id="nome" value="#{cursoBean.curso.nome}"/>
+						<h:inputText styleClass="form-control" id="nome" value="#{cursoBean.curso.nome}"
+						required="true" requiredMessage="O nome do curso é obrigatório"/>
 					</div>
 				</div>
 				<div class="row" style="margin-top: 10px;">
 					<div class="col-md-6">
 						<h:outputLabel>Descrição:</h:outputLabel>
-						<h:inputTextarea styleClass="form-control input-sm" value="#{cursoBean.curso.descricao}"></h:inputTextarea>
+						<h:inputTextarea styleClass="form-control input-sm" value="#{cursoBean.curso.descricao}"
+						required="true" requiredMessage="Uma descrição é obrigatória"
+						></h:inputTextarea>
 					</div>
 				</div>
 				<div class="row" style="margin-top: 10px;">
 					<div class="col-dm-3">
-						<h:commandButton styleClass="btn btn-default" value="Cadastrar" actionListener="#{cursoBean.cadastrar}" />
+						<h:commandButton styleClass="btn btn-default" rendered="#{cursoBean.curso.nome==null}" value="Cadastrar" actionListener="#{cursoBean.cadastrar}" />
+					</div>
+					<div class="col-dm-3">
+						<h:commandButton styleClass="btn btn-default" rendered="#{cursoBean.curso.nome!=null}" value="Atualizar" actionListener="#{cursoBean.atualizar}" />
 					</div>
 				</div>
 			</h:form>

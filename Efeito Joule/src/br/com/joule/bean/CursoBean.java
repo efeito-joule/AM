@@ -84,7 +84,7 @@ public class CursoBean {
 		
 		public String editar(Curso c){
 			curso = c;
-			return "editarCurso";
+			return "editarCurso.xhtml";
 		}
 		
 		public void atualizar(){

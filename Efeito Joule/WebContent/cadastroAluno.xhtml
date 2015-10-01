@@ -17,33 +17,33 @@
 				</div>
 				<div class="row" style="margin-top: 50px;">
 		    		<div class="col-md-3 col-md-offset-3">
-		    			<label>Usuário:</label>
+		    			<h:outputLabel>Usuário:</h:outputLabel>
 		    			<div class="input-group">
 		    				<span class="input-group-addon"><i class="fa fa-user"></i></span>
-		    				<h:inputText value="#{UsuarioBean.usuario.nomeUsuario}" styleClass="form-control input-sm" />
+		    				<h:inputText value="#{UsuarioBean.usuario.nomeUsuario}" required="true" requiredMessage="O usuário é obrigatório" styleClass="form-control input-sm" />
 		    			</div>
 		    		</div>
 		    		<div class="col-md-3">
-		    			<label>E-mail:</label>
+		    			<h:outputLabel>E-mail:</h:outputLabel>
 		    			<div class="input-group">
 		    				<span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
-		    				<h:inputText value="#{UsuarioBean.usuario.email}" styleClass="form-control input-sm" />
+		    				<h:inputText value="#{UsuarioBean.usuario.email}" styleClass="form-control input-sm" required="true" requiredMessage="O email é obrigatório"/>
 		    			</div>
 		    		</div>
 		    	</div>
 		    	<div class="row" style="margin-top: 10px;">
 		    		<div class="col-md-3 col-md-offset-3">
-		    			<label>Senha:</label>
+		    			<h:outputLabel>Senha:</h:outputLabel>
 		    			<div class="input-group">
 		    				<span class="input-group-addon"><i class="fa fa-key"></i></span>
-		    				<h:inputSecret value="#{UsuarioBean.usuario.senha}" styleClass="form-control input-sm" />
+		    				<h:inputSecret value="#{UsuarioBean.usuario.senha}" styleClass="form-control input-sm" required="true" requiredMessage="A senha é obrigatória" />
 		    			</div>
 		    		</div>
 		    		<div class="col-md-3">
-		    			<label>Confirmar Senha:</label>
+		    			<h:outputLabel>Confirmar Senha:</h:outputLabel>
 		    			<div class="input-group">
 		    				<span class="input-group-addon"><i class="fa fa-key"></i></span>
-		    				<h:inputSecret styleClass="form-control input-sm" />
+		    				<h:inputSecret styleClass="form-control input-sm" required="true" requiredMessage="Por favor, confirme a senha!" />
 		    			</div>
 		    		</div>
 		    	</div>
@@ -52,57 +52,84 @@
 		    	</div>
 		    	<div class="row" style="margin-top: 20px;">
 		    		<div class="col-md-3 col-md-offset-3">
-		    			<label>Nome:</label>
-		    			<h:inputText value="#{UsuarioBean.usuario.nome}" styleClass="form-control input-sm" />
+		    			<h:outputLabel>Nome:</h:outputLabel>
+		    			<h:inputText value="#{UsuarioBean.usuario.nome}" styleClass="form-control input-sm"  required="true" requiredMessage="O nome é obrigatório"/>
 		    		</div>
 		    		<div class="col-md-3">
-		    			<label>Sobrenome:</label>
+		    			<h:outputLabel>Sobrenome:</h:outputLabel>
 		    			<h:inputText value="#{UsuarioBean.usuario.sobrenome}" styleClass="form-control input-sm" />
 		    		</div>
 		    	</div>
 		    	<div class="row" style="margin-top: 20px;">
 		    		<div class="col-md-3 col-md-offset-5">
-		    			<label class="radio-inline">
+		    			<h:outputLabel class="radio-inline">
 		    				<input type="radio" name="sexo" /> Masculino
-		    			</label>
-		    			<label class="radio-inline">
+		    			</h:outputLabel>
+		    			<h:outputLabel class="radio-inline">
 		    				<input type="radio" name="sexo" /> Feminino
-		    			</label>
+		    			</h:outputLabel>
 		    		</div>
 		    	</div>
 		    	<div class="row" style="margin-top: 10px;">
 		    		<div class="col-md-3 col-md-offset-3">
-		    			<label>Data Nascimento:</label>
+		    			<h:outputLabel>Data Nascimento:</h:outputLabel>
 		    			<h:inputText styleClass="form-control input-sm" />
 		    		</div>
 		    		<div class="col-md-3">
-		    			<label>Fone:</label>
+		    			<h:outputLabel>Fone:</h:outputLabel>
 		    			<h:inputText styleClass="form-control input-sm" />
 		    		</div>
 		    	</div>
 		    	<div class="row" style="margin-top: 10px">
 		    		<div class="col-md-4 col-md-offset-3">
-		    			<label>Endereço:</label>
+		    			<h:outputLabel>Endereço:</h:outputLabel>
 		    			<h:inputText styleClass="form-control input-sm" />
 		    		</div>
 		    		<div class="col-md-2">
-		    			<label>Complemento:</label>
+		    			<h:outputLabel>Complemento:</h:outputLabel>
 		    			<h:inputText styleClass="form-control input-sm" />
 		    		</div>
 		    	</div>
 		    	<div class="row" style="margin-top: 10px">
 		    		<div class="col-md-2 col-md-offset-3">
-		    			<label>Bairro:</label>
+		    			<h:outputLabel>Bairro:</h:outputLabel>
 		    			<h:inputText styleClass="form-control input-sm" />
 		    		</div>
 		    		<div class="col-md-2">
-		    			<label>Cidade:</label>
+		    			<h:outputLabel>Cidade:</h:outputLabel>
 		    			<h:inputText styleClass="form-control input-sm" />
 		    		</div>
 		    		<div class="col-md-2">
-		    			<label>UF:</label>
+		    			<h:outputLabel>UF:</h:outputLabel>
 		    			<h:selectOneMenu styleClass="form-control input-sm">
-		    				<f:selectItem itemLabel="Selecione..." noSelectionOption="true" />
+		    				<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+		    				<f:selectItem itemLabel="AC" noSelectionOption="true" />
+		    				<f:selectItem itemLabel="AL" noSelectionOption="true" />
+		    				<f:selectItem itemLabel="AP" noSelectionOption="true" />
+		    				<f:selectItem itemLabel="AM" noSelectionOption="true" />
+		    				<f:selectItem itemLabel="BA" noSelectionOption="true" />
+		    				<f:selectItem itemLabel="CE" noSelectionOption="true" />
+		    				<f:selectItem itemLabel="DF" noSelectionOption="true" />
+		    				<f:selectItem itemLabel="ES" noSelectionOption="true" />
+		    				<f:selectItem itemLabel="GO" noSelectionOption="true" />
+		    				<f:selectItem itemLabel="MA" noSelectionOption="true" />
+		    				<f:selectItem itemLabel="MT" noSelectionOption="true" />
+		    				<f:selectItem itemLabel="MS" noSelectionOption="true" />
+		    				<f:selectItem itemLabel="MG" noSelectionOption="true" />
+		    				<f:selectItem itemLabel="PR" noSelectionOption="true" />
+		    				<f:selectItem itemLabel="PB" noSelectionOption="true" />
+		    				<f:selectItem itemLabel="PA" noSelectionOption="true" />
+		    				<f:selectItem itemLabel="PE" noSelectionOption="true" />
+		    				<f:selectItem itemLabel="PI" noSelectionOption="true" />
+		    				<f:selectItem itemLabel="RJ" noSelectionOption="true" />
+		    				<f:selectItem itemLabel="RN" noSelectionOption="true" />
+		    				<f:selectItem itemLabel="RS" noSelectionOption="true" />
+		    				<f:selectItem itemLabel="RO" noSelectionOption="true" />
+		    				<f:selectItem itemLabel="RR" noSelectionOption="true" />
+		    				<f:selectItem itemLabel="SC" noSelectionOption="true" />
+		    				<f:selectItem itemLabel="SE" noSelectionOption="true" />
+		    				<f:selectItem itemLabel="SP" noSelectionOption="true" />
+		    				<f:selectItem itemLabel="TO"/>
 		    			</h:selectOneMenu>
 		    		</div>
 		    	</div>
@@ -111,7 +138,7 @@
 		    	</div>
 		    	<div class="row" style="margin-top: 20px;">
 		    		<div class="col-md-2 col-md-offset-3">
-		    			<a href="meusCursos.xhtml" class="btn btn-success btn-lg">Increver-se</a>
+		    			<h:commandButton styleClass="btn btn-default" value="Cadastrar" actionListener="#{alunoBean.cadastrar}" />
 		    		</div>
 		    		<div class="col-md-2" style="margin-top: 25px;">
 		    			<h:outputText value="Já tem uma conta?" />
