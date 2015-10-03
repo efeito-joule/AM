@@ -28,7 +28,12 @@ public class QuestaoBean {
 	private QuestaoDAO dao;
 	private AulaDAO aulaDAO;
 	private String nomeAula;
+	private Alternativa alternativa1;
+	private Alternativa alternativa2;
 	private List<Alternativa> alternativas;
+	private Alternativa alternativa3;
+	private Alternativa alternativa4;
+	private Alternativa alternativa5;
 	private List<Questao> questoes;
 	private Aula aula;
 	private String descricao01;
@@ -41,6 +46,7 @@ public class QuestaoBean {
 	private boolean resposta04;
 	private String descricao05;
 	private boolean resposta05;
+	private String resposta;
 
 	@PostConstruct
 	public void init() {
@@ -50,44 +56,65 @@ public class QuestaoBean {
 		dao = new QuestaoDAOImpl(em);
 		aulaDAO = new AulaDAOImpl(em);
 		questoes = null;
-		alternativas = null;
+		alternativas = new ArrayList<Alternativa>();
+		alternativa1 = new Alternativa();
+		alternativa2 = new Alternativa();
+		alternativa3 = new Alternativa();
+		alternativa4= new Alternativa();
+		alternativa5 = new Alternativa();
 	}
 
 	public void cadastrar() {
+		
 		FacesMessage msg;
 		questao.setAula(aula);
-
-		alternativas = new ArrayList<Alternativa>();
+		
+		resposta = FacesContext.getCurrentInstance().
+				getExternalContext().getRequestParameterMap().get("resposta");
 				
-		Alternativa alternativa = new Alternativa();
-		alternativa.setDescricao(descricao01);
-		alternativa.setResposta(resposta01);
-		alternativa.setQuestao(questao);
+		switch (resposta) {
+		case "1":
+			resposta01=true;
+			break;
+		case "2":
+			resposta02=true;
+			break;
+		case "3":
+			resposta03=true;
+			break;
+		case "4":
+			resposta04=true;
+			break;
+		case "5":
+			resposta05=true;
+			break;
+		}
+		
+		
+		alternativa1.setDescricao(descricao01);
+		alternativa1.setResposta(resposta01);
+		alternativa1.setQuestao(questao);
 				
-		alternativas.add(alternativa);
+		alternativas.add(alternativa1);
 
-		Alternativa alternativa2 = new Alternativa();
 		alternativa2.setDescricao(descricao02);
 		alternativa2.setResposta(resposta02);
 		alternativa2.setQuestao(questao);
 				
 		alternativas.add(alternativa2);
 				
-		Alternativa alternativa3 = new Alternativa();
 		alternativa3.setDescricao(descricao03);
 		alternativa3.setResposta(resposta03);
 		alternativa3.setQuestao(questao);
 				
 		alternativas.add(alternativa3);
 				
-		Alternativa alternativa4 = new Alternativa();
 		alternativa4.setDescricao(descricao04);
 		alternativa4.setResposta(resposta04);
 		alternativa4.setQuestao(questao);
 				
 		alternativas.add(alternativa4);
 				
-		Alternativa alternativa5 = new Alternativa();
 		alternativa5.setDescricao(descricao05);
 		alternativa5.setResposta(resposta05);
 		alternativa5.setQuestao(questao);
@@ -98,13 +125,9 @@ public class QuestaoBean {
 			if (!(resposta01==true || resposta02==true
 						|| resposta03==true || resposta04==true
 								|| resposta05==true)) {
-					msg = new FacesMessage("Indique uma alternativa correta");
+					msg = new FacesMessage("Indique a alternativa correta");
 			}else{
-					if (descricao01=="" || descricao02==""
-						|| descricao03=="" || descricao04==""
-						|| descricao05=="") {
-					msg = new FacesMessage("Digite todas as alternativas");
-			}else {
+					
 				try {
 					questao.setPergunta(questao.getPergunta().toUpperCase());
 					questao.setListaAlternativas(alternativas);
@@ -112,7 +135,7 @@ public class QuestaoBean {
 					dao.create(questao);
 			
 					questao = new Questao();
-					alternativa = new Alternativa();
+					alternativa1 = new Alternativa();
 					alternativa2 = new Alternativa();
 					alternativa3 = new Alternativa();
 					alternativa4 = new Alternativa();
@@ -129,7 +152,6 @@ public class QuestaoBean {
 						msg = new FacesMessage("Erro ao cadastrar!");
 						e.printStackTrace();
 					}
-				}
 			}
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
@@ -164,62 +186,71 @@ public class QuestaoBean {
 	
 	public void atualizar() {
 		FacesMessage msg;
-		questao.setAula(aula);
-		if (aula==null) {
-			msg = new FacesMessage("Escolha uma aula");
-		}else {
-			if (buscarPorPergunta(questao.getPergunta().toUpperCase()) != null) {
-				
-				alternativas = new ArrayList<Alternativa>();
-				
-				Alternativa alternativa = new Alternativa();
-				alternativa.setDescricao(descricao01);
-				alternativa.setResposta(resposta01);
-				
-				alternativas.add(alternativa);
-
-				Alternativa alternativa2 = new Alternativa();
-				alternativa2.setDescricao(descricao02);
-				alternativa2.setResposta(resposta02);
-				
-				alternativas.add(alternativa2);
-				
-				Alternativa alternativa3 = new Alternativa();
-				alternativa3.setDescricao(descricao03);
-				alternativa3.setResposta(resposta03);
-				
-				alternativas.add(alternativa3);
-				
-				Alternativa alternativa4 = new Alternativa();
-				alternativa4.setDescricao(descricao04);
-				alternativa4.setResposta(resposta04);
-				
-				alternativas.add(alternativa4);
-				
-				Alternativa alternativa5 = new Alternativa();
-				alternativa5.setDescricao(descricao05);
-				alternativa5.setResposta(resposta05);
-				
-				alternativas.add(alternativa5);
-				if (alternativas.isEmpty()) {
-					msg = new FacesMessage("Digite as alternativas");
-				}else {
-					try {
-						questao.setPergunta(questao.getPergunta().toUpperCase());
-						
-						questao.setListaAlternativas(alternativas);
-						dao.update(questao);
-						questoes = dao.buscarPorAula(aula);
-						msg = new FacesMessage("Questao atualizada!");
-					} catch (DBCommitException e) {
-						msg = new FacesMessage("Erro ao atualizar!");
-						e.printStackTrace();
-					}
-				}
-			}else {
-				msg = new FacesMessage("Já existe uma pergunta igual a esta cadastrada");
-			}
+		
+		resposta = FacesContext.getCurrentInstance().
+				getExternalContext().getRequestParameterMap().get("resposta");
+		
+		switch (resposta) {
+		case "1":
+			resposta01=true;
+			break;
+		case "2":
+			resposta02=true;
+			break;
+		case "3":
+			resposta03=true;
+			break;
+		case "4":
+			resposta04=true;
+			break;
+		case "5":
+			resposta05=true;
+			break;
 		}
+		
+		alternativas = questao.getListaAlternativas();
+		
+		alternativas.get(0).setDescricao(descricao01);
+		alternativas.get(0).setResposta(resposta01);
+		
+		alternativas.get(1).setDescricao(descricao02);
+		alternativas.get(1).setResposta(resposta02);
+		
+		alternativas.get(2).setDescricao(descricao03);
+		alternativas.get(2).setResposta(resposta03);
+		
+		alternativas.get(3).setDescricao(descricao04);
+		alternativas.get(3).setResposta(resposta04);
+		
+		alternativas.get(4).setDescricao(descricao05);
+		alternativas.get(4).setResposta(resposta05);
+
+		
+		questao.setAula(aula);
+		questao.setListaAlternativas(alternativas);
+		
+			try {
+				questao.setPergunta(questao.getPergunta().toUpperCase());
+				questao.setListaAlternativas(alternativas);
+				dao.update(questao);
+					
+				questoes = dao.buscarPorAula(aula);
+				questao = new Questao();
+				alternativa1 = new Alternativa();
+				alternativa2 = new Alternativa();
+				alternativa3 = new Alternativa();
+				alternativa4 = new Alternativa();
+				alternativa5 = new Alternativa();
+				resposta01=false;
+				resposta02=false;
+				resposta03=false;
+				resposta04=false;
+				resposta05=false;
+				msg = new FacesMessage("Questao atualizada!");
+			} catch (DBCommitException e) {
+				msg = new FacesMessage("Erro ao atualizar!");
+				e.printStackTrace();
+			}
 		FacesContext.getCurrentInstance().addMessage(null, msg);		
 	}
 	
@@ -353,4 +384,53 @@ public class QuestaoBean {
 		this.resposta05 = resposta05;
 	}
 
+	public Alternativa getAlternativa() {
+		return alternativa1;
+	}
+
+	public void setAlternativa(Alternativa alternativa1) {
+		this.alternativa1 = alternativa1;
+	}
+
+	public Alternativa getAlternativa2() {
+		return alternativa2;
+	}
+
+	public void setAlternativa2(Alternativa alternativa2) {
+		this.alternativa2 = alternativa2;
+	}
+
+	public Alternativa getAlternativa3() {
+		return alternativa3;
+	}
+
+	public void setAlternativa3(Alternativa alternativa3) {
+		this.alternativa3 = alternativa3;
+	}
+
+	public Alternativa getAlternativa4() {
+		return alternativa4;
+	}
+
+	public void setAlternativa4(Alternativa alternativa4) {
+		this.alternativa4 = alternativa4;
+	}
+
+	public Alternativa getAlternativa5() {
+		return alternativa5;
+	}
+
+	public void setAlternativa5(Alternativa alternativa5) {
+		this.alternativa5 = alternativa5;
+	}
+
+	public String getResposta() {
+		return resposta;
+	}
+
+	public void setResposta(String resposta) {
+		this.resposta = resposta;
+	}
+
+	
 }
