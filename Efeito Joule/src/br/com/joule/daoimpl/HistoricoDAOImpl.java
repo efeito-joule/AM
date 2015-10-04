@@ -1,5 +1,7 @@
 package br.com.joule.daoimpl;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
@@ -15,7 +17,7 @@ public class HistoricoDAOImpl extends DAOImpl<Historico, Long> implements Histor
 	}
 
 	@Override
-	public Historico buscarPorAulaAluno(int aula, int aluno) {
+	public Historico buscarPorAulaAluno(long aula, long aluno) {
 		TypedQuery<Historico> query = em.createQuery(
 				"from Historico h where h.aula.codigo like :aula "
 				+ "and h.aluno.codigo like :aluno",Historico.class);
@@ -27,4 +29,19 @@ public class HistoricoDAOImpl extends DAOImpl<Historico, Long> implements Histor
 				return null;  
 			}
 	}
+	
+	@Override
+	public List<Historico> ListarTodosAula() {
+	  TypedQuery<Historico> curso= 
+			  em.createQuery("from Historico h where h.posicaoAula < 11 order by h.posicaoAula",Historico.class);
+		return curso.getResultList();
+	}
+	
+	@Override
+	public List<Historico> ListarTodosGeral() {
+	  TypedQuery<Historico> curso= 
+			  em.createQuery("from Historico h where h.posicaoTotal < 11 order by h.posicaoTotal",Historico.class);
+		return curso.getResultList();
+	}
+
 }

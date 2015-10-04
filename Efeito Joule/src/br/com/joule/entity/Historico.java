@@ -9,12 +9,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity
 @Table(name="T_SEJ_HISTORICO")
+@SequenceGenerator(name="seqHistorico", sequenceName="SEQ_HISTORICO",allocationSize=1)
+@NamedStoredProcedureQuery(name = "proc", procedureName = "Ranking", parameters = {})
 public class Historico implements Serializable {
 
 	
@@ -22,7 +25,7 @@ public class Historico implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@SequenceGenerator(name="seqHistorico", sequenceName="SEQ_HISTORICO",allocationSize=1)
+	
 	@GeneratedValue(generator="seqHistorico", strategy=GenerationType.SEQUENCE)
 	@Column(name="cd_historico") 
 	private long id;
@@ -41,8 +44,11 @@ public class Historico implements Serializable {
 	@Column(name="nr_acerto")
 	private int numAcerto;
 	
-	@Column(name="nr_posicao")
-	private int posicao;
+	@Column(name="nr_posAula")
+	private int posicaoAula;
+	
+	@Column(name="nr_posTotal")
+	private int posicaoTotal;
 
 	public Aluno getAluno() {
 		return aluno;
@@ -76,14 +82,6 @@ public class Historico implements Serializable {
 		this.numAcerto = numAcerto;
 	}
 
-	public int getPosicao() {
-		return posicao;
-	}
-
-	public void setPosicao(int posicao) {
-		this.posicao = posicao;
-	}
-
 	public long getId() {
 		return id;
 	}
@@ -91,4 +89,22 @@ public class Historico implements Serializable {
 	public void setId(long id) {
 		this.id = id;
 	}
+
+	public int getPosicaoAula() {
+		return posicaoAula;
+	}
+
+	public void setPosicaoAula(int posicaoAula) {
+		this.posicaoAula = posicaoAula;
+	}
+
+	public int getPosicaoTotal() {
+		return posicaoTotal;
+	}
+
+	public void setPosicaoTotal(int posicaoTotal) {
+		this.posicaoTotal = posicaoTotal;
+	}
+	
+	
 }

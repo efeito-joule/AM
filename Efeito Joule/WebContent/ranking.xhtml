@@ -11,13 +11,48 @@
 	</ui:define>
 	<ui:define name="body">
 	    <h1>Ranking</h1>
+	    <div class="jumbotron" style="margin-top: 20px;" rendered="#{questaoBean.questao.aula!=null}">
+  		<h1>Quer saber sua posição em nosso Ranking?</h1>
+  		
+  		<h:form id="formulario">
+				<div class="row" style="margin-top: 20px;">
+					<h2>Selecione um curso e uma aula:</h2>
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+						<h:messages styleClass="alert alert-info" autoUpdate="true"/>
+					</div>
+				</div>
+				<div class="row" >
+					<div class="col-md-6">
+					<h:outputLabel>Nome da aula:</h:outputLabel>
+						<h:inputText styleClass="form-control input-sm" id="busca"
+						value="#{rankingBean.nomeAula}" required="true" requiredMessage="O nome da aula é obrigatório"/>
+					</div>
+				</div>
+				<div class="row" style="margin-top: 20px;">
+					<div class="col-md-3">
+						<h:commandButton styleClass="btn btn-default" value="Buscar"
+						actionListener="#{rankingBean.buscarAula}" update="tabela"/>
+					</div>
+				</div>
+		</h:form>
+  		
+  		
+  		
+  		<p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+		</div>
+	    
 	    <h2>Ranking total do curso</h2>
-	    <ul class="list-group">
+	    <ul class=" col-md-3 list-group">
+	    
   			<li class="list-group-item">
+  			<i class="fa fa-trophy"></i>
     		<span class="badge">1</span>
    			nome do primeiro
   			</li>
   			<li class="list-group-item">
+  			<i class="fa fa-trophy"></i>
     		<span class="badge">2</span>
    			nome do segundo
   			</li>
@@ -27,10 +62,15 @@
 		<h2>buscar aula</h2>
 		<div class="row">
 	    	<button type="button" class="btn btn-success">Exercícios</button>
-	    	<button class="btn btn-primary" type="button">
-  				Ranking <span class="badge">4</span>
-  			</button>
+	    	
 	    </div>
+	    <div class="row">
+	    
+	    <button class="btn btn-primary" type="button">
+  				Sua Posição <span class="badge">4</span>
+  			</button>
+  		</div>
+	    
 	</ui:define>
 </ui:composition>
 </html>
