@@ -8,5 +8,5 @@ public interface AlunoDAO extends DAO<Aluno, Long>{
 
 	public List<Aluno> buscarEmail(String email);
 	
-	boolean logar(String email, String senha);
+	public Aluno logar(String usuarioOuEmail, String senha);
 }

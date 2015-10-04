@@ -6,119 +6,157 @@
 		xmlns:h="http://xmlns.jcp.org/jsf/html"
 		xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-	<ui:composition template="WEB-INF/_templateMenu.xhtml">
-		<ui:define name="head"></ui:define>
-		<ui:define name="body">
-			<h:form>
-				<div class="row" style="border-bottom: 1px solid silver;">
-					<div class="col-md-6 col-md-offset-3">
-						<h:graphicImage library="img" name="banner-joule.png" width="100%"  />
-					</div>
-				</div>
-				<div class="row" style="margin-top: 50px;">
-		    		<div class="col-md-3 col-md-offset-3">
-		    			<label>Usuário:</label>
-		    			<div class="input-group">
-		    				<span class="input-group-addon"><i class="fa fa-user"></i></span>
-		    				<h:inputText value="#{cadastroUsuarioBean.usuario.nomeUsuario}" styleClass="form-control input-sm" />
-		    			</div>
-		    		</div>
-		    		<div class="col-md-3">
-		    			<label>E-mail:</label>
-		    			<div class="input-group">
-		    				<span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
-		    				<h:inputText value="#{cadastroUsuarioBean.usuario.email}" styleClass="form-control input-sm" />
-		    			</div>
-		    		</div>
-		    	</div>
-		    	<div class="row" style="margin-top: 10px;">
-		    		<div class="col-md-3 col-md-offset-3">
-		    			<label>Senha:</label>
-		    			<div class="input-group">
-		    				<span class="input-group-addon"><i class="fa fa-key"></i></span>
-		    				<h:inputSecret value="#{cadastroUsuarioBean.usuario.senha}" styleClass="form-control input-sm" />
-		    			</div>
-		    		</div>
-		    		<div class="col-md-3">
-		    			<label>Confirmar Senha:</label>
-		    			<div class="input-group">
-		    				<span class="input-group-addon"><i class="fa fa-key"></i></span>
-		    				<h:inputSecret styleClass="form-control input-sm" />
-		    			</div>
-		    		</div>
-		    	</div>
-		    	<div class="row" style="margin-top: 20px;">
-		    		<div class="col-md-6 col-md-offset-3" style="border-bottom: 1px solid silver;"></div>
-		    	</div>
-		    	<div class="row" style="margin-top: 20px;">
-		    		<div class="col-md-3 col-md-offset-3">
-		    			<label>Nome:</label>
-		    			<h:inputText value="#{cadastroUsuarioBean.usuario.nome}" styleClass="form-control input-sm" />
-		    		</div>
-		    		<div class="col-md-3">
-		    			<label>Sobrenome:</label>
-		    			<h:inputText value="#{cadastroUsuarioBean.usuario.sobrenome}" styleClass="form-control input-sm" />
-		    		</div>
-		    	</div>
-		    	<div class="row" style="margin-top: 20px;">
-		    		<div class="col-md-3 col-md-offset-5">
-		    			<label class="radio-inline">
-		    				<input type="radio" name="sexo" /> Masculino
-		    			</label>
-		    			<label class="radio-inline">
-		    				<input type="radio" name="sexo" /> Feminino
-		    			</label>
-		    		</div>
-		    	</div>
-		    	<div class="row" style="margin-top: 10px;">
-		    		<div class="col-md-3 col-md-offset-3">
-		    			<label>Data Nascimento:</label>
-		    			<h:inputText styleClass="form-control input-sm" />
-		    		</div>
-		    		<div class="col-md-3">
-		    			<label>Fone:</label>
-		    			<h:inputText styleClass="form-control input-sm" />
-		    		</div>
-		    	</div>
-		    	<div class="row" style="margin-top: 10px">
-		    		<div class="col-md-4 col-md-offset-3">
-		    			<label>Endereço:</label>
-		    			<h:inputText styleClass="form-control input-sm" />
-		    		</div>
-		    		<div class="col-md-2">
-		    			<label>Complemento:</label>
-		    			<h:inputText styleClass="form-control input-sm" />
-		    		</div>
-		    	</div>
-		    	<div class="row" style="margin-top: 10px">
-		    		<div class="col-md-2 col-md-offset-3">
-		    			<label>Bairro:</label>
-		    			<h:inputText styleClass="form-control input-sm" />
-		    		</div>
-		    		<div class="col-md-2">
-		    			<label>Cidade:</label>
-		    			<h:inputText styleClass="form-control input-sm" />
-		    		</div>
-		    		<div class="col-md-2">
-		    			<label>UF:</label>
-		    			<h:selectOneMenu styleClass="form-control input-sm">
-		    				<f:selectItem itemLabel="Selecione..." noSelectionOption="true" />
-		    			</h:selectOneMenu>
-		    		</div>
-		    	</div>
-		    	<div class="row" style="margin-top: 20px;">
-		    		<div class="col-md-6 col-md-offset-3" style="border-bottom: 1px solid silver;"></div>
-		    	</div>
-		    	<div class="row" style="margin-top: 20px;">
-		    		<div class="col-md-2 col-md-offset-3">
-		    			<a href="meusCursos.xhtml" class="btn btn-success btn-lg">Increver-se</a>
-		    		</div>
-		    		<div class="col-md-2" style="margin-top: 25px;">
-		    			<h:outputText value="Já tem uma conta?" />
-		    			<a href="login.xhtml">Logar</a>
-		    		</div>
-		    	</div>
-	    	</h:form>
+	<ui:composition template="WEB-INF/_template.xhtml">
+		<ui:define name="head">
+			<link rel="stylesheet" type="text/css" href="resources/css/datepicker.css" />
 		</ui:define>
+		<ui:define name="body">
+			<div class="container-fluid">
+				<h:form prependId="false">
+					<div class="row" style="border-bottom: 1px solid silver; margin-top: 10px; margin-bottom: 10px;">
+						<div class="col-md-5 col-md-offset-3">
+							<h:graphicImage library="img" name="banner-joule.png" width="100%"  />
+						</div>
+					</div>
+					<div class="row">
+			    		<div class="col-md-3 col-md-offset-3">
+			    			<label>Usuário:</label>
+			    			<div class="input-group">
+			    				<span class="input-group-addon"><i class="fa fa-user"></i></span>
+			    				<h:inputText value="#{cadastroAlunoBean.aluno.nomeUsuario}" styleClass="form-control input-sm" />
+			    			</div>
+			    		</div>
+			    		<div class="col-md-3">
+			    			<label>E-mail:</label>
+			    			<div class="input-group">
+			    				<span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
+			    				<h:inputText value="#{cadastroAlunoBean.aluno.email}" styleClass="form-control input-sm" />
+			    			</div>
+			    		</div>
+			    	</div>
+			    	<div class="row" style="margin-top: 10px;">
+			    		<div class="col-md-3 col-md-offset-3">
+			    			<label>Senha:</label>
+			    			<div class="input-group">
+			    				<span class="input-group-addon"><i class="fa fa-key"></i></span>
+			    				<h:inputSecret value="#{cadastroAlunoBean.senha}" styleClass="form-control input-sm" />
+			    			</div>
+			    		</div>
+			    		<div class="col-md-3">
+			    			<label>Confirmar Senha:</label>
+			    			<div class="input-group">
+			    				<span class="input-group-addon"><i class="fa fa-key"></i></span>
+			    				<h:inputSecret styleClass="form-control input-sm" value="#{cadastroAlunoBean.confirmaSenha}" />
+			    			</div>
+			    		</div>
+			    	</div>
+			    	<div class="row" style="margin-top: 20px;">
+			    		<div class="col-md-6 col-md-offset-3" style="border-bottom: 1px solid silver;"></div>
+			    	</div>
+			    	<div class="row" style="margin-top: 20px;">
+			    		<div class="col-md-3 col-md-offset-3">
+			    			<label>Nome:</label>
+			    			<h:inputText value="#{cadastroAlunoBean.aluno.nome}" styleClass="form-control input-sm" />
+			    		</div>
+			    		<div class="col-md-3">
+			    			<label>Sobrenome:</label>
+			    			<h:inputText value="#{cadastroAlunoBean.aluno.sobrenome}" styleClass="form-control input-sm" />
+			    		</div>
+			    	</div>
+			    	<div class="row" style="margin-top: 20px;">
+			    		<div class="col-md-3 col-md-offset-5">
+			    			<label class="radio-inline">
+			    				<input type="radio" name="sexo" id="masc" /> Masculino
+			    				<h:inputHidden value="#{cadastroAlunoBean.masculino}" id="masculino" />
+			    			</label>
+			    			<label class="radio-inline">
+			    				<input type="radio" name="sexo" id="femi" /> Feminino
+			    				<h:inputHidden value="#{cadastroAlunoBean.feminino}" id="feminino" />
+			    			</label>
+			    		</div>
+			    	</div>
+			    	<div class="row" style="margin-top: 10px;">
+			    		<div class="col-md-3 col-md-offset-3">
+			    			<label>Data Nascimento:</label>
+			    			<h:inputText styleClass="form-control input-sm datepicker" value="#{cadastroAlunoBean.aluno.dataNascimento}">
+			    				<f:convertDateTime pattern="dd/MM/yyyy" type="date" locale="pt_BR" />
+			    			</h:inputText>
+			    		</div>
+			    		<div class="col-md-1">
+			    			<label>DDD:</label>
+			    			<h:inputText styleClass="form-control input-sm" value="#{cadastroAlunoBean.telefone.ddd}" />
+			    		</div>
+			    		<div class="col-md-2">
+			    			<label>Fone:</label>
+			    			<h:inputText styleClass="form-control input-sm" value="#{cadastroAlunoBean.telefone.numero}" />
+			    		</div>
+			    	</div>
+			    	<div class="row" style="margin-top: 10px">
+			    		<div class="col-md-3 col-md-offset-3">
+			    			<label>Endereço:</label>
+			    			<h:inputText styleClass="form-control input-sm" value="#{cadastroAlunoBean.endereco.logradouro}" />
+			    		</div>
+			    		<div class="col-md-1">
+			    			<label>Nº</label>
+			    			<h:inputText styleClass="form-control input-sm" value="#{cadastroAlunoBean.endereco.numero}" />
+			    		</div>
+			    		<div class="col-md-2">
+			    			<label>Complemento:</label>
+			    			<h:inputText styleClass="form-control input-sm" value="#{cadastroAlunoBean.endereco.complemento}" />
+			    		</div>
+			    	</div>
+			    	<div class="row" style="margin-top: 10px">
+			    		<div class="col-md-2 col-md-offset-3">
+			    			<label>Bairro:</label>
+			    			<h:inputText styleClass="form-control input-sm" value="#{cadastroAlunoBean.endereco.bairro}" />
+			    		</div>
+			    		<div class="col-md-2">
+			    			<label>Cidade:</label>
+			    			<h:inputText styleClass="form-control input-sm" value="#{cadastroAlunoBean.endereco.cidade}" />
+			    		</div>
+			    		<div class="col-md-2">
+			    			<label>UF:</label>
+			    			<h:selectOneMenu styleClass="form-control input-sm" value="#{cadastroAlunoBean.ufSelect}">
+			    				<f:selectItem itemLabel="Selecione..." noSelectionOption="true" />
+			    				<f:selectItem itemLabel="SP" itemValue="1" />
+			    			</h:selectOneMenu>
+			    		</div>
+			    	</div>
+			    	<div class="row" style="margin-top: 20px;">
+			    		<div class="col-md-6 col-md-offset-3" style="border-bottom: 1px solid silver;"></div>
+			    	</div>
+			    	<div class="row" style="margin-top: 20px;">
+			    		<div class="col-md-2 col-md-offset-5">
+			    			<h:commandButton actionListener="#{cadastroAlunoBean.save}" styleClass="btn btn-success btn-lg" value="Increver-se"
+			    							 onclick="guardandoDados();" />
+			    		</div>
+			    		<div class="col-md-2" style="margin-top: 25px;">
+			    			<h:outputText value="Já tem uma conta?" />
+			    			<a href="login.xhtml">Logar</a>
+			    		</div>
+			    	</div>
+		    	</h:form>
+	    	</div>
+		</ui:define>
+		<ui:define name="end_code">
+    		<script type="text/javascript" src="resources/js/bootstrap-datepicker.js"></script>
+	    	<script type="text/javascript">
+	    		$(document).ready(function() {
+	    			$('.datepicker').datepicker({
+	    				format: 'dd/mm/yyyy',                
+	    			    language: 'pt-BR'
+	    			});
+	    		});
+	    		
+	    		function guardandoDados () {
+	    			
+	    			var masc = $("#masc");
+	    			var femi = $("#femi");
+	    			
+	    			$("#masculino").val(masc.is(":checked"));
+	    			$("#feminino").val(femi.is(":checked"));
+	    		}
+	    	</script>
+    	</ui:define>
 	</ui:composition>
 </html>

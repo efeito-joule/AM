@@ -3,6 +3,7 @@ package br.com.joule.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -44,11 +45,19 @@ public abstract class Pessoa implements Serializable {
 	@OneToOne
 	@JoinColumn(name = "sexo_id")
 	private Sexo sexo;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "telefone_id")
+	private Telefone telefone;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "endereco_id")
 	private Endereco endereco;
 
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "tipo_pessoa_id")
+	private TipoPessoa tipoPessoa;
+	
 	public Pessoa() {
 		super();
 	}
@@ -99,5 +108,21 @@ public abstract class Pessoa implements Serializable {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+
+	public Telefone getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(Telefone telefone) {
+		this.telefone = telefone;
+	}
+
+	public TipoPessoa getTipoPessoa() {
+		return tipoPessoa;
+	}
+
+	public void setTipoPessoa(TipoPessoa tipoPessoa) {
+		this.tipoPessoa = tipoPessoa;
 	}
 }

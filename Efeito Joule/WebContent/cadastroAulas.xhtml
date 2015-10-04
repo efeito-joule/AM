@@ -24,7 +24,7 @@
 						<h:inputText styleClass="form-control input-sm" value="#{aulaBean.aula.nome}" />
 					</div>
 				</div>
-				<div class="row">
+				<div class="row" style="margin-top: 10px;">
 					<div class="col-md-6">
 						<label>URL do Vídeo:</label>
 						<h:inputText styleClass="form-control input-sm" value="#{aulaBean.aula.urlVideo}" />
@@ -57,11 +57,11 @@
 	   				<h:dataTable value="#{aulaBean.lista}" var="a" styleClass="table" id="tabela">
 	   					<h:column>
 	   						<f:facet name="header">Nome</f:facet>
-	   						#{a.nome}
+	   						<h:outputText value="#{a.nome}" />
 	   					</h:column>
 	   					<h:column>
 	   						<f:facet name="header">Vídeo</f:facet>
-	   						#{a.urlVideo}
+	   						<h:outputText value="#{a.urlVideo}" />
 	   					</h:column>
 	   					<h:inputHidden>
 	   						#{a.id}

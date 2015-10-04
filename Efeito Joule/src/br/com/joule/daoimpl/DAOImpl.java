@@ -32,6 +32,7 @@ public class DAOImpl <T, K> implements DAO<T, K>{
 			em.persist(entity);
 			em.getTransaction().commit();
 		} catch (Exception e) {			
+			e.printStackTrace();
 			if (em.getTransaction().isActive())
 				em.getTransaction().rollback();
 			throw new DBCommitException("Erro ao persistir");

@@ -1,5 +1,4 @@
 package br.com.joule.entity;
-
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -12,24 +11,21 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity
-@Table(name = "T_SEJ_UF")
-public class UF implements Serializable {
+@Table(name = "T_SEJ_TIPO_PESSOA")
+public class TipoPessoa implements Serializable {
 
 	@Transient
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name = "ufSequence", sequenceName = "UF_SEQ")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ufSequence")
+	@SequenceGenerator(name = "tipoPessoaSequence", sequenceName = "TIPO_PESSOA_SEQ")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tipoPessoaSequence")
 	private short id;
-	
+
 	@Column(name = "descricao")
 	private String descricao;
 
-	@Column(name = "estado")
-	private String estado;
-	
-	public UF() {
+	public TipoPessoa() {
 		super();
 	}
 
@@ -47,13 +43,5 @@ public class UF implements Serializable {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
-	}
-
-	public String getEstado() {
-		return estado;
-	}
-
-	public void setEstado(String estado) {
-		this.estado = estado;
 	}
 }

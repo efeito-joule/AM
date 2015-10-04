@@ -3,9 +3,11 @@ package br.com.joule.daoimpl;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import br.com.joule.dao.AlunoDAO;
 import br.com.joule.entity.Aluno;
+import br.com.joule.entity.Pessoa;
 
 
 public class AlunoDAOImpl extends DAOImpl<Aluno, Long> implements AlunoDAO {
@@ -23,15 +25,24 @@ public class AlunoDAOImpl extends DAOImpl<Aluno, Long> implements AlunoDAO {
 			 
 	}
 	@Override
-	public boolean logar(String email, String senha) {
-		try{
-			em.createQuery("from Usuario u where u.login =" 
-						  + ":l and u.senha= :s")
-						.setParameter("l", email)
-						.setParameter("s", senha).getSingleResult();
-			return true;
-			}catch(Exception e){
-		return false;
-	}
+	public Aluno logar(String usuarioOuEmail, String senha) {
+			
+		StringBuilder sql = new StringBuilder();
+		sql.append("FROM Aluno a ");
+		sql.append("WHERE (a.nomeUsuario = '" + usuarioOuEmail + "'");
+		sql.append(" OR a.email = '" + usuarioOuEmail + "') AND a.senha = '" + senha + "'");
+		
+		Pessoa aluno = null;
+		
+		try {
+			Query query = em.createQuery(sql.toString());
+		
+			aluno = (Aluno) query.getSingleResult();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return (Aluno) aluno;
    }
 }

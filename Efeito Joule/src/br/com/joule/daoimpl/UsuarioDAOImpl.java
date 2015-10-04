@@ -9,7 +9,5 @@ public class UsuarioDAOImpl extends DAOImpl<Aluno, Integer> implements UsuarioDA
 
 	public UsuarioDAOImpl(EntityManager em) {
 		super(em);
-		
 	}
-
 }

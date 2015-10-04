@@ -2,6 +2,7 @@ package br.com.joule.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,6 +30,9 @@ public class Endereco implements Serializable {
 	@Column(name = "logradouro")
 	private String logradouro;
 	
+	@Column(name = "numero")
+	private int numero;
+	
 	@Column(name = "complemento")
 	private String complemento;
 	
@@ -38,7 +42,7 @@ public class Endereco implements Serializable {
 	@Column(name = "cidade")
 	private String cidade;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "uf_id")
 	private UF uf;
 
@@ -92,5 +96,13 @@ public class Endereco implements Serializable {
 
 	public void setUf(UF uf) {
 		this.uf = uf;
+	}
+
+	public int getNumero() {
+		return numero;
+	}
+
+	public void setNumero(int numero) {
+		this.numero = numero;
 	}
 }

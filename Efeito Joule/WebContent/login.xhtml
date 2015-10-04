@@ -12,20 +12,30 @@
 			<div class="container">
 				<h:form>
 					<div class="row" style="margin-top: 200px;">
+						<h:panelGroup rendered="#{not empty loginBean.message}">
+							<div class="row" style="margin-top: 5px;" id="mensagem">
+								<div class="col-md-4 col-md-offset-4">
+									<div class="alert alert-warning">
+										<button type="button" class="close" onclick="$('#mensagem').slideUp();"><span>x</span></button>
+										<h:outputText value="#{loginBean.message}" />
+									</div>
+								</div>
+							</div>
+						</h:panelGroup>
 						<div class="col-md-4 col-md-offset-4">
 							<label>Usuário ou E-mail:</label>
-							<h:inputText styleClass="form-control input-sm" />
+							<h:inputText styleClass="form-control input-sm" value="#{loginBean.usuarioOuEmail}" />
 						</div>
 					</div>
 					<div class="row" style="margin-top: 10px;">
 						<div class="col-md-4 col-md-offset-4">
 							<label>Senha:</label>
-							<h:inputSecret styleClass="form-control input-sm" />
+							<h:inputSecret styleClass="form-control input-sm" value="#{loginBean.senha}" />
 						</div>
 					</div>
 					<div class="row" style="margin-top: 25px;">
 						<div class="col-md-1 col-md-offset-4">
-							<a href="meusCursos.xhtml" class="btn btn-default">Entrar</a>
+							<h:commandButton action="#{loginBean.login}" styleClass="btn btn-default" value="Entrar" />
 						</div>
 						<div class="col-md-4" style="margin-top: 15px;">
 							<h:outputText value="Não tem uma conta?" />
