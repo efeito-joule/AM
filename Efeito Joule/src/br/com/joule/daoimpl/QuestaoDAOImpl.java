@@ -7,13 +7,14 @@ import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
 import br.com.joule.dao.QuestaoDAO;
+import br.com.joule.entity.Aula;
 import br.com.joule.entity.Questao;
 
 public class QuestaoDAOImpl extends DAOImpl<Questao, Long> implements QuestaoDAO {
 
 	public QuestaoDAOImpl(EntityManager em) {
 		super(em);
-		// TODO Auto-generated constructor stub
+	
 	}
 
 	@Override
@@ -31,12 +32,12 @@ public class QuestaoDAOImpl extends DAOImpl<Questao, Long> implements QuestaoDAO
 	}
 
 	@Override
-	public List<Questao> buscarPorAula(int codigo) {
+	public List<Questao> buscarPorAula(Aula aula) {
 		TypedQuery<Questao> query =
 				em.createQuery("from Questao q where "
-				+ "q.aula.codigo = :codigo",
+				+ "q.aula = :aula",
 				Questao.class);
-			query.setParameter("codigo", codigo);
+			query.setParameter("aula", aula);
 			return query.getResultList();
 	}
 

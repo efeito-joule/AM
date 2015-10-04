@@ -7,44 +7,82 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 	<ui:composition template="WEB-INF/_templateMenu.xhtml">
-		<ui:define name="head"></ui:define>
 		<ui:define name="body">
+		
+		<div class="row" style="margin-top: 20px;">
+			<p>Busque um curso antes de cadastrar a aula</p>
+		</div>
+		<h:form>
+			<div class="row">
+				<div class="col-md-4">
+					<h:messages styleClass="alert alert-info" autoUpdate="true"/>
+				</div>
+			</div>
+			<div class="row"  >
+				<div class="col-md-4">
+				<h:outputLabel>Nome do curso:</h:outputLabel>
+					<h:inputText styleClass="form-control input-sm" id="busca"
+						value="#{aulaBean.nomeCurso}" required="true" requiredMessage="É preciso um nome para a busca!"/>
+				</div>
+			</div>
+			<div class="row" style="margin-top: 10px;">
+				<div class="col-md-3">
+					<h:commandButton styleClass="btn btn-default" value="Buscar"
+						actionListener="#{aulaBean.buscarCurso}" update="tabela"/>
+				</div>
+			</div>
+			<div class="row" style="margin-top: 10px;" >
+				<div class="col-md-4">
+				<div class="panel panel-default">
+  					<div class="panel-body">
+    					<h:outputText value="#{aulaBean.curso.nome}"/>
+  					</div>
+				</div>
+				</div>
+			</div>
+		</h:form>
+		<div class="row" style="margin-top: 20px;">
+		
+		</div>
 			<h:form>
 				<div class="row">
 					<h1>Cadastro de Aulas</h1>
 				</div>
 				<div class="row">
-					<div class="col-md-3">
-						<h:messages styleClass="alert alert-info" autoUpdate="true"/>
-					</div>
-				</div>
-				<div class="row">
 					<div class="col-md-6">
-						<label>Nome da Aula:</label>
-						<h:inputText styleClass="form-control input-sm" value="#{aulaBean.aula.nome}" />
+						<h:outputLabel>Nome da Aula:</h:outputLabel>
+						<h:inputText styleClass="form-control input-sm" value="#{aulaBean.aula.nome}"
+						required="true" requiredMessage="O nome da aula é obrigatório"/>
 					</div>
 				</div>
 				<div class="row" style="margin-top: 10px;">
 					<div class="col-md-6">
-						<label>URL do Vídeo:</label>
-						<h:inputText styleClass="form-control input-sm" value="#{aulaBean.aula.urlVideo}" />
+						<h:outputLabel>URL do Vídeo:</h:outputLabel>
+						<h:inputText styleClass="form-control input-sm" value="#{aulaBean.aula.urlVideo}"
+						required="true" requiredMessage="Digite a URL do vídeo"/>
 					</div>
 				</div>
 				<div class="row" style="margin-top: 20px;">
 					<div class="col-md-3">
-							<h:commandButton styleClass="btn btn-default" value="Cadastrar" actionListener="#{aulaBean.cadastrar}" />
+							<h:commandButton styleClass="btn btn-default" value="Cadastrar" rendered="#{aulaBean.aula.nome==null}"
+							actionListener="#{aulaBean.cadastrar}" update="tabela" />
+					</div>
+					<div class="col-dm-3">
+						<h:commandButton styleClass="btn btn-default" value="Atualizar" rendered="#{aulaBean.aula.nome!=null}"
+						actionListener="#{aulaBean.atualizar}" />
 					</div>
 				</div>
 			</h:form>
-			<div class="row">
-				<h1>Busca de aulas cadastradas</h1>
-			</div>
+			
 			<h:form id="formulario">
+				<div class="row">
+					<h1>Busca de aulas cadastradas</h1>
+				</div>
 				<div class="row" style="margin-top: 20px;">
 					<div class="col-md-6">
-					<label>Nome:</label>
+					<h:outputLabel>Nome:</h:outputLabel>
 						<h:inputText styleClass="form-control input-sm" id="busca"
-						value="#{aulaBean.nomeBusca}"/>
+						value="#{aulaBean.nomeBusca}" />
 					</div>
 				</div>
 				<div class="row" style="margin-top: 20px;">
@@ -53,7 +91,7 @@
 						actionListener="#{aulaBean.buscar}" update="tabela"/>
 					</div>
 				</div>
-				<h:panelGrid columns="3" class="col-md-10" style="margin-top: 20px;">
+				<h:panelGrid columns="3" class="col-md-8" style="margin-top: 20px;">
 	   				<h:dataTable value="#{aulaBean.lista}" var="a" styleClass="table" id="tabela">
 	   					<h:column>
 	   						<f:facet name="header">Nome</f:facet>
@@ -63,23 +101,12 @@
 	   						<f:facet name="header">Vídeo</f:facet>
 	   						<h:outputText value="#{a.urlVideo}" />
 	   					</h:column>
-	   					<h:inputHidden>
-	   						#{a.id}
-	   					</h:inputHidden>
 	   					<h:column>
-							<h:commandButton class="btn btn-danger" actionListener="#{aulaBean.excluir}" value="Excluir">
-								<f:setPropertyActionListener value="#{a.id}" target="#{aulaBean.codigo}" />
-							</h:commandButton>
+	   						<h:commandButton styleClass="btn btn-danger" value="Excluir"
+							actionListener="#{aulaBean.excluir(a)}" update="tabela"/>
 						</h:column>
-						<h:column>
-							<h:commandButton class="btn btn-success" actionListener="#{aulaBean.editar}" value="Editar">
-								<f:setPropertyActionListener value="#{a.id}" target="#{aulaBean.codigo}" />
-							</h:commandButton>
-						</h:column>
-						<h:column>
-							<h:commandButton class="btn btn-default" actionListener="#{questaoBean.cadastrar}" value="Cadastrar Questões">
-								<f:setPropertyActionListener value="#{a.id}" target="#{aulaBean.codigo}" />
-							</h:commandButton>
+	   					<h:column>
+							<h:commandLink styleClass="btn btn-success" actionListener="#{aulaBean.editar(a)}" value="Editar"/>
 						</h:column>
 	   				</h:dataTable> 
 	    		</h:panelGrid>

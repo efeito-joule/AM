@@ -8,6 +8,7 @@ public interface AulaDAO extends DAO <Aula, Long> {
 	
 	List<Aula> list();
 	
-	List<Aula> buscarPorNome(String nome);
+	Aula buscarPorNome(String nome);
 	
+	List<Aula> buscarNomes(String nome);
 }

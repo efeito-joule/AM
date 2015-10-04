@@ -1,7 +1,5 @@
 package br.com.joule.daoimpl;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 
 import br.com.joule.dao.DAO;
@@ -71,11 +69,5 @@ public class DAOImpl <T, K> implements DAO<T, K>{
 	@Override
 	public T findById(K id) {
 		return em.find(classe, id);
-	}
-
-	@Override
-	public List<T> findAll() {
-		
-		return null;
 	}
 }

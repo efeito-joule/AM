@@ -5,10 +5,10 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -27,14 +27,14 @@ public class Curso implements Serializable {
 	@Column(name="cd_curso")
 	private long id;
 	
-	@Column(name = "nome")
+	@Column(name="nm_curso", nullable=false,length=200)
 	private String nome;
 	
-	@Column(name = "descricao")
+	@Column(name="ds_descricao", nullable=false)
 	private String descricao;
 	
-	@OneToMany
-	@JoinColumn(name = "aula_id")
+	@OneToMany(mappedBy="curso", fetch=FetchType.LAZY)
+	@Column(name="cd_aula")
 	private List<Aula> aulas;
 
 	public Curso() {
