@@ -8,57 +8,75 @@ import javax.faces.bean.ViewScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.StoredProcedureQuery;
 
+import br.com.joule.dao.AulaDAO;
 import br.com.joule.dao.HistoricoDAO;
+import br.com.joule.dao.MatriculaDAO;
+import br.com.joule.daoimpl.AulaDAOImpl;
 import br.com.joule.daoimpl.HistoricoDAOImpl;
+import br.com.joule.daoimpl.MatriculaDAOImpl;
 import br.com.joule.entity.Aluno;
 import br.com.joule.entity.Aula;
+import br.com.joule.entity.Curso;
 import br.com.joule.entity.Historico;
+import br.com.joule.entity.Matricula;
+import br.com.joule.entity.Ranking;
 import br.com.joule.singleton.EMFactorySingleton;
 
 @ManagedBean(name = "rankingBean")
 @ViewScoped
-public class rankingBean {
+public class RankingBean {
 
 	private EntityManager em = null;
 	private Historico historico;
 	private int posicaoAulaAluno;
 	private int posicaoTotalAluno;
 	private HistoricoDAO histDAO;
+	private MatriculaDAO matriculaDAO;
+	private AulaDAO aulaDAO;
 	private Aluno aluno;
 	private Aula aula;
+	private Curso curso;
 	private List<Integer> posicoesTotais;
 	private List<Integer> posicoesAulas;
 	private List<Historico> historicosGeral;
 	private List<Historico> historicosAula;
-	private String nomeAula;
-
+	private List<Matricula> matriculas;
+	private List<Aula> aulas;
+	private Ranking ranking;
+	
 	@PostConstruct
 	public void init() {
 		historico = new Historico();
 		em = EMFactorySingleton.getInstance().createEntityManager();
 		histDAO = new HistoricoDAOImpl(em);
+		matriculaDAO = new MatriculaDAOImpl(em);
+		aulaDAO = new AulaDAOImpl(em);
 		aluno = new Aluno();
 		aula = new Aula();
+		curso = new Curso();
+		ranking = new Ranking();
+		historicosGeral = histDAO.ListarTodosGeral();
+		//matriculas = matriculaDAO.buscarPorAluno(aluno);
+		aulas = null;
 	}
 	
 	public void atualizaRanking(){
 		StoredProcedureQuery query =  em.createNamedStoredProcedureQuery("proc");
 		query.execute();
 	}
+	
+	public void buscarAulas(){
+		aulas = aulaDAO.buscarPorCurso(curso);
+	}
 
 	public void mostrarRanking(){
 		atualizaRanking();
 		historico = histDAO.buscarPorAulaAluno(aula.getId(), aluno.getId());
 		posicaoAulaAluno = historico.getPosicaoAula();
-		posicaoTotalAluno = historico.getPosicaoTotal();
+		posicaoTotalAluno = ranking.getPosicaoTotal();
 		historicosAula = histDAO.ListarTodosAula();
-		historicosGeral = histDAO.ListarTodosGeral();
 	}
 	
-	public void mostrarRankingTotal(){
-		
-	}
-
 	public Historico getHistorico() {
 		return historico;
 	}
@@ -139,12 +157,28 @@ public class rankingBean {
 		this.historicosAula = historicosAula;
 	}
 
-	public String getNomeAula() {
-		return nomeAula;
+	public Curso getCurso() {
+		return curso;
 	}
 
-	public void setNomeAula(String nomeAula) {
-		this.nomeAula = nomeAula;
+	public void setCurso(Curso curso) {
+		this.curso = curso;
+	}
+
+	public List<Matricula> getMatriculas() {
+		return matriculas;
+	}
+
+	public void setMatriculas(List<Matricula> matriculas) {
+		this.matriculas = matriculas;
+	}
+
+	public List<Aula> getAulas() {
+		return aulas;
+	}
+
+	public void setAulas(List<Aula> aulas) {
+		this.aulas = aulas;
 	}
 	
 }

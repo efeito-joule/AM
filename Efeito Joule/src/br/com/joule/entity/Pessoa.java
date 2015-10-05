@@ -1,7 +1,7 @@
 package br.com.joule.entity;
 
 import java.io.Serializable;
-import java.util.Calendar;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -40,7 +40,7 @@ public abstract class Pessoa implements Serializable {
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "dt_nascimento")
-	private Calendar dataNascimento;
+	private Date dataNascimento;
 	
 	@OneToOne
 	@JoinColumn(name = "sexo_id")
@@ -86,11 +86,11 @@ public abstract class Pessoa implements Serializable {
 		this.sobrenome = sobrenome;
 	}
 
-	public Calendar getDataNascimento() {
+	public Date getDataNascimento() {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(Calendar dateNascimento) {
+	public void setDataNascimento(Date dateNascimento) {
 		this.dataNascimento = dateNascimento;
 	}
 

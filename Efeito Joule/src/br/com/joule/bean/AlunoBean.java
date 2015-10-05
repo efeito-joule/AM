@@ -37,7 +37,7 @@ public class AlunoBean {
 		EntityManager em= EMFactorySingleton.getInstance().createEntityManager();
 		aluno=new Aluno();
 		dao=new AlunoDAOImpl(em);
-		aluno.setDataNascimento(Calendar.getInstance());
+		aluno.setDataNascimento(Calendar.getInstance().getTime());
 		alunos=dao.buscarEmail(email);
 	}
 	

@@ -82,9 +82,8 @@ public class CursoBean {
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 		
-		public String editar(Curso c){
+		public void editar(Curso c){
 			curso = c;
-			return "editarCurso.xhtml";
 		}
 		
 		public void atualizar(){

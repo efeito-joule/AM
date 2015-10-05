@@ -108,15 +108,8 @@ public class AulaBean {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 	
-	/*public String editar() {
-		aula = dao.findById(getId());
-		
-		return "editarAula.xhtml";
-	}*/
-	
-	public String editar(Aula a){
+	public void editar(Aula a){
 		aula = a;
-		return "editarAula.xhtml";
 	}
 	
 	

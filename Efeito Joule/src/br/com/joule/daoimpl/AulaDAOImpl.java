@@ -5,8 +5,10 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
+
 import br.com.joule.dao.AulaDAO;
 import br.com.joule.entity.Aula;
+import br.com.joule.entity.Curso;
 
 public class AulaDAOImpl extends DAOImpl<Aula, Long> implements AulaDAO{
 
@@ -48,6 +50,15 @@ public class AulaDAOImpl extends DAOImpl<Aula, Long> implements AulaDAO{
 			} catch (NoResultException nre) {
 				return null;
 			}
+	}
+	
+	@Override
+	public List<Aula> buscarPorCurso(Curso curso) {
+		TypedQuery<Aula> query =
+			em.createQuery("from Aula a where "
+			+ "a.curso = :curso", Aula.class);
+			query.setParameter("curso", curso);
+			return query.getResultList();
 	}
 	
 }
