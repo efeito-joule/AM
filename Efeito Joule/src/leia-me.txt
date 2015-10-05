@@ -1,0 +1,14 @@
+--- Passo a passa para instalar e rodar o projeto ---
+
+1º Rode o projeto com o persistence configurado para create
+
+2º - Troque o persistence para update ou validate
+
+3º - Antes de usar o sistema, popule os Estados rodando os insert do arquivo compile.sql no banco de dados
+
+4º - Aroga compile a procedure contida no arquivo compile.sql no banco seu dados
+
+5º - Para que o sistema não fique vazia fizemos uma classe para popular algumas tabelas.
+Rode a classe Teste dentro do pacote br.com.joule.Teste.
+
+6º pronto agora vc pode usar a vontade: Rode o projeto, cadastre-se ou use algum login da classe Teste.

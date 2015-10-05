@@ -89,21 +89,6 @@ public class CadastroAlunoBean {
 			} else if(telefone.getNumero().isEmpty()) {
 				message = "Informe o Telefone!";
 				
-			} else if(endereco.getLogradouro().isEmpty()) {
-				message = "Informe o Endereço!";
-				
-			} else if(endereco.getNumero() == 0) {
-				message = "Informe o Número do Endereço!";
-				
-			} else if(endereco.getBairro().isEmpty()) {
-				message = "Informe o Bairro!";
-				
-			} else if(endereco.getCidade().isEmpty()) {
-				message = "Informe a Cidade!";
-				
-			} else if(ufSelect == 0) {
-				message = "Selecione um UF!";
-				
 			} else {
 				aluno.setTelefone(telefone);
 //				endereco.setUf(uf);

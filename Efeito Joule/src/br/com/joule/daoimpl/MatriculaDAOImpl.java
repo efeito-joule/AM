@@ -39,5 +39,17 @@ public class MatriculaDAOImpl extends DAOImpl<Matricula, Long> implements Matric
 				return null;  
 			}
 	}
+	
+	@Override
+	public List<Matricula> buscarPorAluno(long aluno) {
+			TypedQuery<Matricula> query = em.createQuery(
+				"from Matricula c where c.aluno.id like :aluno",Matricula.class);
+			query.setParameter("aluno",aluno);
+			try {
+				return query.getResultList();
+			} catch (NoResultException nre) {
+				return null;  
+			}
+	}
 
 }

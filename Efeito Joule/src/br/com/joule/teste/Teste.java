@@ -498,287 +498,282 @@ public class Teste {
 		ranking1.setNumErro(1);
 		
 		Historico historico2 = new Historico();
-		Ranking ranking2 = new Ranking();
+		
 		historico2.setAluno(aluno1);
 		historico2.setAula(aula2);
 		historico2.setNumAcerto(10);
 		historico2.setNumErro(2);
-		ranking2.setAluno(aluno1);
-		ranking2.setNumAcerto(10);
-		ranking2.setNumErro(2);
+		ranking1.setAluno(aluno1);
+		ranking1.setNumAcerto(10);
+		ranking1.setNumErro(2);
 		
 		Historico historico3 = new Historico();
-		Ranking ranking3 = new Ranking();
+		Ranking ranking2 = new Ranking();
+		
 		historico3.setAluno(aluno2);
 		historico3.setAula(aula1);
 		historico3.setNumAcerto(10);
 		historico3.setNumErro(3);
-		ranking3.setAluno(aluno2);
-		ranking3.setNumAcerto(10);
-		ranking3.setNumErro(3);
+		ranking2.setAluno(aluno2);
+		ranking2.setNumAcerto(10);
+		ranking2.setNumErro(3);
 		
 		Historico historico4 = new Historico();
-		Ranking ranking4 = new Ranking();
+		
 		historico4.setAluno(aluno2);
 		historico4.setAula(aula2);
 		historico4.setNumAcerto(10);
 		historico4.setNumErro(4);
-		ranking4.setAluno(aluno2);
-		ranking4.setNumAcerto(10);
-		ranking4.setNumErro(4);
+		ranking2.setAluno(aluno2);
+		ranking2.setNumAcerto(10);
+		ranking2.setNumErro(4);
 		
 		Historico historico5 = new Historico();
-		Ranking ranking5 = new Ranking();
+		Ranking ranking3 = new Ranking();
+		
 		historico5.setAluno(aluno3);
 		historico5.setAula(aula1);
 		historico5.setNumAcerto(10);
 		historico5.setNumErro(5);
-		ranking5.setAluno(aluno3);
-		ranking5.setNumAcerto(10);
-		ranking5.setNumErro(5);
+		ranking3.setAluno(aluno3);
+		ranking3.setNumAcerto(10);
+		ranking3.setNumErro(5);
 		
 		Historico historico6 = new Historico();
-		Ranking ranking6 = new Ranking();
+		
 		historico6.setAluno(aluno3);
 		historico6.setAula(aula2);
 		historico6.setNumAcerto(10);
 		historico6.setNumErro(6);
-		ranking6.setAluno(aluno3);
-		ranking6.setNumAcerto(10);
-		ranking6.setNumErro(6);
+		ranking3.setAluno(aluno3);
+		ranking3.setNumAcerto(10);
+		ranking3.setNumErro(6);
 		
 		Historico historico7 = new Historico();
-		Ranking ranking7 = new Ranking();
+		
+		Ranking ranking4 = new Ranking();
+		
 		historico7.setAluno(aluno4);
 		historico7.setAula(aula1);
 		historico7.setNumAcerto(10);
 		historico7.setNumErro(7);
-		ranking7.setAluno(aluno4);
-		ranking7.setNumAcerto(10);
-		ranking7.setNumErro(7);
+		ranking4.setAluno(aluno4);
+		ranking4.setNumAcerto(10);
+		ranking4.setNumErro(7);
 		
 		Historico historico8 = new Historico();
-		Ranking ranking8 = new Ranking();
+		
 		historico8.setAluno(aluno4);
 		historico8.setAula(aula2);
 		historico8.setNumAcerto(10);
 		historico8.setNumErro(8);
-		ranking8.setAluno(aluno4);
-		ranking8.setNumAcerto(10);
-		ranking8.setNumErro(8);
+		ranking4.setAluno(aluno4);
+		ranking4.setNumAcerto(10);
+		ranking4.setNumErro(8);
 		
 		Historico historico9 = new Historico();
-		Ranking ranking9 = new Ranking();
+		Ranking ranking5 = new Ranking();
+		
 		historico9.setAluno(aluno5);
 		historico9.setAula(aula1);
 		historico9.setNumAcerto(10);
 		historico9.setNumErro(9);
-		ranking9.setAluno(aluno5);
-		ranking9.setNumAcerto(10);
-		ranking9.setNumErro(9);
+		ranking5.setAluno(aluno5);
+		ranking5.setNumAcerto(10);
+		ranking5.setNumErro(9);
 		
 		Historico historico10 = new Historico();
-		Ranking ranking10 = new Ranking();
+		
 		historico10.setAluno(aluno5);
 		historico10.setAula(aula2);
 		historico10.setNumAcerto(10);
 		historico10.setNumErro(10);
-		ranking10.setAluno(aluno5);
-		ranking10.setNumAcerto(10);
-		ranking10.setNumErro(10);
+		ranking5.setAluno(aluno5);
+		ranking5.setNumAcerto(10);
+		ranking5.setNumErro(10);
 		
 		Historico historico11 = new Historico();
-		Ranking ranking11 = new Ranking();
+		Ranking ranking6 = new Ranking();
+		
 		historico11.setAluno(aluno6);
 		historico11.setAula(aula1);
 		historico11.setNumAcerto(20);
 		historico11.setNumErro(1);
-		ranking11.setAluno(aluno6);
-		ranking11.setNumAcerto(20);
-		ranking11.setNumErro(1);
+		ranking6.setAluno(aluno6);
+		ranking6.setNumAcerto(20);
+		ranking6.setNumErro(1);
 		
 		Historico historico12 = new Historico();
-		Ranking ranking12 = new Ranking();
+		
 		historico12.setAluno(aluno6);
 		historico12.setAula(aula2);
 		historico12.setNumAcerto(20);
 		historico12.setNumErro(2);
-		ranking12.setAluno(aluno6);
-		ranking12.setNumAcerto(20);
-		ranking12.setNumErro(2);
+		ranking6.setAluno(aluno6);
+		ranking6.setNumAcerto(20);
+		ranking6.setNumErro(2);
 		
 		Historico historico13 = new Historico();
-		Ranking ranking13 = new Ranking();
+		Ranking ranking7 = new Ranking();
+		
 		historico13.setAluno(aluno7);
 		historico13.setAula(aula1);
 		historico13.setNumAcerto(20);
 		historico13.setNumErro(3);
-		ranking13.setAluno(aluno7);
-		ranking13.setNumAcerto(20);
-		ranking13.setNumErro(3);
+		ranking7.setAluno(aluno7);
+		ranking7.setNumAcerto(20);
+		ranking7.setNumErro(3);
 		
 		Historico historico14 = new Historico();
-		Ranking ranking14 = new Ranking();
 		historico14.setAluno(aluno7);
 		historico14.setAula(aula2);
 		historico14.setNumAcerto(20);
 		historico14.setNumErro(4);
-		ranking14.setAluno(aluno7);
-		ranking14.setNumAcerto(20);
-		ranking14.setNumErro(4);
+		ranking7.setAluno(aluno7);
+		ranking7.setNumAcerto(20);
+		ranking7.setNumErro(4);
 		
 		Historico historico15 = new Historico();
-		Ranking ranking15 = new Ranking();
+		Ranking ranking8 = new Ranking();
+		
 		historico15.setAluno(aluno8);
 		historico15.setAula(aula1);
 		historico15.setNumAcerto(20);
 		historico15.setNumErro(5);
-		ranking15.setAluno(aluno8);
-		ranking15.setNumAcerto(20);
-		ranking15.setNumErro(5);
+		ranking8.setAluno(aluno8);
+		ranking8.setNumAcerto(20);
+		ranking8.setNumErro(5);
 		
 		Historico historico16 = new Historico();
-		Ranking ranking16 = new Ranking();
 		historico16.setAluno(aluno8);
 		historico16.setAula(aula2);
 		historico16.setNumAcerto(20);
 		historico16.setNumErro(6);
-		ranking16.setAluno(aluno8);
-		ranking16.setNumAcerto(20);
-		ranking16.setNumErro(6);
+		ranking8.setAluno(aluno8);
+		ranking8.setNumAcerto(20);
+		ranking8.setNumErro(6);
 		
 		Historico historico17 = new Historico();
-		Ranking ranking17 = new Ranking();
+		Ranking ranking9 = new Ranking();
+		
 		historico17.setAluno(aluno9);
 		historico17.setAula(aula1);
 		historico17.setNumAcerto(20);
 		historico17.setNumErro(7);
-		ranking17.setAluno(aluno9);
-		ranking17.setNumAcerto(20);
-		ranking17.setNumErro(7);
+		ranking9.setAluno(aluno9);
+		ranking9.setNumAcerto(20);
+		ranking9.setNumErro(7);
 		
 		Historico historico18 = new Historico();
-		Ranking ranking18 = new Ranking();
 		historico18.setAluno(aluno9);
 		historico18.setAula(aula2);
 		historico18.setNumAcerto(20);
 		historico18.setNumErro(8);
-		ranking18.setAluno(aluno9);
-		ranking18.setNumAcerto(20);
-		ranking18.setNumErro(8);
+		ranking9.setAluno(aluno9);
+		ranking9.setNumAcerto(20);
+		ranking9.setNumErro(8);
 		
 		Historico historico19 = new Historico();
-		Ranking ranking19 = new Ranking();
+		Ranking ranking10 = new Ranking();
+		
 		historico19.setAluno(aluno10);
 		historico19.setAula(aula1);
 		historico19.setNumAcerto(20);
 		historico19.setNumErro(9);
-		ranking19.setAluno(aluno10);
-		ranking19.setNumAcerto(20);
-		ranking19.setNumErro(9);
+		ranking10.setAluno(aluno10);
+		ranking10.setNumAcerto(20);
+		ranking10.setNumErro(9);
 		
 		Historico historico20 = new Historico();
-		Ranking ranking20 = new Ranking();
 		historico20.setAluno(aluno10);
 		historico20.setAula(aula2);
 		historico20.setNumAcerto(20);
 		historico20.setNumErro(10);
-		ranking20.setAluno(aluno10);
-		ranking20.setNumAcerto(20);
-		ranking20.setNumErro(10);
+		ranking10.setAluno(aluno10);
+		ranking10.setNumAcerto(20);
+		ranking10.setNumErro(10);
 		
 		Historico historico21 = new Historico();
-		Ranking ranking21 = new Ranking();
+		Ranking ranking11 = new Ranking();
+		
 		historico21.setAluno(aluno11);
 		historico21.setAula(aula1);
 		historico21.setNumAcerto(20);
 		historico21.setNumErro(11);
-		ranking21.setAluno(aluno11);
-		ranking21.setNumAcerto(20);
-		ranking21.setNumErro(11);
+		ranking11.setAluno(aluno11);
+		ranking11.setNumAcerto(20);
+		ranking11.setNumErro(11);
 		
 		Historico historico22 = new Historico();
-		Ranking ranking22 = new Ranking();
 		historico22.setAluno(aluno11);
 		historico22.setAula(aula2);
 		historico22.setNumAcerto(20);
 		historico22.setNumErro(12);
-		ranking22.setAluno(aluno11);
-		ranking22.setNumAcerto(20);
-		ranking22.setNumErro(11);
+		ranking11.setAluno(aluno11);
+		ranking11.setNumAcerto(20);
+		ranking11.setNumErro(11);
 		
 		Historico historico23 = new Historico();
-		Ranking ranking23 = new Ranking();
+		Ranking ranking12 = new Ranking();
 		historico23.setAluno(aluno12);
 		historico23.setAula(aula1);
 		historico23.setNumAcerto(20);
 		historico23.setNumErro(13);
-		ranking23.setAluno(aluno12);
-		ranking23.setNumAcerto(20);
-		ranking23.setNumErro(13);
+		ranking12.setAluno(aluno12);
+		ranking12.setNumAcerto(20);
+		ranking12.setNumErro(13);
 		
 		Historico historico24 = new Historico();
-		Ranking ranking24 = new Ranking();
 		historico24.setAluno(aluno12);
 		historico24.setAula(aula2);
 		historico24.setNumAcerto(20);
 		historico24.setNumErro(14);
-		ranking24.setAluno(aluno12);
-		ranking24.setNumAcerto(20);
-		ranking24.setNumErro(14);
+		ranking12.setAluno(aluno12);
+		ranking12.setNumAcerto(20);
+		ranking12.setNumErro(14);
 		
 			try {
-				historicoDAO.create(historico1);
 				rankingDAO.create(ranking1);
-				historicoDAO.create(historico2);
+				historicoDAO.create(historico1);
+				
 				rankingDAO.create(ranking2);
-				historicoDAO.create(historico3);
 				rankingDAO.create(ranking3);
-				historicoDAO.create(historico4);
 				rankingDAO.create(ranking4);
-				historicoDAO.create(historico5);
 				rankingDAO.create(ranking5);
-				historicoDAO.create(historico6);
 				rankingDAO.create(ranking6);
-				historicoDAO.create(historico7);
 				rankingDAO.create(ranking7);
-				historicoDAO.create(historico8);
 				rankingDAO.create(ranking8);
-				historicoDAO.create(historico9);
 				rankingDAO.create(ranking9);
-				historicoDAO.create(historico10);
 				rankingDAO.create(ranking10);
-				historicoDAO.create(historico11);
 				rankingDAO.create(ranking11);
-				historicoDAO.create(historico12);
 				rankingDAO.create(ranking12);
+				
+				historicoDAO.create(historico2);
+				historicoDAO.create(historico3);
+				historicoDAO.create(historico4);
+				historicoDAO.create(historico5);
+				historicoDAO.create(historico6);
+				historicoDAO.create(historico7);
+				historicoDAO.create(historico8);
+				historicoDAO.create(historico9);
+				historicoDAO.create(historico10);
+				historicoDAO.create(historico11);
+				historicoDAO.create(historico12);
 				historicoDAO.create(historico13);
-				rankingDAO.create(ranking13);
 				historicoDAO.create(historico14);
-				rankingDAO.create(ranking14);
 				historicoDAO.create(historico15);
-				rankingDAO.create(ranking15);
 				historicoDAO.create(historico16);
-				rankingDAO.create(ranking16);
 				historicoDAO.create(historico17);
-				rankingDAO.create(ranking17);
 				historicoDAO.create(historico18);
-				rankingDAO.create(ranking18);
 				historicoDAO.create(historico19);
-				rankingDAO.create(ranking19);
 				historicoDAO.create(historico20);
-				rankingDAO.create(ranking20);
 				historicoDAO.create(historico21);
-				rankingDAO.create(ranking21);
 				historicoDAO.create(historico22);
-				rankingDAO.create(ranking22);
 				historicoDAO.create(historico23);
-				rankingDAO.create(ranking23);
 				historicoDAO.create(historico24);
-				rankingDAO.create(ranking24);
 				System.out.println("*****************************************");
 				System.out.println("");
-				System.out.println("- 24 historicos e rankings cadastrados  -");
+				System.out.println(" 24 historicos e 12 rankings cadastrados ");
 				System.out.println("");
 				
 				System.out.println("Histórico criado");

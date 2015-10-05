@@ -1,19 +1,24 @@
 package br.com.joule.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.StoredProcedureQuery;
 
 import br.com.joule.dao.AulaDAO;
 import br.com.joule.dao.HistoricoDAO;
 import br.com.joule.dao.MatriculaDAO;
+import br.com.joule.dao.RankingDAO;
 import br.com.joule.daoimpl.AulaDAOImpl;
 import br.com.joule.daoimpl.HistoricoDAOImpl;
 import br.com.joule.daoimpl.MatriculaDAOImpl;
+import br.com.joule.daoimpl.RankingDAOImpl;
 import br.com.joule.entity.Aluno;
 import br.com.joule.entity.Aula;
 import br.com.joule.entity.Curso;
@@ -32,17 +37,21 @@ public class RankingBean {
 	private int posicaoTotalAluno;
 	private HistoricoDAO histDAO;
 	private MatriculaDAO matriculaDAO;
+	private RankingDAO rankingDAO;
 	private AulaDAO aulaDAO;
 	private Aluno aluno;
 	private Aula aula;
 	private Curso curso;
+	private Ranking ranking;
 	private List<Integer> posicoesTotais;
 	private List<Integer> posicoesAulas;
-	private List<Historico> historicosGeral;
+	private List<Ranking> rankingsGeral;
 	private List<Historico> historicosAula;
 	private List<Matricula> matriculas;
+	private List<Curso> cursos;
 	private List<Aula> aulas;
-	private Ranking ranking;
+	private long id;
+	
 	
 	@PostConstruct
 	public void init() {
@@ -51,13 +60,18 @@ public class RankingBean {
 		histDAO = new HistoricoDAOImpl(em);
 		matriculaDAO = new MatriculaDAOImpl(em);
 		aulaDAO = new AulaDAOImpl(em);
+		rankingDAO = new RankingDAOImpl(em);
 		aluno = new Aluno();
 		aula = new Aula();
 		curso = new Curso();
 		ranking = new Ranking();
-		historicosGeral = histDAO.ListarTodosGeral();
+		rankingsGeral = rankingDAO.ListarTodos();
 		//matriculas = matriculaDAO.buscarPorAluno(aluno);
 		aulas = null;
+		id = 1;
+		matriculas = matriculaDAO.buscarPorAluno(id);
+		cursos = new ArrayList<Curso>();
+		
 	}
 	
 	public void atualizaRanking(){
@@ -65,8 +79,26 @@ public class RankingBean {
 		query.execute();
 	}
 	
-	public void buscarAulas(){
+	public List<Aula> carregarAulas(){
 		aulas = aulaDAO.buscarPorCurso(curso);
+		System.out.println("Existem aulas parei aqui");
+		return aulas;
+	}
+	
+	public List<Curso> carregarCursos(){
+		FacesMessage msg;
+		for (Matricula matricula : matriculas) {
+			cursos.add(matricula.getCurso());
+		}
+		if (cursos!=null) {
+			msg = new FacesMessage("Escolha um curso");
+			return cursos;
+		}else {
+			
+			msg = new FacesMessage("Matricule-se em um curso primeiro");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			return null;
+		}
 	}
 
 	public void mostrarRanking(){
@@ -141,14 +173,6 @@ public class RankingBean {
 		this.posicoesAulas = posicoesAulas;
 	}
 
-	public List<Historico> getHistoricosGeral() {
-		return historicosGeral;
-	}
-
-	public void setHistoricosGeral(List<Historico> historicosGeral) {
-		this.historicosGeral = historicosGeral;
-	}
-
 	public List<Historico> getHistoricosAula() {
 		return historicosAula;
 	}
@@ -180,5 +204,31 @@ public class RankingBean {
 	public void setAulas(List<Aula> aulas) {
 		this.aulas = aulas;
 	}
+
+	public Ranking getRanking() {
+		return ranking;
+	}
+
+	public void setRanking(Ranking ranking) {
+		this.ranking = ranking;
+	}
+
+	public List<Ranking> getRankingsGeral() {
+		return rankingsGeral;
+	}
+
+	public void setRankingsGeral(List<Ranking> rankingsGeral) {
+		this.rankingsGeral = rankingsGeral;
+	}
+
+	public List<Curso> getCursos() {
+		return cursos;
+	}
+
+	public void setCursos(List<Curso> cursos) {
+		this.cursos = cursos;
+	}
+	
+	
 	
 }

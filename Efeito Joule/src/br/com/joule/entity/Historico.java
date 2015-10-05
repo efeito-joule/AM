@@ -47,9 +47,6 @@ public class Historico implements Serializable {
 	@Column(name="nr_posAula")
 	private int posicaoAula;
 	
-	@Column(name="nr_posTotal")
-	private int posicaoTotal;
-
 	public Aluno getAluno() {
 		return aluno;
 	}
@@ -98,13 +95,5 @@ public class Historico implements Serializable {
 		this.posicaoAula = posicaoAula;
 	}
 
-	public int getPosicaoTotal() {
-		return posicaoTotal;
-	}
-
-	public void setPosicaoTotal(int posicaoTotal) {
-		this.posicaoTotal = posicaoTotal;
-	}
-	
 	
 }
