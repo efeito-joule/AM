@@ -19,8 +19,8 @@ public class HistoricoDAOImpl extends DAOImpl<Historico, Long> implements Histor
 	@Override
 	public Historico buscarPorAulaAluno(long aula, long aluno) {
 		TypedQuery<Historico> query = em.createQuery(
-				"from Historico h where h.aula.codigo like :aula "
-				+ "and h.aluno.codigo like :aluno",Historico.class);
+				"from Historico h where h.aula.id like :aula "
+				+ "and h.aluno.id like :aluno",Historico.class);
 			query.setParameter("aula", aula);
 			query.setParameter("aluno", aluno);
 			try {
@@ -31,10 +31,12 @@ public class HistoricoDAOImpl extends DAOImpl<Historico, Long> implements Histor
 	}
 	
 	@Override
-	public List<Historico> ListarTodosAula() {
-	  TypedQuery<Historico> curso= 
-			  em.createQuery("from Historico h where h.posicaoAula < 11 order by h.posicaoAula",Historico.class);
-		return curso.getResultList();
+	public List<Historico> ListarTodosAula(long aula) {
+	  TypedQuery<Historico> query= 
+			  em.createQuery("from Historico h where h.posicaoAula < 11 "
+			  		+ "and h.aula.id like :aula order by h.posicaoAula",Historico.class);
+	  query.setParameter("aula", aula);
+	  return query.getResultList();
 	}
 	
 	@Override

@@ -11,11 +11,15 @@ import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.StoredProcedureQuery;
 
+import br.com.joule.dao.AlunoDAO;
 import br.com.joule.dao.AulaDAO;
+import br.com.joule.dao.CursoDAO;
 import br.com.joule.dao.HistoricoDAO;
 import br.com.joule.dao.MatriculaDAO;
 import br.com.joule.dao.RankingDAO;
+import br.com.joule.daoimpl.AlunoDAOImpl;
 import br.com.joule.daoimpl.AulaDAOImpl;
+import br.com.joule.daoimpl.CursoDAOImpl;
 import br.com.joule.daoimpl.HistoricoDAOImpl;
 import br.com.joule.daoimpl.MatriculaDAOImpl;
 import br.com.joule.daoimpl.RankingDAOImpl;
@@ -39,6 +43,8 @@ public class RankingBean {
 	private MatriculaDAO matriculaDAO;
 	private RankingDAO rankingDAO;
 	private AulaDAO aulaDAO;
+	private CursoDAO cursoDAO;
+	private AlunoDAO alunoDAO;
 	private Aluno aluno;
 	private Aula aula;
 	private Curso curso;
@@ -50,8 +56,9 @@ public class RankingBean {
 	private List<Matricula> matriculas;
 	private List<Curso> cursos;
 	private List<Aula> aulas;
-	private long id;
-	
+	private long idresposta;
+	private String resposta;
+	private String email;
 	
 	@PostConstruct
 	public void init() {
@@ -61,17 +68,34 @@ public class RankingBean {
 		matriculaDAO = new MatriculaDAOImpl(em);
 		aulaDAO = new AulaDAOImpl(em);
 		rankingDAO = new RankingDAOImpl(em);
-		aluno = new Aluno();
+		cursoDAO = new CursoDAOImpl(em);
+		alunoDAO = new AlunoDAOImpl(em);
+		aluno = null;
 		aula = new Aula();
 		curso = new Curso();
 		ranking = new Ranking();
 		rankingsGeral = rankingDAO.ListarTodos();
-		//matriculas = matriculaDAO.buscarPorAluno(aluno);
-		aulas = null;
-		id = 1;
-		matriculas = matriculaDAO.buscarPorAluno(id);
+		idresposta=0;
+		resposta = null;
 		cursos = new ArrayList<Curso>();
-		
+	}
+	
+	public void carregarAluno(){
+	
+	FacesMessage msg;
+	if (email=="") {
+		msg=new FacesMessage("Informe o nome seu e-mail");
+	}else {
+		aluno = alunoDAO.buscarEmail(email);
+		msg = new FacesMessage("Agora selecione um curso");
+		if (aluno == null) {
+			msg = new FacesMessage("Informe um e-mail correto");
+		}else {
+			matriculas = matriculaDAO.buscarPorAluno(aluno.getId());
+			carregarCursos();
+		}
+	}
+	FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 	
 	public void atualizaRanking(){
@@ -79,14 +103,9 @@ public class RankingBean {
 		query.execute();
 	}
 	
-	public List<Aula> carregarAulas(){
-		aulas = aulaDAO.buscarPorCurso(curso);
-		System.out.println("Existem aulas parei aqui");
-		return aulas;
-	}
-	
 	public List<Curso> carregarCursos(){
 		FacesMessage msg;
+		msg = new FacesMessage("Escolha um curso");
 		for (Matricula matricula : matriculas) {
 			cursos.add(matricula.getCurso());
 		}
@@ -99,14 +118,28 @@ public class RankingBean {
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 			return null;
 		}
+		
+	}
+	
+	public List<Aula> carregarAulas(){
+		FacesMessage msg;
+		msg = new FacesMessage("Escolha uma aula");
+		idresposta =Long.parseLong(resposta);
+		curso = cursoDAO.findById(idresposta);
+		aulas = aulaDAO.buscarPorCurso(curso);
+		resposta = null;
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+		return aulas;
 	}
 
 	public void mostrarRanking(){
 		atualizaRanking();
-		historico = histDAO.buscarPorAulaAluno(aula.getId(), aluno.getId());
+		idresposta =Long.parseLong(resposta);
+		historico = histDAO.buscarPorAulaAluno(idresposta, aluno.getId());
+		ranking = rankingDAO.buscarPorAluno(aluno.getId());
 		posicaoAulaAluno = historico.getPosicaoAula();
 		posicaoTotalAluno = ranking.getPosicaoTotal();
-		historicosAula = histDAO.ListarTodosAula();
+		historicosAula = histDAO.ListarTodosAula(idresposta);
 	}
 	
 	public Historico getHistorico() {
@@ -228,7 +261,30 @@ public class RankingBean {
 	public void setCursos(List<Curso> cursos) {
 		this.cursos = cursos;
 	}
-	
+
+	public String getResposta() {
+		return resposta;
+	}
+
+	public void setResposta(String resposta) {
+		this.resposta = resposta;
+	}
+
+	public long getIdresposta() {
+		return idresposta;
+	}
+
+	public void setIdresposta(long idresposta) {
+		this.idresposta = idresposta;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	
 	
 }

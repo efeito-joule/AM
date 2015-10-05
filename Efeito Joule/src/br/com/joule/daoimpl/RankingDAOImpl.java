@@ -19,7 +19,7 @@ public class RankingDAOImpl extends DAOImpl<Ranking, Long> implements RankingDAO
 	@Override
 	public Ranking buscarPorAluno(long aluno) {
 		TypedQuery<Ranking> query = em.createQuery(
-				"from Ranking r where r.aluno.codigo like :aluno ",Ranking.class);
+				"from Ranking r where r.aluno.id like :aluno ",Ranking.class);
 			query.setParameter("aluno", aluno);
 			try {
 				return query.getSingleResult();

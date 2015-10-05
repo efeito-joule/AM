@@ -11,39 +11,89 @@
 	</ui:define>
 	<ui:define name="body">
 	    <h1><i class="fa fa-trophy"></i> Ranking</h1>
-	        <div class="row">
-	    	<div class="jumbotron"  rendered="#{rankingBean.aula==null}" style="margin-top: 20px;">
-  				<h2>Quer saber sua posição em nosso Ranking?</h2>
+	    	<div class="jumbotron"  style="margin-top: 20px;">
+  				<div class="row">
+  				<div class="col-md-8">
+  				<h2>Quer saber sua posição com relação aos outros alunos?</h2>
+  				<h4>Confirme seu e-mail e siga as instruções:</h4>
+  				</div>
+  				</div>
   			<div class="row">
-	    	<h:form id="formulario"  >	
 	    		<div class="col-md-4">
 					<h:messages styleClass="alert alert-info" autoUpdate="true"/>
 				</div>
-  				<h:selectOneMenu class="col-md-3" styleClass="form-control"  value="#{rankingBean.curso}">
-  				<f:selectItems value="#{rankingBean.carregarCursos()}" var="c"
-  				itemLabel="#{c.nome}"
-  				itemValue="#{c}"/>
-  				</h:selectOneMenu>
-				<div class="col-dm-3">
-					<h:commandButton styleClass="btn btn-default" rendered="#{rankingBean.aulas==null}" value="Enviar" 
+			</div>
+
+	    		<h:form id="formulario">
+	    		<div class="row">
+					<div class="col-md-4">
+						<h:inputText styleClass="form-control input-sm" id="busca" 
+						value="#{rankingBean.email}" required="true" requiredMessage="O e-mail é obrigatório"/>
+					</div>
+				</div>
+				
+				<div class="row" style="margin-top: 10px;">
+					<div class="col-dm-3" rendered="#{rankingBean.aluno==null}">
+						<h:commandButton styleClass="btn btn-default"  rendered="#{rankingBean.aluno==null}" value="Buscar"
+						actionListener="#{rankingBean.carregarAluno}" update="tabela"/>
+					</div>
+				</div>
+	    		</h:form>
+	
+	    	<h:form id="formulario1"  >
+				<div class="row" style="margin-top: 10px;">
+				<div class="col-md-5">
+  					<h:selectOneMenu styleClass="form-control" value="#{rankingBean.resposta}" rendered="#{rankingBean.aulas==null}">
+  					<f:selectItem itemValue="" itemLabel="Selecione um curso" />
+  					<f:selectItems value="#{rankingBean.cursos}" var="c"
+  					itemLabel="#{c.nome}"
+  					itemValue="#{c.id}"/>
+  					</h:selectOneMenu>
+  				</div>
+  				</div>
+  				
+  				<div class="row" style="margin-top: 10px;">
+				<div class="col-dm-3" rendered="#{rankingBean.aulas==null}">
+					<h:commandButton styleClass="btn btn-default" rendered="#{rankingBean.aulas==null}" value="Carregar" 
 						actionListener="#{rankingBean.carregarAulas()}" />
 				</div>
-
+				</div>
+				</h:form>
+				
+				<h:form id="formulario2"  >
+	    		
+				<div class="row" rendered="#{rankingBean.aulas!=null}" >
+				<div class="col-md-5" rendered="#{rankingBean.aulas!=null}" >
+  					<h:selectOneMenu styleClass="form-control"  value="#{rankingBean.resposta}" rendered="#{rankingBean.aulas!=null}" >
+  					<f:selectItem itemValue="" itemLabel="Selecione uma aula" />
+  					<f:selectItems value="#{rankingBean.aulas}" var="a"
+  					itemLabel="#{a.nome}"
+  					itemValue="#{a.id}"/>
+  					</h:selectOneMenu>
+  				</div>
+  				</div>
+  				
+  				<div class="row" style="margin-top: 10px;">
+				<div class="col-dm-3">
+					<h:commandButton styleClass="btn btn-default" rendered="#{rankingBean.aulas!=null}" value="Carregar" 
+						actionListener="#{rankingBean.mostrarRanking}" />
+				</div>
+				</div>
+				
   			</h:form>	
 	    </div>
-  				
-			</div>
-	    </div>
-	     
+  			
 	    
 	    <div class="row" style="margin-top: 10px;">
 			<div class="col-md-6">
-				<h:outputLabel>Ranking Geral: <button class="btn btn-primary" type="button">
-  				Sua Posição <span class="badge">4</span>
+				<h:outputLabel rendered="#{rankingBean.aula!=null}">Ranking Geral: <button rendered="#{rankingBean.aula!=null}" class="btn btn-primary" type="button">
+  				Sua Posição <span class="badge"><h:outputText  value="#{rankingBean.posicaoTotalAluno}"></h:outputText></span>
   		</button></h:outputLabel>
 			</div>
 			<div class="col-md-6">
-				<h:outputLabel>Ranking por Aula:</h:outputLabel>
+					<h:outputLabel rendered="#{rankingBean.aula!=null}">Ranking para aula <button rendered="#{rankingBean.aula!=null}" class="btn btn-primary" type="button">
+  				Sua Posição <span class="badge"><h:outputText  value="#{rankingBean.posicaoAulaAluno}"></h:outputText></span>
+  		</button></h:outputLabel>
 			</div>
 		</div>
 		<div class="row" style="margin-top: 20px;">
@@ -57,6 +107,21 @@
 	   					<h:column>
 	   						<f:facet name="header">Nome</f:facet>
 	   						#{r.aluno.nome}
+	   					</h:column>
+	   				</h:dataTable> 
+	    </h:panelGrid>
+	    <div class="col-md-2">
+	    </div>
+	    <h:panelGrid columns="2" class="col-md-4" >
+	   				<h:dataTable value="#{rankingBean.historicosAula}" var="h" styleClass="table" id="tabela2">
+	   					<h:column>
+	   						<f:facet name="header">Posicao</f:facet>
+	   						<i class="fa fa-trophy"></i>
+	   						<span class="badge">#{h.posicaoAula}</span>
+	   					</h:column>
+	   					<h:column>
+	   						<f:facet name="header">Nome</f:facet>
+	   						#{h.aluno.nome}
 	   					</h:column>
 	   				</h:dataTable> 
 	    </h:panelGrid>

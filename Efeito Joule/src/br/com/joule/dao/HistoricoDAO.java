@@ -8,7 +8,7 @@ public interface HistoricoDAO extends DAO<Historico, Long> {
 
 	Historico buscarPorAulaAluno(long aula, long aluno);
 	
-	List<Historico> ListarTodosAula();
+	List<Historico> ListarTodosAula(long aula);
 	
 	List<Historico> ListarTodosGeral();
 

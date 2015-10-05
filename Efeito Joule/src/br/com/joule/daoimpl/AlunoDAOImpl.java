@@ -1,9 +1,9 @@
 package br.com.joule.daoimpl;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import br.com.joule.dao.AlunoDAO;
 import br.com.joule.entity.Aluno;
@@ -18,12 +18,17 @@ public class AlunoDAOImpl extends DAOImpl<Aluno, Long> implements AlunoDAO {
 	}
 
 	@Override
-	public List<Aluno> buscarEmail(String email) {
-		return em.createQuery("from Aluno c where "
+	public Aluno buscarEmail(String email) {
+		TypedQuery<Aluno> query =em.createQuery("from Aluno c where "
 				+ "upper(c.email) like upper(:e)",Aluno.class)
-		       .setParameter("e","%"+email+"%").getResultList();
-			 
+		       .setParameter("e",email);
+		try {
+			return query.getSingleResult();
+			} catch (NoResultException nre) {
+				return null;
+			}
 	}
+	
 	@Override
 	public Aluno logar(String usuarioOuEmail, String senha) {
 			
