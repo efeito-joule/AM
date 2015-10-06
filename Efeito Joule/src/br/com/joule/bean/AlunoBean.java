@@ -2,6 +2,7 @@ package br.com.joule.bean;
 
 
 import java.util.Calendar;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -24,7 +25,7 @@ public class AlunoBean {
 	
 	private AlunoDAO dao;
 	
-	private Aluno aluno1;
+	private List<Aluno> alunos;
 
 	private String email;
 	
@@ -37,7 +38,7 @@ public class AlunoBean {
 		aluno=new Aluno();
 		dao=new AlunoDAOImpl(em);
 		aluno.setDataNascimento(Calendar.getInstance().getTime());
-		aluno1=dao.buscarEmail(email);
+		aluno=dao.buscarEmail(email);
 	}
 	
 	public void cadastrar(){
@@ -73,7 +74,7 @@ public class AlunoBean {
 	public void buscar(){
 		FacesMessage msg;
 		email.toLowerCase();
-		aluno1=dao.buscarEmail(email);
+		aluno=dao.buscarEmail(email);
 		if(email==null){
 			msg=new FacesMessage("Informe seu e-mail");
 		}else{
@@ -89,7 +90,7 @@ public class AlunoBean {
 			aluno.setEmail(aluno.getEmail().toLowerCase());
 			dao.update(aluno);
 			msg=new FacesMessage("Aluno Atualizado");
-			aluno1=dao.buscarEmail(email);
+			aluno=dao.buscarEmail(email);
 		} catch (DBCommitException e) {
 			e.printStackTrace();
 			msg=new FacesMessage("Aluno não Atualizado");
@@ -106,6 +107,13 @@ public class AlunoBean {
 		this.aluno = aluno;
 	}
 
+	public List<Aluno> getAlunos() {
+		return alunos;
+	}
+
+	public void setAlunos(List<Aluno> alunos) {
+		this.alunos = alunos;
+	}
 	public String getEmail() {
 		return email;
 	}
@@ -121,14 +129,5 @@ public class AlunoBean {
 	public void setId(long id) {
 		this.id = id;
 	}
-
-	public Aluno getAluno1() {
-		return aluno1;
-	}
-
-	public void setAluno1(Aluno aluno1) {
-		this.aluno1 = aluno1;
-	}
-	
 
 }

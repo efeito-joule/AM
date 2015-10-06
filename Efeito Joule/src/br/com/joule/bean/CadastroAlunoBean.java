@@ -114,6 +114,68 @@ public class CadastroAlunoBean {
 		}
 	}
 	
+public void atualizar() {
+		
+		try {
+			if(aluno.getNomeUsuario().isEmpty()) {
+				message = "Preencha o campo Usuário!";
+				
+			} else if(aluno.getEmail().isEmpty()) {
+				message = "Preencha o campo E-mail!";
+				
+			} else if(senha.isEmpty()) {
+				message = "Preencha o campo Senha!";
+				
+			} else if(confirmaSenha.isEmpty()) {
+				message = "Confirme a Senha!";
+				
+			} else if(!senha.equals(confirmaSenha)) {
+				message = "As senhas não coincidem!";
+				
+			} else if(aluno.getNome().isEmpty()) {
+				message = "Preencha o campo Nome!";
+				
+			} else if(aluno.getSobrenome().isEmpty()) {
+				message = "Preencha o campo Sobrenome!";
+				
+			} else if(masculino == false && feminino == false) {
+				message = "Informe um Sexo!";
+				
+			} else if(aluno.getDataNascimento() == null) {
+				message = "Informe a Data de Nascimento!";
+				
+			} else if(telefone.getDdd() == 0) {
+				message = "informe o DDD!"; 
+				
+			} else if(telefone.getNumero().isEmpty()) {
+				message = "Informe o Telefone!";
+				
+			} else {
+				aluno.setTelefone(telefone);
+//				endereco.setUf(uf);
+				aluno.setEndereco(endereco);
+//				aluno.setTipoPessoa(tipoPessoa);
+				aluno.setSenha(senha);
+				
+				alunoDAO.update(aluno);
+				try {
+					FacesContext.getCurrentInstance().getExternalContext().redirect("meusCursos.xhtml");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			
+			msg = new FacesMessage(message);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
 	public Aluno getAluno() {
 		return aluno;
 	}

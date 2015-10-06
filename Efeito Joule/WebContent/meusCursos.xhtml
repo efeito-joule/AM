@@ -10,7 +10,50 @@
 		<ui:define name="head">
 		</ui:define>
 		<ui:define name="body">
-			<h1>Meus Cursos</h1>
-		</ui:define>
+		<div class="row" style="margin-top: 20px;">
+			<p>Busque os cursos em que está matriculado</p>
+		</div>
+		<div class="row" style="margin-top: 20px;">
+			<div class="col-md-6">
+				<h:outputLabel>Digite seu email:</h:outputLabel>
+				<h:inputText styleClass="form-control input-sm" id="busca"
+					value="#{alunoBean.email}" />
+			</div>
+		</div>
+		<div class="row" style="margin-top: 20px;">
+			<div class="col-md-3">
+				<h:commandButton styleClass="btn btn-default" value="Buscar"
+					actionListener="#{alunoBean.buscar}" update="tabela" />
+			</div>
+		</div>
+		<h1>Meus Cursos</h1>
+		<h:panelGrid columns="3" class="col-md-8" style="margin-top: 20px;">
+			<h:dataTable value="#{alunoBean.alunos}" var="a"
+				styleClass="table" id="tabela">
+				<h:column>
+					<f:facet name="header">Aluno</f:facet>
+	   						#{a.nome}
+	   					</h:column>
+				<h:column>
+					<f:facet name="header">Curso</f:facet>
+	   						#{a.curso.nome}
+	   					</h:column>
+				<h:column>
+					<a href="assistirAula.xhtml" class="btn btn-default">Assistir
+						Aula</a>
+				</h:column>
+				<h:column>
+					<h:commandButton styleClass="btn btn-default"
+						value="Renovar Matrícula"
+						actionListener="#{matriculaBean.renovar}" update="tabela" />
+				</h:column>
+				<h:column>
+					<h:commandButton styleClass="btn btn-default"
+						value="Cancelar Matrícula"
+						actionListener="#{matriculaBean.deletar}" update="tabela" />
+				</h:column>
+			</h:dataTable>
+		</h:panelGrid>
+	</ui:define>
 	</ui:composition>
 </html>

@@ -54,8 +54,9 @@ public class TesteQuestaoAlternativa {
 		resposta04=false;
 		resposta05=true;
 		
-		curso = cursoDAO.buscarPorNome("Eletricidade");
-		aula = aulaDAO.buscarPorNome("Eletricidade");
+		long id = 1;
+		curso = cursoDAO.findById(id);
+		aula = aulaDAO.findById(id);
 		aula.setCurso(curso);
 		questao.setAula(aula);
 		questao.setDescricao("Entender o conceito de trajetória nível 8");

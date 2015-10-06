@@ -124,7 +124,6 @@ public class Teste {
 		} catch (DBCommitException e1) {
 			e1.printStackTrace();
 			System.out.println("---   Erro ao criar os alunos!  ---");
-			
 		}
 		
 		/*Populando e testando os cursos */
@@ -263,6 +262,20 @@ public class Teste {
 		
 		questao1.setListaAlternativas(alternativas1);
 		
+		try {
+			questaoDAO.create(questao1);
+			System.out.println("**************************************");
+			System.out.println("");
+			System.out.println("- 1 questão cadastrada com sucesso -");
+			System.out.println("");
+				
+		} catch (DBCommitException e1) {
+			e1.printStackTrace();
+			System.out.println("---    Erro ao criar as aulas! ----");
+		}
+		
+		/* Segunda questão */
+		
 		resposta01=false;
 		resposta02=true;
 		resposta03=false;
@@ -278,25 +291,30 @@ public class Teste {
 				+ "horizontal, sem atrito e sua velocidade aumenta de 2,0 m/s "
 				+ "em 4,0s. A intensidade da força vale:");
 		
+		alternativa = new Alternativa();
 		alternativa.setDescricao("3/8 N");
 		alternativa.setResposta(resposta01);
-		alternativa.setQuestao(questao1);
+		alternativa.setQuestao(questao2);
 		
+		alternativa2 = new Alternativa();
 		alternativa2.setDescricao("1,5 N");
 		alternativa2.setResposta(resposta02);
-		alternativa2.setQuestao(questao1);
+		alternativa2.setQuestao(questao2);
 		
+		alternativa3 = new Alternativa();
 		alternativa3.setDescricao("3,0 N");
 		alternativa3.setResposta(resposta03);
-		alternativa3.setQuestao(questao1);
+		alternativa3.setQuestao(questao2);
 		
+		alternativa4 = new Alternativa();
 		alternativa4.setDescricao("6,0 N");
 		alternativa4.setResposta(resposta04);
-		alternativa4.setQuestao(questao1);
+		alternativa4.setQuestao(questao2);
 		
+		alternativa5 = new Alternativa();
 		alternativa5.setDescricao("24 N");
 		alternativa5.setResposta(resposta05);
-		alternativa5.setQuestao(questao1);
+		alternativa5.setQuestao(questao2);
 		
 		List<Alternativa> alternativas2 = new ArrayList<Alternativa>(); 
 		alternativas2.add(alternativa);
@@ -308,11 +326,71 @@ public class Teste {
 		questao2.setListaAlternativas(alternativas2);
 		
 		try {
-			questaoDAO.create(questao1);
-			questaoDAO.create(questao1);
+			questaoDAO.create(questao2);
 			System.out.println("**************************************");
 			System.out.println("");
-			System.out.println("- 2 questoes cadastradas com sucesso -");
+			System.out.println("- 1 questão cadastradas com sucesso -");
+			System.out.println("");
+				
+		} catch (DBCommitException e1) {
+			e1.printStackTrace();
+			System.out.println("---    Erro ao criar as aulas! ----");
+		}
+		
+		/* terceira questão */
+		
+		resposta01=false;
+		resposta02=false;
+		resposta03=true;
+		resposta04=false;
+		resposta05=false;
+			
+		Questao questao3 = new Questao();
+		questao3.setAula(aula1);
+		questao3.setDescricao("conhecimentos de cinemática, deslocamento escalar e espaço percorrido");
+		questao3.setPergunta(" Um móvel parte do km 50, indo até o km 60, onde, mudando"
+				+ " o sentido do movimento, vai até o km 32. O deslocamento escalar e "
+				+ "a distância efetivamente percorrida são, respectivamente: ");
+		
+		alternativa = new Alternativa();
+		alternativa.setDescricao("28 km e 28 km");
+		alternativa.setResposta(resposta01);
+		alternativa.setQuestao(questao3);
+		
+		alternativa2 = new Alternativa();
+		alternativa2.setDescricao("18 km e 38 km");
+		alternativa2.setResposta(resposta02);
+		alternativa2.setQuestao(questao3);
+		
+		alternativa3 = new Alternativa();
+		alternativa3.setDescricao("-18 km e 38 km");
+		alternativa3.setResposta(resposta03);
+		alternativa3.setQuestao(questao3);
+		
+		alternativa4 = new Alternativa();
+		alternativa4.setDescricao("-18 km e 18 km");
+		alternativa4.setResposta(resposta04);
+		alternativa4.setQuestao(questao3);
+		
+		alternativa5 = new Alternativa();
+		alternativa5.setDescricao("38 km e 18 km");
+		alternativa5.setResposta(resposta05);
+		alternativa5.setQuestao(questao3);
+		
+		List<Alternativa> alternativas3 = new ArrayList<Alternativa>(); 
+		alternativas3.add(alternativa);
+		alternativas3.add(alternativa2);
+		alternativas3.add(alternativa3);
+		alternativas3.add(alternativa4);
+		alternativas3.add(alternativa5);
+		
+		questao3.setListaAlternativas(alternativas3);
+		
+		try {
+			questaoDAO.create(questao3);
+			System.out.println("**************************************");
+			System.out.println("");
+			System.out.println("- 1 questão cadastradas com sucesso -");
 			System.out.println("");
 				
 		} catch (DBCommitException e1) {
@@ -320,7 +398,9 @@ public class Teste {
 			System.out.println("---    Erro ao criar as aulas! ----");
 		}
 			
-
+		
+		
+		
 		/*Populando e testando as matrículas */
 			
 		MatriculaDAO matriculaDAO = new MatriculaDAOImpl(em);
