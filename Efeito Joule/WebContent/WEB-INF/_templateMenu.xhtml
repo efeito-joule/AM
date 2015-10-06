@@ -63,8 +63,7 @@
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
 							<li>
-								<a href="login.xhtml" class="fa fa-power-off fa-2x" data-toggle="tooltip" data-placement="bottom" 
-								   title="Sair" id="sair"></a>
+								<h:commandLink action="#{loginBean.logout()}" styleClass="fa fa-power-off fa-2x" />
 							</li>
 						</ul>
 					</div>
@@ -80,9 +79,6 @@
 		<!-- JS -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
-		<script>
-			$('#sair').tooltip();
-		</script>
 		
 	</h:body>
 </html>

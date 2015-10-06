@@ -1,5 +1,7 @@
 package br.com.joule.daoimpl;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
@@ -50,4 +52,26 @@ public class AlunoDAOImpl extends DAOImpl<Aluno, Long> implements AlunoDAO {
 		
 		return (Aluno) aluno;
    }
+
+	@Override
+	public List<Aluno> buscaDadosUsuario(String usuarioOuEmail, String senha) {
+		
+		StringBuilder sql = new StringBuilder();
+		sql.append("FROM Aluno a ");
+		sql.append("WHERE (a.nomeUsuario = '" + usuarioOuEmail + "'");
+		sql.append(" OR a.email = '" + usuarioOuEmail + "') AND a.senha = '" + senha + "'");
+		
+		List<Aluno> alunos = null;
+		
+		try {
+			Query query = em.createQuery(sql.toString());
+		
+			alunos =  query.getResultList();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return alunos;
+	}
 }
