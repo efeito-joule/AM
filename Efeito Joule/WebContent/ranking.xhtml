@@ -11,7 +11,7 @@
 	</ui:define>
 	<ui:define name="body">
 	    <h1><i class="fa fa-trophy"></i> Ranking</h1>
-	    	<div class="jumbotron"  style="margin-top: 20px;">
+	    	<div class="jumbotron" style="background:#DCDCDC!important">
   				<div class="row">
   				<div class="col-md-8">
   				<h2>Quer saber sua posição com relação aos outros alunos?</h2>
@@ -20,13 +20,13 @@
   				</div>
   			<div class="row">
 	    		<div class="col-md-4">
-					<h:messages styleClass="alert alert-info" autoUpdate="true"/>
+					<h:messages styleClass="alert alert-success" autoUpdate="true"/>
 				</div>
 			</div>
 
 	    		<h:form id="formulario">
 	    		<div class="row">
-					<div class="col-md-4">
+					<div class="col-md-5">
 						<h:inputText styleClass="form-control input-sm" id="busca" 
 						value="#{rankingBean.email}" required="true" requiredMessage="O e-mail é obrigatório"/>
 					</div>

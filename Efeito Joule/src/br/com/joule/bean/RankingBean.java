@@ -9,7 +9,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
-import javax.persistence.StoredProcedureQuery;
 
 import br.com.joule.dao.AlunoDAO;
 import br.com.joule.dao.AulaDAO;
@@ -98,11 +97,6 @@ public class RankingBean {
 	FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 	
-	public void atualizaRanking(){
-		StoredProcedureQuery query =  em.createNamedStoredProcedureQuery("proc");
-		query.execute();
-	}
-	
 	public List<Curso> carregarCursos(){
 		FacesMessage msg;
 		msg = new FacesMessage("Escolha um curso");
@@ -133,7 +127,6 @@ public class RankingBean {
 	}
 
 	public void mostrarRanking(){
-		atualizaRanking();
 		idresposta =Long.parseLong(resposta);
 		historico = histDAO.buscarPorAulaAluno(idresposta, aluno.getId());
 		ranking = rankingDAO.buscarPorAluno(aluno.getId());

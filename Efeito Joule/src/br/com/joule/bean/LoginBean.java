@@ -1,7 +1,6 @@
 package br.com.joule.bean;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -62,7 +61,7 @@ public class LoginBean {
 				}
 				
 			} else {
-				message = "Usuï¿½rio/E-mail ou senha invalido!";
+				message = "Usuário/E-mail ou senha invalido!";
 				
 				FacesMessage msg = new FacesMessage(message);
 				FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -84,8 +83,9 @@ public class LoginBean {
 		FacesContext fc = FacesContext.getCurrentInstance();  
 		session = (HttpSession) fc.getExternalContext().getSession(true);  
 		
-		//expira a sessï¿½o  	
-		session.invalidate();  
+		//expira a sessão  	
+		session.invalidate(); 
+		session.removeAttribute("alunoLogado");
 
 		FacesContext context = FacesContext.getCurrentInstance();    
 		context.getExternalContext().getSessionMap().remove("alunoLogado");    
@@ -95,7 +95,7 @@ public class LoginBean {
 		try {
 			fc.getExternalContext().redirect("login.xhtml");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		
 			e.printStackTrace();
 		}   
 	}

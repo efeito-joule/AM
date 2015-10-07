@@ -33,6 +33,7 @@ import br.com.joule.entity.Historico;
 import br.com.joule.entity.Matricula;
 import br.com.joule.entity.Questao;
 import br.com.joule.entity.Ranking;
+import br.com.joule.exceptions.DBCommitException;
 import br.com.joule.singleton.EMFactorySingleton;
 
 @ManagedBean(name = "responderQuestaoBean")
@@ -58,7 +59,7 @@ public class ResponderQuestaoBean {
 	private List<Aula> aulas;
 	private List<Questao> questoes;
 	private List<Alternativa> alternativas;
-	private long idresposta;
+	private long idEscolha;
 	private String email;
 	private int index;
 	private Alternativa alternativa1;
@@ -76,7 +77,10 @@ public class ResponderQuestaoBean {
 	private boolean resposta04;
 	private String descricao05;
 	private boolean resposta05;
+	private String escolha;
 	private String resposta;
+	private long acertou;
+	private String correcao;
 	
 	@PostConstruct
 	public void init() {
@@ -95,8 +99,8 @@ public class ResponderQuestaoBean {
 		questao = new Questao();
 		questoes = null;
 		ranking = new Ranking();
-		idresposta=0;
-		resposta = null;
+		idEscolha=0;
+		escolha = null;
 		cursos = new ArrayList<Curso>();
 		alternativas = new ArrayList<Alternativa>();
 		alternativa1 = new Alternativa();
@@ -105,6 +109,9 @@ public class ResponderQuestaoBean {
 		alternativa4= new Alternativa();
 		alternativa5 = new Alternativa();
 		index = 0;
+		resposta="0";
+		//0 errou 1 acertou 2 semresposta
+		acertou=2;
 	}
 	
 	public void carregarAluno(){
@@ -150,61 +157,185 @@ public class ResponderQuestaoBean {
 	public List<Aula> carregarAulas(){
 		FacesMessage msg;
 		msg = new FacesMessage("Escolha uma aula");
-		idresposta =Long.parseLong(resposta);
-		curso = cursoDAO.findById(idresposta);
+		idEscolha =Long.parseLong(escolha);
+		curso = cursoDAO.findById(idEscolha);
 		aulas = aulaDAO.buscarPorCurso(curso);
-		resposta = null;
+		escolha = null;
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		return aulas;
 	}
 
 	public Questao carregarQuestoes(){
-		idresposta =Long.parseLong(resposta);
-		aula = aulaDAO.findById(idresposta);
-		System.out.println("Estou aqui 1");
-		questoes = questaoDAO.buscarPorAula(aula);
-		System.out.println("Estou aqui 2");
-		questao = questoes.get(index);
-		System.out.println("Estou aqui 3");
-		index = index +1;
-		System.out.println("Estou aqui 4");
+		acertou=2;
+		idEscolha =Long.parseLong(escolha);
+		aula = aulaDAO.findById(idEscolha);
+		
 		FacesMessage msg;
-		if (questao ==null) {
-			System.out.println("Estou aqui 5");
-			msg = new FacesMessage("Esta aula não possui mais questões");
-			return null;
-		}else {
-			System.out.println("Estou aqui 6");
-			alternativas = questao.getListaAlternativas();
-			System.out.println("Estou aqui 7");
-			alternativa1 = alternativas.get(0);
-			System.out.println("Estou aqui 8");
-			alternativa2 = alternativas.get(1);
-			System.out.println("Estou aqui 9");
-			alternativa3 = alternativas.get(2);
-			System.out.println("Estou aqui 10");
-			alternativa4 = alternativas.get(3);
-			System.out.println("Estou aqui 11");
-			alternativa5 = alternativas.get(4);
-			System.out.println("Estou aqui 12");
+		if (questaoDAO.buscarPorAula(aula)==null) {
+			msg = new FacesMessage("Esta aula não possui questões!");
+			aula = new Aula();
+			questao = new Questao();
+			alternativa1 = new Alternativa();
+			alternativa2 = new Alternativa();
+			alternativa3 = new Alternativa();
+			alternativa4= new Alternativa();
+			alternativa5 = new Alternativa();
+			descricao01 = "";
+			descricao02 = "";
+			descricao03 = "";
+			descricao04 = "";
+			descricao05 = "";
 			
-			descricao01 = alternativa1.getDescricao();
-			System.out.println("Estou aqui 13");
-			descricao02 = alternativa2.getDescricao();
-			System.out.println("Estou aqui 14");
-			descricao03 = alternativa3.getDescricao();
-			System.out.println("Estou aqui 15");
-			descricao04 = alternativa4.getDescricao();
-			System.out.println("Estou aqui 16");
-			descricao05 = alternativa5.getDescricao();
-			System.out.println("Estou aqui 17");
-			
-			
-			msg = new FacesMessage("Responda esta questão");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
-			System.out.println("Estou aqui 18");
-			return questao;
+			return null;
 		}
+		questoes = questaoDAO.buscarPorAula(aula);
+		
+		if (questoes.size()<index+1) {
+			msg = new FacesMessage("Esta aula não possui mais questões!");
+			aula = new Aula();
+			questao = new Questao();
+			alternativa1 = new Alternativa();
+			alternativa2 = new Alternativa();
+			alternativa3 = new Alternativa();
+			alternativa4= new Alternativa();
+			alternativa5 = new Alternativa();
+			descricao01 = "";
+			descricao02 = "";
+			descricao03 = "";
+			descricao04 = "";
+			descricao05 = "";
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			return null;
+		}
+		
+		questao = questoes.get(index);
+		index = index +1;
+		
+		alternativas = questao.getListaAlternativas();
+		alternativa1 = alternativas.get(0);
+		alternativa2 = alternativas.get(1);
+		alternativa3 = alternativas.get(2);
+		alternativa4 = alternativas.get(3);
+		alternativa5 = alternativas.get(4);
+			
+		descricao01 = alternativa1.getDescricao();
+		descricao02 = alternativa2.getDescricao();
+		descricao03 = alternativa3.getDescricao();
+		descricao04 = alternativa4.getDescricao();
+		descricao05 = alternativa5.getDescricao();
+			
+		msg = new FacesMessage("Responda a questão");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+		return questao;
+		
+	}
+	
+	
+	public void corrigirQuestao(){
+		acertou=2;
+		resposta = FacesContext.getCurrentInstance().
+				getExternalContext().getRequestParameterMap().get("resposta");
+		resposta01=false;
+		resposta02=false;
+		resposta03=false;
+		resposta04=false;
+		resposta05=false;
+		
+		switch (resposta) {
+		case "1":
+			resposta01=true;
+			break;
+		case "2":
+			resposta02=true;
+			break;
+		case "3":
+			resposta03=true;
+			break;
+		case "4":
+			resposta04=true;
+			break;
+		case "5":
+			resposta05=true;
+			break;
+		default:
+			FacesMessage msg2;
+			msg2 = new FacesMessage("Selecione uma resposta");
+			FacesContext.getCurrentInstance().addMessage(null, msg2);
+			break;
+		}
+		
+		historico.setAluno(aluno);
+		historico.setAula(aula);
+		ranking.setAluno(aluno);
+		
+		if (resposta01==alternativa1.isResposta()&& resposta02==alternativa2.isResposta()
+				&& resposta03==alternativa3.isResposta()&& resposta04==alternativa4.isResposta()
+						&& resposta05==alternativa5.isResposta()) {
+			
+			acertou=1;
+			historico.setNumAcerto(historico.getNumAcerto()+1);
+			historico.setNumErro(historico.getNumErro());
+			ranking.setNumAcerto(1);
+			ranking.setNumErro(0);
+			
+		}else {
+			acertou=0;
+			historico.setNumAcerto(historico.getNumAcerto());
+			historico.setNumErro(historico.getNumErro()+1);
+			ranking.setNumAcerto(0);
+			ranking.setNumErro(1);
+		}
+		
+		if (histDAO.buscarPorAulaAluno(aula.getId(), aluno.getId())==null) {
+			
+			try {
+				histDAO.create(historico);
+			} catch (DBCommitException e) {
+				e.printStackTrace();
+			}
+		}else {
+			try {
+				historico.setId(histDAO.buscarPorAulaAluno(aula.getId(), aluno.getId()).getId());
+				histDAO.update(historico);
+			} catch (DBCommitException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		if (rankingDAO.buscarPorAluno(aluno.getId())==null) {
+			try {
+				rankingDAO.create(ranking);
+			} catch (DBCommitException e) {
+			
+				e.printStackTrace();
+			}
+		}else {
+			try {			
+				ranking.setId(rankingDAO.buscarPorAluno(aluno.getId()).getId());
+				rankingDAO.update(ranking);
+			} catch (DBCommitException e) {
+				e.printStackTrace();
+			}
+		}
+		atualizaRanking();
+		
+		for (Alternativa alternativa : alternativas) {
+			if (alternativa.isResposta()==true) {
+				correcao = alternativa.getDescricao();
+			}
+		}
+
+		FacesMessage msg3;
+		if (acertou==1) {
+			msg3 = new FacesMessage("Acertou, a resposta é "+correcao);
+			FacesContext.getCurrentInstance().addMessage(null, msg3);
+		}
+		if (acertou ==0) {
+			msg3 = new FacesMessage("Errou, a resposta é "+correcao);
+			FacesContext.getCurrentInstance().addMessage(null, msg3);
+		}
+		
 	}
 	
 	public Historico getHistorico() {
@@ -277,14 +408,6 @@ public class ResponderQuestaoBean {
 
 	public void setResposta(String resposta) {
 		this.resposta = resposta;
-	}
-
-	public long getIdresposta() {
-		return idresposta;
-	}
-
-	public void setIdresposta(long idresposta) {
-		this.idresposta = idresposta;
 	}
 
 	public String getEmail() {
@@ -445,6 +568,30 @@ public class ResponderQuestaoBean {
 
 	public void setResposta05(boolean resposta05) {
 		this.resposta05 = resposta05;
+	}
+
+	public long getIdEscolha() {
+		return idEscolha;
+	}
+
+	public void setIdEscolha(long idEscolha) {
+		this.idEscolha = idEscolha;
+	}
+
+	public String getEscolha() {
+		return escolha;
+	}
+
+	public void setEscolha(String escolha) {
+		this.escolha = escolha;
+	}
+
+	public long getAcertou() {
+		return acertou;
+	}
+
+	public void setAcertou(long acertou) {
+		this.acertou = acertou;
 	}
 	
 }

@@ -247,4 +247,30 @@ public void atualizar() {
 	public void setMessage(String message) {
 		this.message = message;
 	}
+
+	public TipoPessoa getTipoPessoa() {
+		return tipoPessoa;
+	}
+
+	public void setTipoPessoa(TipoPessoa tipoPessoa) {
+		this.tipoPessoa = tipoPessoa;
+	}
+
+	public UF getUf() {
+		return uf;
+	}
+
+	public void setUf(UF uf) {
+		this.uf = uf;
+	}
+
+	public FacesMessage getMsg() {
+		return msg;
+	}
+
+	public void setMsg(FacesMessage msg) {
+		this.msg = msg;
+	}
+	
+	
 }

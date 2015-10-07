@@ -46,7 +46,7 @@
 	    <h:form id="formulario1"  >
 			<div class="row" style="margin-top: 10px;">
 			<div class="col-md-4">
-  				<h:selectOneMenu styleClass="form-control" value="#{responderQuestaoBean.resposta}" rendered="#{responderQuestaoBean.aulas==null}">
+  				<h:selectOneMenu styleClass="form-control" value="#{responderQuestaoBean.escolha}" rendered="#{responderQuestaoBean.aulas==null}">
   				<f:selectItem itemValue="" itemLabel="Selecione um curso" />
   				<f:selectItems value="#{responderQuestaoBean.cursos}" var="c"
   				itemLabel="#{c.nome}"
@@ -67,7 +67,7 @@
 	    		
 		<div class="row" rendered="#{responderQuestaoBean.aulas!=null}" >
 		<div class="col-md-4" rendered="#{responderQuestaoBean.aulas!=null}" >
-  			<h:selectOneMenu styleClass="form-control"  value="#{responderQuestaoBean.resposta}" rendered="#{responderQuestaoBean.aulas!=null}" >
+  			<h:selectOneMenu styleClass="form-control"  value="#{responderQuestaoBean.escolha}" rendered="#{responderQuestaoBean.aulas!=null}" >
   			<f:selectItem itemValue="" itemLabel="Selecione uma aula" />
   			<f:selectItems value="#{responderQuestaoBean.aulas}" var="a"
   			itemLabel="#{a.nome}"
@@ -89,12 +89,11 @@
 	    <!-- Mostra a questao -->
 		<div style="margin-top: 20px;">
 		<h:form>
-		<div class="row">
-			<div class="col-md-5">
+		<div class="row" style="margin-top: 20px;">
+		<div class="col-lg-10">
 				<h:outputLabel for="pergunta">Pergunta:</h:outputLabel>
-				<h:outputText id="pergunta" styleClass="form-control output-sm"
-					value="#{responderQuestaoBean.questao.pergunta}"/>
-			</div>
+				<h:outputText  styleClass="output-lg"  id="pergunta" value="#{responderQuestaoBean.questao.pergunta}"/>
+		</div>
 		</div>
 		<div class="row" style="margin-top: 20px;">
 			<div class="col-md-6">
@@ -159,12 +158,20 @@
 						</div>
 					</div>
 				</div>
-				<div class="row" style="margin-top: 20px;">
-					<div class="col-md-3">
+				<div class="row" style="margin-top: 20px;" rendered="#{responderQuestaoBean.acertou==2}">
+					<div class="col-md-3" rendered="#{responderQuestaoBean.acertou==2}">
 							<h:commandButton styleClass="btn btn-default" value="Enviar Resposta" 
-							actionListener="#{responderQuestaoBean.responder}" update="tabela" />
+							rendered="#{responderQuestaoBean.acertou==2}"
+							actionListener="#{responderQuestaoBean.corrigirQuestao}" update="tabela" />
 					</div>
 				</div>
+				<div class="row" style="margin-top: 10px;" rendered="#{responderQuestaoBean.acertou!=2}">
+					<div class="col-dm-3" rendered="#{responderQuestaoBean.acertou!=2}">
+					<h:commandButton styleClass="btn btn-default" rendered="#{responderQuestaoBean.acertou!=2}"
+					 value="Carregar nova questão" 
+					actionListener="#{responderQuestaoBean.carregarQuestoes}" />
+		</div>
+		</div>
 			</h:form>
 	    </div>
 	</ui:define>

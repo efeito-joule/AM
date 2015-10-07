@@ -23,7 +23,8 @@ public class AuthorizationListener  implements PhaseListener, Serializable{
 		ExternalContext externalContext = facesContext.getExternalContext();  
 		HttpServletResponse response = (HttpServletResponse) externalContext.getResponse();  
 
-		boolean isLoginPage = (currentPage.lastIndexOf("login.xhtml") > -1); 
+		boolean isLoginPage = (currentPage.lastIndexOf("login.xhtml") > -1)
+				||  (currentPage.lastIndexOf("cadastroAluno.xhtml") > -1); 
 		// contexto da requisicao
 		HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true); 
 		

@@ -254,9 +254,8 @@ public class QuestaoBean {
 		FacesContext.getCurrentInstance().addMessage(null, msg);		
 	}
 	
-	public String editar(Questao questao){
+	public void editar(Questao questao){
 		this.questao = questao;
-		return "editarQuestao";
 	}
 	
 	public Questao buscarPorPergunta(String pergunta){

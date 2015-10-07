@@ -38,7 +38,11 @@ public class QuestaoDAOImpl extends DAOImpl<Questao, Long> implements QuestaoDAO
 				+ "q.aula = :aula",
 				Questao.class);
 			query.setParameter("aula", aula);
+			try {
 			return query.getResultList();
+			} catch (NoResultException nre) {
+				return null;  
+			}
 	}
 
 }

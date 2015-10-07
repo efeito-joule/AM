@@ -656,20 +656,20 @@ public class Teste {
 		
 		historico9.setAluno(aluno5);
 		historico9.setAula(aula1);
-		historico9.setNumAcerto(10);
+		historico9.setNumAcerto(20);
 		historico9.setNumErro(9);
 		ranking5.setAluno(aluno5);
-		ranking5.setNumAcerto(10);
+		ranking5.setNumAcerto(20);
 		ranking5.setNumErro(9);
 		
 		Historico historico10 = new Historico();
 		
 		historico10.setAluno(aluno5);
 		historico10.setAula(aula2);
-		historico10.setNumAcerto(10);
+		historico10.setNumAcerto(20);
 		historico10.setNumErro(10);
 		ranking5.setAluno(aluno5);
-		ranking5.setNumAcerto(10);
+		ranking5.setNumAcerto(20);
 		ranking5.setNumErro(10);
 		
 		Historico historico11 = new Historico();
