@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.StoredProcedureQuery;
 
+import br.com.joule.dao.AdministradorDAO;
 import br.com.joule.dao.AlunoDAO;
 import br.com.joule.dao.AulaDAO;
 import br.com.joule.dao.CursoDAO;
@@ -14,6 +15,7 @@ import br.com.joule.dao.HistoricoDAO;
 import br.com.joule.dao.MatriculaDAO;
 import br.com.joule.dao.QuestaoDAO;
 import br.com.joule.dao.RankingDAO;
+import br.com.joule.daoimpl.AdministradorDAOImpl;
 import br.com.joule.daoimpl.AlunoDAOImpl;
 import br.com.joule.daoimpl.AulaDAOImpl;
 import br.com.joule.daoimpl.CursoDAOImpl;
@@ -21,6 +23,7 @@ import br.com.joule.daoimpl.HistoricoDAOImpl;
 import br.com.joule.daoimpl.MatriculaDAOImpl;
 import br.com.joule.daoimpl.QuestaoDAOImpl;
 import br.com.joule.daoimpl.RankingDAOImpl;
+import br.com.joule.entity.Administrador;
 import br.com.joule.entity.Alternativa;
 import br.com.joule.entity.Aluno;
 import br.com.joule.entity.Aula;
@@ -37,6 +40,27 @@ public class Teste {
 	public static void main(String[] args) {
 		
 		EntityManager em = EMFactorySingleton.getInstance().createEntityManager();
+		
+		
+		/*Criando uma conta de administrador */
+		AdministradorDAO administradorDAO = new AdministradorDAOImpl(em);
+		
+		Administrador adm = new Administrador();
+		adm.setNome("adminsitrador");
+		adm.setEmail("adm@gmail.com");
+		adm.setSenha("xxx");
+		
+		try {
+			administradorDAO.create(adm);
+			System.out.println("************************************");
+			System.out.println("");
+			System.out.println("---  1 administrador cadastrado  ---");
+			System.out.println("");
+		
+		} catch (DBCommitException e1) {
+			e1.printStackTrace();
+			System.out.println("-- Erro ao criar o administrador  ---");
+		}
 		
 		/*Populando e testando os alunos */
 		

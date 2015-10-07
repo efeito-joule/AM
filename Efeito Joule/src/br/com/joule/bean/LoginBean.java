@@ -10,8 +10,11 @@ import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpSession;
 
+import br.com.joule.dao.AdministradorDAO;
 import br.com.joule.dao.AlunoDAO;
+import br.com.joule.daoimpl.AdministradorDAOImpl;
 import br.com.joule.daoimpl.AlunoDAOImpl;
+import br.com.joule.entity.Administrador;
 import br.com.joule.entity.Aluno;
 import br.com.joule.singleton.EMFactorySingleton;
 
@@ -24,12 +27,18 @@ public class LoginBean {
 	private String message;
 	private EntityManager em;
 	private static Aluno aluno;
+	private static Administrador administrador;
 	private FacesContext fc;
 	private HttpSession session;
+	private AlunoDAO alunoDAO;
+	private AdministradorDAO administradorDAO;
+	
 	
 	@PostConstruct
 	public void init() {
 		em = EMFactorySingleton.getInstance().createEntityManager();
+		alunoDAO = new AlunoDAOImpl(em);
+		administradorDAO = new AdministradorDAOImpl(em);
 	}
 	
 	public void login() {
@@ -42,20 +51,34 @@ public class LoginBean {
 			
 		} else {
 			
-			AlunoDAO alunoDAO = new AlunoDAOImpl(em);
 			
 		    aluno = alunoDAO.logar(usuarioOuEmail, senha);
+		    administrador = administradorDAO.logar(usuarioOuEmail, senha);
 			
 			if(aluno != null) {
 				
 				try {
 					fc = FacesContext.getCurrentInstance();
 					
-					fc.getExternalContext().getSessionMap().put("alunoLogado", aluno);  
+					fc.getExternalContext().getSessionMap().put("usuarioLogado", aluno);  
 					session = (HttpSession) fc.getExternalContext().getSession(true);  
-					session.setAttribute("alunoLogado", aluno);  
+					session.setAttribute("usuarioLogado", aluno);  
 					
 					fc.getExternalContext().redirect("meusCursos.xhtml");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+			}else if (administrador!=null) {
+				
+				try {
+					fc = FacesContext.getCurrentInstance();
+					
+					fc.getExternalContext().getSessionMap().put("usuarioLogado", administrador);  
+					session = (HttpSession) fc.getExternalContext().getSession(true);  
+					session.setAttribute("usuarioLogado", administrador);  
+					
+					fc.getExternalContext().redirect("cadastroCurso.xhtml");
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -74,7 +97,7 @@ public class LoginBean {
 		// contexto da requisicao
 		HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true); 
 		// pega usuario da sessao
-		Object currentUser = session.getAttribute("alunoLogado"); 
+		Object currentUser = session.getAttribute("usuarioLogado"); 
 		Aluno aluno = (Aluno) currentUser; 
 		return aluno;
 	}
@@ -85,10 +108,10 @@ public class LoginBean {
 		
 		//expira a sessão  	
 		session.invalidate(); 
-		session.removeAttribute("alunoLogado");
+		session.removeAttribute("usuarioLogado");
 
 		FacesContext context = FacesContext.getCurrentInstance();    
-		context.getExternalContext().getSessionMap().remove("alunoLogado");    
+		context.getExternalContext().getSessionMap().remove("usuarioLogado");    
 		context.getExternalContext().getSessionMap().clear();
 		context.getExternalContext().getSessionMap().equals(null);
 
@@ -123,4 +146,6 @@ public class LoginBean {
 	public void setMessage(String message) {
 		this.message = message;
 	}
+	
+	
 }

@@ -29,7 +29,7 @@ public class AuthorizationListener  implements PhaseListener, Serializable{
 		HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true); 
 		
 		// pega usuario da sessao
-		Object currentUser = session.getAttribute("alunoLogado"); 
+		Object currentUser = session.getAttribute("usuarioLogado"); 
 		try{
 			// verifica se existe usuario logado se for null redireciona para o login
 			if (!isLoginPage && currentUser == null || !isLoginPage && currentUser.equals("")) { 
@@ -49,7 +49,7 @@ public class AuthorizationListener  implements PhaseListener, Serializable{
 
 	@Override
 	public void beforePhase(PhaseEvent event) {
-		System.out.println("Teste");
+
 	}
 
 	@Override

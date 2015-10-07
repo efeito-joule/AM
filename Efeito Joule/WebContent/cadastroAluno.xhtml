@@ -19,6 +19,11 @@
 						</div>
 					</div>
 					<div class="row">
+					<div class="col-md-4">
+						<h:messages styleClass="alert alert-info" autoUpdate="true"/>
+					</div>
+					</div>
+					<div class="row">
 			    		<div class="col-md-3 col-md-offset-3">
 			    			<label>Usuário:</label>
 			    			<div class="input-group">
@@ -82,52 +87,13 @@
 			    				<f:convertDateTime pattern="dd/MM/yyyy" type="date" locale="pt_BR" />
 			    			</h:inputText>
 			    		</div>
-			    		<div class="col-md-1">
-			    			<label>DDD:</label>
-			    			<h:inputText styleClass="form-control input-sm" value="#{cadastroAlunoBean.telefone.ddd}" />
-			    		</div>
-			    		<div class="col-md-2">
-			    			<label>Fone:</label>
-			    			<h:inputText styleClass="form-control input-sm" value="#{cadastroAlunoBean.telefone.numero}" />
-			    		</div>
-			    	</div>
-			    	<div class="row" style="margin-top: 10px">
-			    		<div class="col-md-3 col-md-offset-3">
-			    			<label>Endereço:</label>
-			    			<h:inputText styleClass="form-control input-sm" value="#{cadastroAlunoBean.endereco.logradouro}" />
-			    		</div>
-			    		<div class="col-md-1">
-			    			<label>Nº</label>
-			    			<h:inputText styleClass="form-control input-sm" value="#{cadastroAlunoBean.endereco.numero}" />
-			    		</div>
-			    		<div class="col-md-2">
-			    			<label>Complemento:</label>
-			    			<h:inputText styleClass="form-control input-sm" value="#{cadastroAlunoBean.endereco.complemento}" />
-			    		</div>
-			    	</div>
-			    	<div class="row" style="margin-top: 10px">
-			    		<div class="col-md-2 col-md-offset-3">
-			    			<label>Bairro:</label>
-			    			<h:inputText styleClass="form-control input-sm" value="#{cadastroAlunoBean.endereco.bairro}" />
-			    		</div>
-			    		<div class="col-md-2">
-			    			<label>Cidade:</label>
-			    			<h:inputText styleClass="form-control input-sm" value="#{cadastroAlunoBean.endereco.cidade}" />
-			    		</div>
-			    		<div class="col-md-2">
-			    			<label>UF:</label>
-			    			<h:selectOneMenu styleClass="form-control input-sm" value="#{cadastroAlunoBean.ufSelect}">
-			    				<f:selectItem itemLabel="Selecione..." noSelectionOption="true" />
-			    				<f:selectItem itemLabel="SP" itemValue="1" />
-			    			</h:selectOneMenu>
-			    		</div>
 			    	</div>
 			    	<div class="row" style="margin-top: 20px;">
 			    		<div class="col-md-6 col-md-offset-3" style="border-bottom: 1px solid silver;"></div>
 			    	</div>
 			    	<div class="row" style="margin-top: 20px;">
 			    		<div class="col-md-2 col-md-offset-5">
-			    			<h:commandButton actionListener="#{cadastroAlunoBean.save}" styleClass="btn btn-success btn-lg" value="Increver-se"
+			    			<h:commandButton actionListener="#{cadastroAlunoBean.cadastrar}" styleClass="btn btn-success btn-lg" value="Increver-se"
 			    							 onclick="guardandoDados();" />
 			    		</div>
 			    		<div class="col-md-2" style="margin-top: 25px;">

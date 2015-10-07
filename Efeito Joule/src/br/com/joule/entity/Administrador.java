@@ -7,9 +7,9 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity
-@Table(name = "T_SEJ_ALUNO")
-@DiscriminatorValue("ALU")
-public class Aluno extends Pessoa {
+@Table(name = "T_SEJ_ADMINISTRADOR")
+@DiscriminatorValue("ADM")
+public class Administrador extends Pessoa {
 
 	@Transient
 	private static final long serialVersionUID = 1L;
@@ -22,10 +22,6 @@ public class Aluno extends Pessoa {
 	
 	@Column(name="ds_senha")
 	private String senha;
-
-	public Aluno() {
-		super();
-	}
 
 	public String getNomeUsuario() {
 		return nomeUsuario;
@@ -50,4 +46,6 @@ public class Aluno extends Pessoa {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
+	
+	
 }

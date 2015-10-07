@@ -12,10 +12,6 @@ import javax.persistence.EntityManager;
 import br.com.joule.dao.AlunoDAO;
 import br.com.joule.daoimpl.AlunoDAOImpl;
 import br.com.joule.entity.Aluno;
-import br.com.joule.entity.Endereco;
-import br.com.joule.entity.Telefone;
-import br.com.joule.entity.TipoPessoa;
-import br.com.joule.entity.UF;
 import br.com.joule.singleton.EMFactorySingleton;
 
 @ManagedBean(name = "cadastroAlunoBean")
@@ -23,10 +19,6 @@ import br.com.joule.singleton.EMFactorySingleton;
 public class CadastroAlunoBean {
 
 	private Aluno aluno;
-	private Telefone telefone;
-	private Endereco endereco;
-	private TipoPessoa tipoPessoa;
-	private UF uf;
 	private String senha;
 	private String confirmaSenha;
 	private boolean masculino;
@@ -38,26 +30,16 @@ public class CadastroAlunoBean {
 
 	@PostConstruct
 	public void init() {
-		aluno = new Aluno();
-		telefone = new Telefone();
-		endereco = new Endereco();
-		uf = new UF();
-		uf.setId(Short.parseShort("1"));
-		uf.setDescricao("SP");
-		
-		tipoPessoa = new TipoPessoa();
-		tipoPessoa.setId(Short.parseShort("1"));
-		tipoPessoa.setDescricao("aluno");
-		
 		EntityManager em = EMFactorySingleton.getInstance().createEntityManager();
 		alunoDAO = new AlunoDAOImpl(em);
+		aluno = new Aluno();
 	}
 	
-	public void save() {
+	public void cadastrar() {
 		
 		try {
 			if(aluno.getNomeUsuario().isEmpty()) {
-				message = "Preencha o campo Usu√°rio!";
+				message = "Preencha o campo Usu·rio!";
 				
 			} else if(aluno.getEmail().isEmpty()) {
 				message = "Preencha o campo E-mail!";
@@ -69,7 +51,7 @@ public class CadastroAlunoBean {
 				message = "Confirme a Senha!";
 				
 			} else if(!senha.equals(confirmaSenha)) {
-				message = "As senhas n√£o coincidem!";
+				message = "As senhas n„o coincidem!";
 				
 			} else if(aluno.getNome().isEmpty()) {
 				message = "Preencha o campo Nome!";
@@ -83,20 +65,11 @@ public class CadastroAlunoBean {
 			} else if(aluno.getDataNascimento() == null) {
 				message = "Informe a Data de Nascimento!";
 				
-			} else if(telefone.getDdd() == 0) {
-				message = "informe o DDD!"; 
-				
-			} else if(telefone.getNumero().isEmpty()) {
-				message = "Informe o Telefone!";
-				
-			} else {
-				aluno.setTelefone(telefone);
-//				endereco.setUf(uf);
-				aluno.setEndereco(endereco);
-//				aluno.setTipoPessoa(tipoPessoa);
+			}  else {
 				aluno.setSenha(senha);
-				
+				System.out.println("antes de criar o aluno");
 				alunoDAO.create(aluno);
+				message = "Cadastro efetuado com sucesso!";
 				
 				try {
 					FacesContext.getCurrentInstance().getExternalContext().redirect("meusCursos.xhtml");
@@ -144,17 +117,7 @@ public void atualizar() {
 			} else if(aluno.getDataNascimento() == null) {
 				message = "Informe a Data de Nascimento!";
 				
-			} else if(telefone.getDdd() == 0) {
-				message = "informe o DDD!"; 
-				
-			} else if(telefone.getNumero().isEmpty()) {
-				message = "Informe o Telefone!";
-				
-			} else {
-				aluno.setTelefone(telefone);
-//				endereco.setUf(uf);
-				aluno.setEndereco(endereco);
-//				aluno.setTipoPessoa(tipoPessoa);
+			}  else {
 				aluno.setSenha(senha);
 				
 				alunoDAO.update(aluno);
@@ -164,8 +127,6 @@ public void atualizar() {
 					e.printStackTrace();
 				}
 			}
-			
-			
 			msg = new FacesMessage(message);
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 			
@@ -173,8 +134,6 @@ public void atualizar() {
 			e.printStackTrace();
 		}
 	}
-	
-	
 	
 	public Aluno getAluno() {
 		return aluno;
@@ -216,22 +175,6 @@ public void atualizar() {
 		this.feminino = feminino;
 	}
 
-	public Telefone getTelefone() {
-		return telefone;
-	}
-
-	public void setTelefone(Telefone telefone) {
-		this.telefone = telefone;
-	}
-
-	public Endereco getEndereco() {
-		return endereco;
-	}
-
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
-	}
-
 	public short getUfSelect() {
 		return ufSelect;
 	}
@@ -248,22 +191,6 @@ public void atualizar() {
 		this.message = message;
 	}
 
-	public TipoPessoa getTipoPessoa() {
-		return tipoPessoa;
-	}
-
-	public void setTipoPessoa(TipoPessoa tipoPessoa) {
-		this.tipoPessoa = tipoPessoa;
-	}
-
-	public UF getUf() {
-		return uf;
-	}
-
-	public void setUf(UF uf) {
-		this.uf = uf;
-	}
-
 	public FacesMessage getMsg() {
 		return msg;
 	}
@@ -271,6 +198,7 @@ public void atualizar() {
 	public void setMsg(FacesMessage msg) {
 		this.msg = msg;
 	}
+	
 	
 	
 }
