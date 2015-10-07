@@ -10,50 +10,60 @@
 		<ui:define name="head">
 		</ui:define>
 		<ui:define name="body">
-		<div class="row" style="margin-top: 20px;">
-			<p>Busque os cursos em que está matriculado</p>
+		<div style="margin-top: 20px;">
+  		<div class="row">
+			<h1>Meus Cursos</h1>
 		</div>
-		<div class="row" style="margin-top: 20px;">
-			<div class="col-md-6">
-				<h:outputLabel>Digite seu email:</h:outputLabel>
-				<h:inputText styleClass="form-control input-sm" id="busca"
-					value="#{alunoBean.email}" />
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<h:messages styleClass="alert alert-info" autoUpdate="true"/>
 			</div>
 		</div>
 		<div class="row" style="margin-top: 20px;">
-			<div class="col-md-3">
-				<h:commandButton styleClass="btn btn-default" value="Buscar"
-					actionListener="#{alunoBean.buscar}" update="tabela" />
-			</div>
-		</div>
-		<h1>Meus Cursos</h1>
+		<h:form id="formulario">
 		<h:panelGrid columns="3" class="col-md-8" style="margin-top: 20px;">
-			<h:dataTable value="#{alunoBean.alunos}" var="a"
+			<h:dataTable value="#{matriculaBean.cursos}" var="c"
 				styleClass="table" id="tabela">
 				<h:column>
-					<f:facet name="header">Aluno</f:facet>
-	   						#{a.nome}
-	   					</h:column>
-				<h:column>
 					<f:facet name="header">Curso</f:facet>
-	   						#{a.curso.nome}
+	   						#{c.nome}
 	   					</h:column>
 				<h:column>
-					<a href="assistirAula.xhtml" class="btn btn-default">Assistir
-						Aula</a>
-				</h:column>
-				<h:column>
-					<h:commandButton styleClass="btn btn-default"
+					<h:commandButton styleClass="btn btn-success"
 						value="Renovar Matrícula"
 						actionListener="#{matriculaBean.renovar}" update="tabela" />
 				</h:column>
 				<h:column>
-					<h:commandButton styleClass="btn btn-default"
+					<h:commandButton styleClass="btn btn-danger"
 						value="Cancelar Matrícula"
 						actionListener="#{matriculaBean.deletar}" update="tabela" />
 				</h:column>
 			</h:dataTable>
 		</h:panelGrid>
+		</h:form>
+		</div>
+		<div class="row" style="margin-top: 20px;">
+  		<div class="row">
+			<h2>Mais cursos</h2>
+		</div>
+		</div>
+		<h:form id="formulario2">
+		<h:panelGrid columns="3" class="col-md-8" style="margin-top: 20px;">
+			<h:dataTable value="#{matriculaBean.outroscursos}" var="c"
+				styleClass="table" id="tabela">
+				<h:column>
+					<f:facet name="header">Curso</f:facet>
+	   						#{c.nome}
+	   					</h:column>
+				<h:column>
+					<h:commandButton styleClass="btn btn-success"
+						value="Matrícular"
+						actionListener="#{matriculaBean.renovar}" update="tabela" />
+				</h:column>
+			</h:dataTable>
+		</h:panelGrid>
+		</h:form>>
 	</ui:define>
 	</ui:composition>
 </html>

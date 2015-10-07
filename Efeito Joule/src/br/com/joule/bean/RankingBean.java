@@ -10,13 +10,11 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 
-import br.com.joule.dao.AlunoDAO;
 import br.com.joule.dao.AulaDAO;
 import br.com.joule.dao.CursoDAO;
 import br.com.joule.dao.HistoricoDAO;
 import br.com.joule.dao.MatriculaDAO;
 import br.com.joule.dao.RankingDAO;
-import br.com.joule.daoimpl.AlunoDAOImpl;
 import br.com.joule.daoimpl.AulaDAOImpl;
 import br.com.joule.daoimpl.CursoDAOImpl;
 import br.com.joule.daoimpl.HistoricoDAOImpl;
@@ -43,7 +41,6 @@ public class RankingBean {
 	private RankingDAO rankingDAO;
 	private AulaDAO aulaDAO;
 	private CursoDAO cursoDAO;
-	private AlunoDAO alunoDAO;
 	private Aluno aluno;
 	private Aula aula;
 	private Curso curso;
@@ -68,8 +65,6 @@ public class RankingBean {
 		aulaDAO = new AulaDAOImpl(em);
 		rankingDAO = new RankingDAOImpl(em);
 		cursoDAO = new CursoDAOImpl(em);
-		alunoDAO = new AlunoDAOImpl(em);
-		aluno = null;
 		aula = new Aula();
 		curso = new Curso();
 		ranking = new Ranking();
@@ -77,27 +72,12 @@ public class RankingBean {
 		idresposta=0;
 		resposta = null;
 		cursos = new ArrayList<Curso>();
+		aluno =(Aluno) LoginBean.pegaUsuarioSessao();
+		carregarCursos();
 	}
-	
-	public void carregarAluno(){
-	
-	FacesMessage msg;
-	if (email=="") {
-		msg=new FacesMessage("Informe o nome seu e-mail");
-	}else {
-		aluno = alunoDAO.buscarEmail(email);
-		msg = new FacesMessage("Agora selecione um curso");
-		if (aluno == null) {
-			msg = new FacesMessage("Informe um e-mail correto");
-		}else {
-			matriculas = matriculaDAO.buscarPorAluno(aluno.getId());
-			carregarCursos();
-		}
-	}
-	FacesContext.getCurrentInstance().addMessage(null, msg);
-	}
-	
+
 	public List<Curso> carregarCursos(){
+		matriculas = matriculaDAO.buscarPorAluno(aluno.getId());
 		FacesMessage msg;
 		msg = new FacesMessage("Escolha um curso");
 		for (Matricula matricula : matriculas) {

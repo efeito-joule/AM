@@ -11,14 +11,12 @@ import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.StoredProcedureQuery;
 
-import br.com.joule.dao.AlunoDAO;
 import br.com.joule.dao.AulaDAO;
 import br.com.joule.dao.CursoDAO;
 import br.com.joule.dao.HistoricoDAO;
 import br.com.joule.dao.MatriculaDAO;
 import br.com.joule.dao.QuestaoDAO;
 import br.com.joule.dao.RankingDAO;
-import br.com.joule.daoimpl.AlunoDAOImpl;
 import br.com.joule.daoimpl.AulaDAOImpl;
 import br.com.joule.daoimpl.CursoDAOImpl;
 import br.com.joule.daoimpl.HistoricoDAOImpl;
@@ -47,7 +45,6 @@ public class ResponderQuestaoBean {
 	private RankingDAO rankingDAO;
 	private AulaDAO aulaDAO;
 	private CursoDAO cursoDAO;
-	private AlunoDAO alunoDAO;
 	private QuestaoDAO questaoDAO;
 	private Questao questao;
 	private Aluno aluno;
@@ -91,9 +88,7 @@ public class ResponderQuestaoBean {
 		aulaDAO = new AulaDAOImpl(em);
 		rankingDAO = new RankingDAOImpl(em);
 		cursoDAO = new CursoDAOImpl(em);
-		alunoDAO = new AlunoDAOImpl(em);
 		questaoDAO = new QuestaoDAOImpl(em);
-		aluno = null;
 		aula = new Aula();
 		curso = new Curso();
 		questao = new Questao();
@@ -112,24 +107,8 @@ public class ResponderQuestaoBean {
 		resposta="0";
 		//0 errou 1 acertou 2 semresposta
 		acertou=2;
-	}
-	
-	public void carregarAluno(){
-	
-	FacesMessage msg;
-	if (email=="") {
-		msg=new FacesMessage("Informe o nome seu e-mail");
-	}else {
-		aluno = alunoDAO.buscarEmail(email);
-		msg = new FacesMessage("Agora selecione um curso");
-		if (aluno == null) {
-			msg = new FacesMessage("Informe um e-mail correto");
-		}else {
-			matriculas = matriculaDAO.buscarPorAluno(aluno.getId());
-			carregarCursos();
-		}
-	}
-	FacesContext.getCurrentInstance().addMessage(null, msg);
+		aluno =(Aluno) LoginBean.pegaUsuarioSessao();
+		carregarCursos();
 	}
 	
 	public void atualizaRanking(){
@@ -139,6 +118,7 @@ public class ResponderQuestaoBean {
 	
 	public List<Curso> carregarCursos(){
 		FacesMessage msg;
+		matriculas = matriculaDAO.buscarPorAluno(aluno.getId());
 		msg = new FacesMessage("Escolha um curso");
 		for (Matricula matricula : matriculas) {
 			cursos.add(matricula.getCurso());

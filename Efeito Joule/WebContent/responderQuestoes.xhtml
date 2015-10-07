@@ -16,7 +16,7 @@
   		<div class="row">
   		<div class="col-md-6">
   		<h1>Exercícios</h1>
-  			<h3>Confirme seu e-mail e siga as instruções:</h3>
+  			<h3>Escolha um curso e uma aula e vamos nos exercitar:</h3>
   		</div>
   		</div>
   		<div class="row">
@@ -24,25 +24,6 @@
 				<h:messages styleClass="alert alert-info" autoUpdate="true"/>
 			</div>
 		</div>
-
-	    <h:form id="formulario">
-	    <div class="row">
-	    	<div>
-				<h:outputLabel value="e-mail: "/>
-			</div>
-			<div class="col-md-4">
-				<h:inputText styleClass="form-control input-sm" id="busca" 
-				value="#{responderQuestaoBean.email}" required="true" requiredMessage="O e-mail é obrigatório"/>
-			</div>
-		</div>
-		
-		<div class="row" style="margin-top: 10px;">
-			<div class="col-dm-3" rendered="#{responderQuestaoBean.aluno==null}">
-				<h:commandButton styleClass="btn btn-default"  rendered="#{rankingBean.aluno==null}" value="Confirmar e-mail"
-				actionListener="#{responderQuestaoBean.carregarAluno}" update="tabela"/>
-			</div>
-		</div>
-	    </h:form>
 	    <h:form id="formulario1"  >
 			<div class="row" style="margin-top: 10px;">
 			<div class="col-md-4">

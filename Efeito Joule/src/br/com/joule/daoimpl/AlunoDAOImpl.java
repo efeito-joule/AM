@@ -53,6 +53,7 @@ public class AlunoDAOImpl extends DAOImpl<Aluno, Long> implements AlunoDAO {
 		return (Aluno) aluno;
    }
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Aluno> buscaDadosUsuario(String usuarioOuEmail, String senha) {
 		
@@ -65,9 +66,7 @@ public class AlunoDAOImpl extends DAOImpl<Aluno, Long> implements AlunoDAO {
 		
 		try {
 			Query query = em.createQuery(sql.toString());
-		
 			alunos =  query.getResultList();
-			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
