@@ -3,14 +3,14 @@
 	<persistence-unit name="CLIENTE_ORACLE" transaction-type="RESOURCE_LOCAL">			
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>		
 		<properties>
-		<property name="hibernate.show_sql" value="true"/>
+												<!-- Comentário -->
+			<property name="hibernate.show_sql" value="true"/>
 			<property name="hibernate.hbm2ddl.auto" value="update"/>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect"/>
-		
-        <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
-        <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@localhost:1521:XE"/>
-        <property name="javax.persistence.jdbc.password" value="090581"/>
-        <property name="javax.persistence.jdbc.user" value="OPS$RM68978"/>
-   </properties>	
+			<property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
+			<property name="javax.persistence.jdbc.user" value="OPS$RM68978"/>
+			<property name="javax.persistence.jdbc.password" value="090581"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL"/>
+		</properties>	
 	</persistence-unit>
 </persistence>

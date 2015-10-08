@@ -32,12 +32,12 @@
 				<h:column>
 					<h:commandButton styleClass="btn btn-success"
 						value="Renovar Matrícula"
-						actionListener="#{matriculaBean.renovar}" update="tabela" />
+						actionListener="#{matriculaBean.renovar(c)}" update="tabela" />
 				</h:column>
 				<h:column>
 					<h:commandButton styleClass="btn btn-danger"
 						value="Cancelar Matrícula"
-						actionListener="#{matriculaBean.deletar}" update="tabela" />
+						actionListener="#{matriculaBean.deletar(c)}" update="tabela" />
 				</h:column>
 			</h:dataTable>
 		</h:panelGrid>
@@ -59,11 +59,11 @@
 				<h:column>
 					<h:commandButton styleClass="btn btn-success"
 						value="Matrícular"
-						actionListener="#{matriculaBean.renovar}" update="tabela" />
+						actionListener="#{matriculaBean.cadastrar(c)}" update="tabela" />
 				</h:column>
 			</h:dataTable>
 		</h:panelGrid>
-		</h:form>>
+		</h:form>
 	</ui:define>
 	</ui:composition>
 </html>

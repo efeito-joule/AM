@@ -1,7 +1,9 @@
 package br.com.joule.bean;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -34,7 +36,11 @@ public class MatriculaBean {
 	private List<Matricula> matriculas;
 	private List<Curso> cursos;
 	private List<Curso> outroscursos;
-	private CursoDAO cursoDAO;;
+	private CursoDAO cursoDAO;
+	Calendar dataInicio;
+	Calendar dataTermino;
+	Date data;
+	SimpleDateFormat sdf;
 	
 	@PostConstruct
 	public void init(){
@@ -46,45 +52,40 @@ public class MatriculaBean {
 		matricula = new Matricula();
 		cursos = new ArrayList<Curso>();
 		outroscursos = new ArrayList<Curso>();
-		aluno =(Aluno) LoginBean.pegaUsuarioSessao();
+		aluno =(Aluno) LoginBean.pegaAlunoSessao();
 		carregarCursos();
 		carregarOutrosCursos();
-		
+		dataInicio = Calendar.getInstance();
+		dataTermino = Calendar.getInstance();
+		data = dataTermino.getTime();
+		sdf = new SimpleDateFormat("dd/MM/yyyy");
 	}
 	public List<Curso> carregarCursos(){
 		matriculas = matriculaDAO.buscarPorAluno(aluno.getId());
 		FacesMessage msg;
-		msg = new FacesMessage("Escolha um curso");
+		if (matriculaDAO.buscarPorAluno(aluno.getId())==null) {
+			msg = new FacesMessage("Matricule-se em um curso");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			return null;
+		}
 		for (Matricula matricula : matriculas) {
 			cursos.add(matricula.getCurso());
 		}
-		if (cursos!=null) {
-			msg = new FacesMessage("Escolha um curso");
-			return cursos;
-		}else {
-			
-			msg = new FacesMessage("Matricule-se em um curso primeiro");
-			FacesContext.getCurrentInstance().addMessage(null, msg);
-			return null;
-		}
+		
+		return cursos;
 	}
 	
 	public List<Curso> carregarOutrosCursos(){
-		FacesMessage msg;
 		outroscursos = cursoDAO.list();
-		
+		for (Curso curso : cursos) {
+			outroscursos.remove(curso);
+		}
 		if (outroscursos!=null) {
-			msg = new FacesMessage("Escolha um curso");
 			return outroscursos;
 		}else {
-			msg = new FacesMessage("É preciso o cadastro de cursos");
-			FacesContext.getCurrentInstance().addMessage(null, msg);
 			return null;
 		}
 	}
-	
-	
-	
 	
 	public Matricula buscarPorCodigo(long id){
 		return matriculaDAO.findById(id);
@@ -94,74 +95,78 @@ public class MatriculaBean {
 		return matriculaDAO.buscarPorEmail(email);
 	}
 	
-	/*public void cadastrar(Matricula matricula, String email, int codCurso) throws SOAPException{
-		//Buscar as matrículas do aluno
-		List <Matricula> matriculas = dao.buscarPorEmail(email);
-		//Verificar se este aluno tem alguma matrícula
-		if (!matriculas.isEmpty()) {
-			// listar as matrículas do aluno
-			for (Matricula mts : matriculas) {
-				//Conferir se o aluno já está matriculado neste curso
-				if (codCurso == mts.getCurso().getId()) {
-					throw new SOAPException("Aluno já cadastrado neste curso");
-				}
-			}
-		}
-		
-		//Cadastrar a matrícula
-		try {
-			Calendar dataTermino = Calendar.getInstance();
+	public void cadastrar(Curso curso){
 			dataTermino.set(Calendar.MONTH, dataTermino.get(Calendar.MONTH)+6);
 			matricula.setDataTermino(dataTermino);
-			dao.create(matricula);
-		} catch (DBCommitException e) {
-			throw new SOAPException("Erro ao cadastrar");
-		}	
-	}*/
-	
-	public void cadastrar(){
-		FacesMessage msg;
-		if (matriculaDAO.buscarPorEmail(matricula.getUsuario().getEmail()) == null){
+			
+			matricula.setDataInicio(dataInicio);
+			matricula.setCurso(curso);
+			matricula.setUsuario(aluno);
+			FacesMessage msg;
 			try {
 				matriculaDAO.create(matricula);
-				msg = new FacesMessage("Matriculado com sucesso!");
+				msg = new FacesMessage("Matricula efetuada com sucesso!");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
 			} catch (DBCommitException e) {
 				e.printStackTrace();
-				msg = new FacesMessage("Erro ao matricular!");
 			}
-		}else{
-			msg = new FacesMessage("Email já existente!");
-		}
-		FacesContext.getCurrentInstance().addMessage(null, msg);
+			cursos = new ArrayList<Curso>();
+			outroscursos = new ArrayList<Curso>();
+			curso = new Curso();
+			matricula = new Matricula();
+			carregarCursos();
+			carregarOutrosCursos();
+			
 	}
 	
-	public void deletar(int codigo)  {
-
-			try {
-				matriculaDAO.delete(matricula.getId());
-			} catch (DBCommitException | IdNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	
+	public void deletar(Curso curso)  {
+		matricula = matriculaDAO.buscarPorAlunoCurso(aluno, curso);
+		
+		FacesMessage msg;	
+		try {
+			matriculaDAO.delete(matricula.getId());
+			msg = new FacesMessage("Matricula excluida com sucesso!");
+				
+		} catch (DBCommitException | IdNotFoundException e) {
+			msg = new FacesMessage("Desculpe mas esta matrícula já não pode"
+					+ " ser excluída");
+			e.printStackTrace();
+		}
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+		cursos = new ArrayList<Curso>();
+		outroscursos = new ArrayList<Curso>();
+		curso = new Curso();
+		matricula = new Matricula();
+		carregarCursos();
+		carregarOutrosCursos();
 	}
 	
 	
 	// Renovar a matrícula por mais seis meses
-	public void renovar (String email, int codCurso) {
-		try {
-			Matricula matricula = matriculaDAO.buscarPorEmailCurso(email, codCurso);
-			Calendar dataTermino = matricula.getDataTermino();
+	public void renovar (Curso curso) {
+		FacesMessage msg;
+			matricula = matriculaDAO.buscarPorAlunoCurso(aluno, curso);
+			dataTermino = matricula.getDataTermino();
 			//Uma matrícula só pode ser renovada quando a data de termino expirar
 			if ( Calendar.getInstance().before(dataTermino)) {
-			
+				data = dataTermino.getTime();
+				msg = new FacesMessage("Sua matrícula ainda vai durar até o dia: "+sdf.format(data));
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}else {
+				dataTermino.set(Calendar.MONTH, dataTermino.get(Calendar.MONTH)+6);
+				matricula.setDataTermino(dataTermino);
+				try {
+					matriculaDAO.update(matricula);
+				} catch (DBCommitException e) {
+					e.printStackTrace();
+				}
 			}
-			dataTermino.set(Calendar.MONTH, dataTermino.get(Calendar.MONTH)+6);
-			matricula.setDataTermino(dataTermino);
-			matriculaDAO.update(matricula);
-		} catch (DBCommitException e) {
-			
-		}
+			cursos = new ArrayList<Curso>();
+			outroscursos = new ArrayList<Curso>();
+			curso = new Curso();
+			matricula = new Matricula();
+			carregarCursos();
+			carregarOutrosCursos();
 	}
 	
 	public Matricula getMatricula() {
@@ -200,8 +205,30 @@ public class MatriculaBean {
 	public void setOutroscursos(List<Curso> outroscursos) {
 		this.outroscursos = outroscursos;
 	}
-	
-	
+	public Calendar getDataInicio() {
+		return dataInicio;
+	}
+	public void setDataInicio(Calendar dataInicio) {
+		this.dataInicio = dataInicio;
+	}
+	public Calendar getDataTermino() {
+		return dataTermino;
+	}
+	public void setDataTermino(Calendar dataTermino) {
+		this.dataTermino = dataTermino;
+	}
+	public Date getData() {
+		return data;
+	}
+	public void setData(Date data) {
+		this.data = data;
+	}
+	public SimpleDateFormat getSdf() {
+		return sdf;
+	}
+	public void setSdf(SimpleDateFormat sdf) {
+		this.sdf = sdf;
+	}
 	
 }
 

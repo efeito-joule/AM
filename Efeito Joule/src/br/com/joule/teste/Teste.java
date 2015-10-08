@@ -48,7 +48,7 @@ public class Teste {
 		Administrador adm = new Administrador();
 		adm.setNome("adminsitrador");
 		adm.setEmail("adm@gmail.com");
-		adm.setSenha("xxx");
+		adm.setSenha("fiap");
 		
 		try {
 			administradorDAO.create(adm);
@@ -69,62 +69,62 @@ public class Teste {
 		Aluno aluno1 = new Aluno();
 		aluno1.setNome("Vanks");
 		aluno1.setEmail("vanks@gmail.com");
-		aluno1.setSenha("xxx");
+		aluno1.setSenha("fiap");
 		
 		Aluno aluno2 = new Aluno();
 		aluno2.setNome("Francielly");
 		aluno2.setEmail("francielly@gmail.com");
-		aluno2.setSenha("xxx");
+		aluno2.setSenha("fiap");
 		
 		Aluno aluno3 = new Aluno();
 		aluno3.setNome("Natália");
 		aluno3.setEmail("natália@gmail.com");
-		aluno3.setSenha("xxx");
+		aluno3.setSenha("fiap");
 		
 		Aluno aluno4 = new Aluno();
 		aluno4.setNome("Vitorio");
 		aluno4.setEmail("vitorio@gmail.com");
-		aluno4.setSenha("xxx");
+		aluno4.setSenha("fiap");
 		
 		Aluno aluno5 = new Aluno();
 		aluno5.setNome("Thiago");
 		aluno5.setEmail("thiago@gmail.com");
-		aluno5.setSenha("xxx");
+		aluno5.setSenha("fiap");
 		
 		Aluno aluno6 = new Aluno();
 		aluno6.setNome("Rita");
 		aluno6.setEmail("rita@gmail.com");
-		aluno6.setSenha("xxx");
+		aluno6.setSenha("fiap");
 		
 		Aluno aluno7 = new Aluno();
 		aluno7.setNome("Agessandro");
 		aluno7.setEmail("agessandro@gmail.com");
-		aluno7.setSenha("xxx");
+		aluno7.setSenha("fiap");
 		
 		Aluno aluno8 = new Aluno();
 		aluno8.setNome("Lucia");
 		aluno8.setEmail("lucia@gmail.com");
-		aluno8.setSenha("xxx");
+		aluno8.setSenha("fiap");
 		
 		Aluno aluno9 = new Aluno();
 		aluno9.setNome("Ricardo");
 		aluno9.setEmail("ricardo@gmail.com");
-		aluno9.setSenha("xxx");
+		aluno9.setSenha("fiap");
 		
 		Aluno aluno10 = new Aluno();
 		aluno10.setNome("Surian");
 		aluno10.setEmail("surian@gmail.com");
-		aluno10.setSenha("xxx");
+		aluno10.setSenha("fiap");
 		
 		Aluno aluno11 = new Aluno();
 		aluno11.setNome("Antonio");
 		aluno11.setEmail("antonio@gmail.com");
-		aluno11.setSenha("xxx");
+		aluno11.setSenha("fiap");
 		
 		Aluno aluno12 = new Aluno();
 		aluno12.setNome("Evelyn");
 		aluno12.setEmail("evelyn@gmail.com");
-		aluno12.setSenha("xxx");
+		aluno12.setSenha("fiap");
 		
 		
 		try {
@@ -428,125 +428,151 @@ public class Teste {
 		/*Populando e testando as matrículas */
 			
 		MatriculaDAO matriculaDAO = new MatriculaDAOImpl(em);
+		Calendar dataInicio = Calendar.getInstance();
+		Calendar dataTermino = Calendar.getInstance();
+		dataTermino.set(Calendar.MONTH, dataInicio.get(Calendar.MONTH)+6);
 		
 		Matricula matricula1 = new Matricula();
-		Calendar dataInicio = Calendar.getInstance();
 		matricula1.setDataInicio(dataInicio);
+		matricula1.setDataTermino(dataTermino);
 		matricula1.setUsuario(aluno1);
 		matricula1.setCurso(curso1);
 		
 		Matricula matricula2 = new Matricula();
 		matricula2.setDataInicio(dataInicio);
+		matricula2.setDataTermino(dataTermino);
 		matricula2.setUsuario(aluno1);
 		matricula2.setCurso(curso2);
 		
 		Matricula matricula3 = new Matricula();
 		matricula3.setDataInicio(dataInicio);
+		matricula3.setDataTermino(dataTermino);
 		matricula3.setUsuario(aluno2);
 		matricula3.setCurso(curso1);
 		
 		Matricula matricula4 = new Matricula();
 		matricula4.setDataInicio(dataInicio);
+		matricula4.setDataTermino(dataTermino);
 		matricula4.setUsuario(aluno2);
 		matricula4.setCurso(curso2);
 		
 		Matricula matricula5 = new Matricula();
 		matricula5.setDataInicio(dataInicio);
+		matricula5.setDataTermino(dataTermino);
 		matricula5.setUsuario(aluno3);
 		matricula5.setCurso(curso1);
 		
 		Matricula matricula6 = new Matricula();
 		matricula6.setDataInicio(dataInicio);
+		matricula6.setDataTermino(dataTermino);
 		matricula6.setUsuario(aluno3);
 		matricula6.setCurso(curso2);
 		
 		Matricula matricula7 = new Matricula();
 		matricula7.setDataInicio(dataInicio);
+		matricula7.setDataTermino(dataTermino);
 		matricula7.setUsuario(aluno4);
 		matricula7.setCurso(curso1);
 		
 		Matricula matricula8 = new Matricula();
 		matricula8.setDataInicio(dataInicio);
+		matricula8.setDataTermino(dataTermino);
 		matricula8.setUsuario(aluno4);
 		matricula8.setCurso(curso2);
 		
 		Matricula matricula9 = new Matricula();
 		matricula9.setDataInicio(dataInicio);
+		matricula9.setDataTermino(dataTermino);
 		matricula9.setUsuario(aluno5);
 		matricula9.setCurso(curso1);
 		
 		Matricula matricula10 = new Matricula();
 		matricula10.setDataInicio(dataInicio);
+		matricula10.setDataTermino(dataTermino);
 		matricula10.setUsuario(aluno5);
 		matricula10.setCurso(curso2);
 		
 		Matricula matricula11 = new Matricula();
 		matricula11.setDataInicio(dataInicio);
+		matricula11.setDataTermino(dataTermino);
 		matricula11.setUsuario(aluno6);
 		matricula11.setCurso(curso1);
 		
 		Matricula matricula12 = new Matricula();
 		matricula12.setDataInicio(dataInicio);
+		matricula12.setDataTermino(dataTermino);
 		matricula12.setUsuario(aluno6);
 		matricula12.setCurso(curso2);
 		
 		Matricula matricula13 = new Matricula();
 		matricula13.setDataInicio(dataInicio);
+		matricula13.setDataTermino(dataTermino);
 		matricula13.setUsuario(aluno7);
 		matricula13.setCurso(curso1);
 		
 		Matricula matricula14 = new Matricula();
 		matricula14.setDataInicio(dataInicio);
+		matricula14.setDataTermino(dataTermino);
 		matricula14.setUsuario(aluno7);
 		matricula14.setCurso(curso2);
 		
 		Matricula matricula15 = new Matricula();
 		matricula15.setDataInicio(dataInicio);
+		matricula15.setDataTermino(dataTermino);
 		matricula15.setUsuario(aluno8);
 		matricula15.setCurso(curso1);
 		
 		Matricula matricula16 = new Matricula();
 		matricula16.setDataInicio(dataInicio);
+		matricula16.setDataTermino(dataTermino);
 		matricula16.setUsuario(aluno8);
 		matricula16.setCurso(curso2);
 		
 		Matricula matricula17 = new Matricula();
 		matricula17.setDataInicio(dataInicio);
+		matricula17.setDataTermino(dataTermino);
 		matricula17.setUsuario(aluno9);
 		matricula17.setCurso(curso1);
 		
 		Matricula matricula18 = new Matricula();
 		matricula18.setDataInicio(dataInicio);
+		matricula18.setDataTermino(dataTermino);
 		matricula18.setUsuario(aluno9);
 		matricula18.setCurso(curso2);
 		
 		Matricula matricula19 = new Matricula();
 		matricula19.setDataInicio(dataInicio);
+		matricula19.setDataTermino(dataTermino);
 		matricula19.setUsuario(aluno10);
 		matricula19.setCurso(curso1);
 		
 		Matricula matricula20 = new Matricula();
 		matricula20.setDataInicio(dataInicio);
+		matricula20.setDataTermino(dataTermino);
 		matricula20.setUsuario(aluno10);
 		matricula20.setCurso(curso2);
 		
 		Matricula matricula21 = new Matricula();
 		matricula21.setDataInicio(dataInicio);
+		matricula21.setDataTermino(dataTermino);
 		matricula21.setUsuario(aluno11);
 		matricula21.setCurso(curso1);
 		
 		Matricula matricula22 = new Matricula();
 		matricula22.setDataInicio(dataInicio);
+		matricula22.setDataTermino(dataTermino);
 		matricula22.setUsuario(aluno11);
 		matricula22.setCurso(curso2);
 		
 		Matricula matricula23 = new Matricula();
 		matricula23.setDataInicio(dataInicio);
+		matricula23.setDataTermino(dataTermino);
 		matricula23.setUsuario(aluno12);
 		matricula23.setCurso(curso1);
 		
 		Matricula matricula24 = new Matricula();
 		matricula24.setDataInicio(dataInicio);
+		matricula24.setDataTermino(dataTermino);
 		matricula24.setUsuario(aluno12);
 		matricula24.setCurso(curso2);
 		
@@ -681,7 +707,7 @@ public class Teste {
 		historico9.setAluno(aluno5);
 		historico9.setAula(aula1);
 		historico9.setNumAcerto(20);
-		historico9.setNumErro(9);
+		historico9.setNumErro(2);
 		ranking5.setAluno(aluno5);
 		ranking5.setNumAcerto(20);
 		ranking5.setNumErro(9);

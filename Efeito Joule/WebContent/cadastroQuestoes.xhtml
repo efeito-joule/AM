@@ -10,44 +10,29 @@
 		<ui:define name="head">
 		</ui:define>
 		<ui:define name="body">
-		<h:form id="formulario">
-				<div class="row" style="margin-top: 20px;">
-					<p>Busque uma aula antes de cadastrar a questão para ela</p>
-				</div>
-				<div class="row">
+		<div class="row">
+			  <h1>Cadastro de Questões</h1>
+		</div>
+		<h:form>
+		<div class="row" style="margin-top: 20px;">
+			<p>Escolha um curso antes de cadastrar a aula</p>
+		</div>
+		<div class="row">
 					<div class="col-md-4">
 						<h:messages styleClass="alert alert-info" autoUpdate="true"/>
 					</div>
 				</div>
-				<div class="row" >
-					<div class="col-md-6">
-					<h:outputLabel>Nome da aula:</h:outputLabel>
-						<h:inputText styleClass="form-control input-sm" id="busca"
-						value="#{questaoBean.nomeAula}" required="true" requiredMessage="O nome da aula é obrigatório"/>
-					</div>
-				</div>
-				<div class="row" style="margin-top: 20px;">
-					<div class="col-md-3">
-						<h:commandButton styleClass="btn btn-default" value="Buscar"
-						actionListener="#{questaoBean.buscarAula}" update="tabela"/>
-					</div>
-				</div>
-		</h:form>
-		<div class="row" style="margin-top: 20px;">
-		<div class="col-md-6">
-			<div class="panel panel-default">
-  				<div class="panel-body">
-    				<h:outputText value="#{questaoBean.aula.nome}"/>
-  				</div>
-			</div>
-		</div>
-		</div>
-		
-		<div class="row">
-			<h1>Cadastro de Questões</h1>
-		</div>
-		<h:form>
-			<div class="row">
+		<div class="row" style="margin-top: 10px;" >
+			<div class="col-md-4" >
+  				<h:selectOneMenu styleClass="form-control" value="#{questaoBean.escolha}">
+  				<f:selectItem itemValue="" itemLabel="Selecione uma aula" />
+  				<f:selectItems value="#{questaoBean.aulas}" var="a"
+  				itemLabel="#{a.nome}"
+  				itemValue="#{a.id}"/>
+  				</h:selectOneMenu>
+  			</div>
+  		</div>
+		<div class="row" style="margin-top: 10px;">
 				<div class="col-md-5">
 					<h:outputLabel for="pergunta">Pergunta:</h:outputLabel>
 						<h:inputText id="pergunta" styleClass="form-control input-sm" value="#{questaoBean.questao.pergunta}" 

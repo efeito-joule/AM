@@ -92,7 +92,7 @@ public class LoginBean {
 		}
 	}
 	
-	public static Object pegaUsuarioSessao(){
+	public static Object pegaAlunoSessao(){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		// contexto da requisicao
 		HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true); 
@@ -101,6 +101,18 @@ public class LoginBean {
 		Aluno aluno = (Aluno) currentUser; 
 		return aluno;
 	}
+	
+	public static Object pegaAdmSessao(){
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		// contexto da requisicao
+		HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true); 
+		// pega usuario da sessao
+		Object currentUser = session.getAttribute("usuarioLogado"); 
+		Administrador administrador = (Administrador) currentUser; 
+		return administrador;
+	}
+	
+	
 	
 	public void logout() {
 		FacesContext fc = FacesContext.getCurrentInstance();  

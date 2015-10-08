@@ -6,7 +6,7 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-<ui:composition template="WEB-INF/_templateAluno.xhtml">
+<ui:composition template="WEB-INF/_templateMenu.xhtml">
 		<ui:define name="head">
 			<link rel="stylesheet" type="text/css" href="resources/css/datepicker.css" />
 		</ui:define>
@@ -28,14 +28,14 @@
 			    			<label>Usuário:</label>
 			    			<div class="input-group">
 			    				<span class="input-group-addon"><i class="fa fa-user"></i></span>
-			    				<h:inputText value="#{editarAlunoBean.aluno.nomeUsuario}" styleClass="form-control input-sm" />
+			    				<h:inputText value="#{editarAdmBean.administrador.nomeUsuario}" styleClass="form-control input-sm" />
 			    			</div>
 			    		</div>
 			    		<div class="col-md-3">
 			    			<label>E-mail:</label>
 			    			<div class="input-group">
 			    				<span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
-			    				<h:inputText value="#{editarAlunoBean.aluno.email}" validatorMessage="E-mail incorreto" styleClass="form-control input-sm">
+			    				<h:inputText value="#{editarAdmBean.administrador.email}" validatorMessage="E-mail incorreto" styleClass="form-control input-sm">
 			    				<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" /></h:inputText>
 			    			</div>
 			    		</div>
@@ -45,14 +45,14 @@
 			    			<label>Senha:</label>
 			    			<div class="input-group">
 			    				<span class="input-group-addon"><i class="fa fa-key"></i></span>
-			    				<h:inputSecret value="#{editarAlunoBean.senha}" styleClass="form-control input-sm" />
+			    				<h:inputSecret value="#{editarAdmBean.senha}" styleClass="form-control input-sm" />
 			    			</div>
 			    		</div>
 			    		<div class="col-md-3">
 			    			<label>Confirmar Senha:</label>
 			    			<div class="input-group">
 			    				<span class="input-group-addon"><i class="fa fa-key"></i></span>
-			    				<h:inputSecret styleClass="form-control input-sm" value="#{editarAlunoBean.confirmaSenha}" />
+			    				<h:inputSecret styleClass="form-control input-sm" value="#{editarAdmBean.confirmaSenha}" />
 			    			</div>
 			    		</div>
 			    	</div>
@@ -62,17 +62,17 @@
 			    	<div class="row" style="margin-top: 20px;">
 			    		<div class="col-md-3 col-md-offset-3">
 			    			<label>Nome:</label>
-			    			<h:inputText value="#{editarAlunoBean.aluno.nome}" styleClass="form-control input-sm" />
+			    			<h:inputText value="#{editarAdmBean.administrador.nome}" styleClass="form-control input-sm" />
 			    		</div>
 			    		<div class="col-md-3">
 			    			<label>Sobrenome:</label>
-			    			<h:inputText value="#{editarAlunoBean.aluno.sobrenome}" styleClass="form-control input-sm" />
+			    			<h:inputText value="#{editarAdmBean.administrador.sobrenome}" styleClass="form-control input-sm" />
 			    		</div>
 			    	</div>
 			    	<div class="row" style="margin-top: 10px;">
 			    		<div class="col-md-3 col-md-offset-3">
 			    			<label>Data Nascimento:</label>
-			    			<h:inputText styleClass="form-control input-sm datepicker" value="#{editarAlunoBean.aluno.dataNascimento}">
+			    			<h:inputText styleClass="form-control input-sm datepicker" value="#{editarAdmBean.administrador.dataNascimento}">
 			    				<f:convertDateTime pattern="dd/MM/yyyy" type="date" locale="pt_BR" />
 			    			</h:inputText>
 			    		</div>
@@ -82,8 +82,8 @@
 			    	</div>
 			    	<div class="row" style="margin-top: 20px;">
 			    		<div class="col-md-2 col-md-offset-5">
-			    			<h:commandButton actionListener="#{editarAlunoBean.atualizar}" styleClass="btn btn-success btn-lg" value="Atualizar"
-			    							 onclick="guardandoDados();" />
+			    			<h:commandButton actionListener="#{editarAdmBean.atualizar}" 
+			    			styleClass="btn btn-success btn-lg" value="Atualizar"/>
 			    		</div>
 			    	</div>
 		    	</h:form>

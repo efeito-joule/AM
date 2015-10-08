@@ -72,7 +72,7 @@ public class RankingBean {
 		idresposta=0;
 		resposta = null;
 		cursos = new ArrayList<Curso>();
-		aluno =(Aluno) LoginBean.pegaUsuarioSessao();
+		aluno =(Aluno) LoginBean.pegaAlunoSessao();
 		carregarCursos();
 	}
 
@@ -97,7 +97,13 @@ public class RankingBean {
 	
 	public List<Aula> carregarAulas(){
 		FacesMessage msg;
-		msg = new FacesMessage("Escolha uma aula");
+		msg = new FacesMessage("Escolha uma aula!");
+		if (resposta=="") {
+			msg = new FacesMessage("Informe um curso, se você ainda não fez"
+					+ " uma mátricula vá para a página Meus Cursos!");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			return null;
+		}
 		idresposta =Long.parseLong(resposta);
 		curso = cursoDAO.findById(idresposta);
 		aulas = aulaDAO.buscarPorCurso(curso);
@@ -106,13 +112,31 @@ public class RankingBean {
 		return aulas;
 	}
 
-	public void mostrarRanking(){
+	public Historico mostrarRanking(){
+		FacesMessage msg;
+		if (resposta=="") {
+			msg = new FacesMessage("Informe uma aula!");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			return null;
+		}
 		idresposta =Long.parseLong(resposta);
+		if (rankingDAO.buscarPorAluno(aluno.getId())==null) {
+			msg = new FacesMessage("Este ranking não está pronto");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			return null;
+		}
+		if (histDAO.buscarPorAulaAluno(idresposta, aluno.getId())==null) {
+			msg = new FacesMessage("Este ranking não está pronto");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			return null;
+		}
+		
 		historico = histDAO.buscarPorAulaAluno(idresposta, aluno.getId());
 		ranking = rankingDAO.buscarPorAluno(aluno.getId());
 		posicaoAulaAluno = historico.getPosicaoAula();
 		posicaoTotalAluno = ranking.getPosicaoTotal();
 		historicosAula = histDAO.ListarTodosAula(idresposta);
+		return historico;
 	}
 	
 	public Historico getHistorico() {

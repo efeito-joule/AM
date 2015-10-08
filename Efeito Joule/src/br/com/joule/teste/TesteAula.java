@@ -46,7 +46,7 @@ public class TesteAula {
 		/*
 		try {
 			dao.delete(aula.getId());
-			System.out.println("Aula do id "+aula.getId()+" deletada");
+			System.out.println("Aula do id "+aula.getId()+" apagada");
 		} catch (DBCommitException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -54,9 +54,7 @@ public class TesteAula {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		System.out.println("");
-		System.out.println("Buscar por codigo");
+
 		*/
 	}
 }

@@ -46,8 +46,8 @@ public class AlunoDAOImpl extends DAOImpl<Aluno, Long> implements AlunoDAO {
 		
 			aluno = (Aluno) query.getSingleResult();
 			
-		} catch(Exception e) {
-			e.printStackTrace();
+		} catch(NoResultException nre) {
+			return null;
 		}
 		
 		return (Aluno) aluno;

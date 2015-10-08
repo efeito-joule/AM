@@ -4,33 +4,67 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
-
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	>
 <ui:composition template="WEB-INF/_templateAluno.xhtml">
 	<ui:define name="head">
 	</ui:define>
 	<ui:define name="body">
-	    <h1>Assistir Aula</h1> <p>Botão para resolver questões desta aula</p>
-	    <p>Botão mostrando o ranking do aluno na aula caso ele tenha pontos aqui</p>
-	    <div class="row">
-	    	<button type="button" class="btn btn-success">Exercícios</button>
-	    	<button class="btn btn-primary" type="button">
-  				Ranking <span class="badge">4</span>
-  			</button>
-	    </div>
-	    
-	   <h2>exemplo de como vai aparecer o vídeo</h2>
-	   <div class="embed-responsive embed-responsive-16by9"  >
-	   		<iframe width="80%" class="embed-responsive-item" src="https://www.youtube.com/embed/XNTgOCBcxxI" frameborder="0" allowfullscreen="1" ></iframe>
-		</div>
-		
-		<h3>RSS com uma busca com o nome da aula</h3>
-	   <div class="list-group">
-  			<div class="list-group-item active">
-    			<div class="list-group-item-heading"><p>Títudo do Rss para o blog</p></div>
-    			<div class="list-group-item-text"><p> aqui vai o texto do rss</p></div>
+  		<div class="row" style ="margin-top: 10px;">
+  			<div class="col-md-4">
+  				<h1>Aulas</h1>
   			</div>
+  		</div>
+  		<div class="row">
+	    	<div class="col-md-4">
+				<h:messages styleClass="alert alert-info" autoUpdate="true"/>
+			</div>
 		</div>
+	    
+	    <h:form id="formulario1"  >
+			<div class="row" style="margin-top: 10px;" rendered="#{assistirBean.aulas==null}">
+			<div class="col-md-4" rendered="#{assistirBean.aulas==null}">
+  				<h:selectOneMenu styleClass="form-control" value="#{assistirBean.resposta}" rendered="#{assistirBean.aulas==null}">
+  				<f:selectItem itemValue="" itemLabel="Selecione um curso" />
+  				<f:selectItems value="#{assistirBean.cursos}" var="c"
+  				itemLabel="#{c.nome}"
+  				itemValue="#{c.id}"/>
+  				</h:selectOneMenu>
+  			</div>
+  			</div>
+  				
+  		<div class="row" style="margin-top: 10px;" rendered="#{assitirgBean.aulas==null}">
+				<div class="col-dm-3" rendered="#{assitirgBean.aulas==null}">
+					<h:commandButton styleClass="btn btn-default" rendered="#{assistirBean.aulas==null}" value="Carregar" 
+						actionListener="#{assistirBean.carregarAulas}" />
+				</div>
+		</div>
+		</h:form>
+		
+		<h:form id="formulario2" rendered="#{assistirBean.aulas!=null}" >
+				<div class="row" rendered="#{assistirBean.aulas!=null}" >
+				<div class="col-md-5" rendered="#{assistirBean.aulas!=null}" >
+  					<h:selectOneMenu styleClass="form-control"  value="#{assistirBean.resposta}" rendered="#{assistirBean.aulas!=null}" >
+  					<f:selectItem itemValue="" itemLabel="Selecione uma aula" />
+  					<f:selectItems value="#{assistirBean.aulas}" var="a"
+  					itemLabel="#{a.nome}"
+  					itemValue="#{a.id}"/>
+  					</h:selectOneMenu>
+  				</div>
+  				</div>
+  				
+  				<div class="row" style="margin-top: 10px;" rendered="#{assistirBean.aulas!=null}">
+				<div class="col-dm-3" rendered="#{assistirBean.aulas!=null}">
+					<h:commandButton styleClass="btn btn-default" rendered="#{assistirBean.aulas!=null}" value="Carregar Aula" 
+						actionListener="#{assistirBean.mostrarAula}" />
+				</div>
+				</div>
+  			</h:form>
+  			
+  			<div class="responsive-vide" style ="margin-top: 10px;">
+  				<iframe  class="embed-responsive-item" src="#{assistirBean.video}" 
+	   				frameborder="0" allowfullscreen="1" height='472,5px' width='840px'></iframe>
+  			</div>
 	</ui:define>
 </ui:composition>
 </html>

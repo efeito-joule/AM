@@ -12,15 +12,13 @@ import br.com.joule.daoimpl.AlunoDAOImpl;
 import br.com.joule.entity.Aluno;
 import br.com.joule.singleton.EMFactorySingleton;
 
-@ManagedBean(name = "cadastroAlunoBean")
+@ManagedBean(name = "editarAlunoBean")
 @RequestScoped
-public class CadastroAlunoBean {
+public class EditarAlunoBean {
 
 	private Aluno aluno;
 	private String senha;
 	private String confirmaSenha;
-	private boolean masculino;
-	private boolean feminino;
 	private FacesMessage msg;
 	private String message;
 	private AlunoDAO alunoDAO;
@@ -29,10 +27,11 @@ public class CadastroAlunoBean {
 	public void init() {
 		EntityManager em = EMFactorySingleton.getInstance().createEntityManager();
 		alunoDAO = new AlunoDAOImpl(em);
-		aluno = new Aluno();
+		aluno =(Aluno) LoginBean.pegaAlunoSessao();
 	}
 	
-	public void cadastrar() {
+	
+public void atualizar() {
 		
 		try {
 			if(aluno.getNomeUsuario().isEmpty()) {
@@ -48,7 +47,7 @@ public class CadastroAlunoBean {
 				message = "Confirme a Senha!";
 				
 			} else if(!senha.equals(confirmaSenha)) {
-				message = "As senhas n„o coincidem!";
+				message = "As senhas n√£o coincidem!";
 				
 			} else if(aluno.getNome().isEmpty()) {
 				message = "Preencha o campo Nome!";
@@ -56,19 +55,13 @@ public class CadastroAlunoBean {
 			} else if(aluno.getSobrenome().isEmpty()) {
 				message = "Preencha o campo Sobrenome!";
 				
-			} else if(masculino == false && feminino == false) {
-				message = "Informe um Sexo!";
-				
 			} else if(aluno.getDataNascimento() == null) {
 				message = "Informe a Data de Nascimento!";
 				
-			} else if(alunoDAO.buscarEmail(aluno.getEmail())!=null) {
-				message = "Este e-mail j· tem um cadastro!";
-			}else {
+			}  else {
 				aluno.setSenha(senha);
-				System.out.println("antes de criar o aluno");
-				alunoDAO.create(aluno);
-				message = "Cadastro efetuado com sucesso!";
+				
+				alunoDAO.update(aluno);
 			}
 			msg = new FacesMessage(message);
 			FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -102,22 +95,6 @@ public class CadastroAlunoBean {
 		this.confirmaSenha = confirmaSenha;
 	}
 
-	public boolean isMasculino() {
-		return masculino;
-	}
-
-	public void setMasculino(boolean masculino) {
-		this.masculino = masculino;
-	}
-
-	public boolean isFeminino() {
-		return feminino;
-	}
-
-	public void setFeminino(boolean feminino) {
-		this.feminino = feminino;
-	}
-
 	public String getMessage() {
 		return message;
 	}
@@ -133,6 +110,5 @@ public class CadastroAlunoBean {
 	public void setMsg(FacesMessage msg) {
 		this.msg = msg;
 	}
-	
 	
 }

@@ -12,7 +12,7 @@ Rode a classe Teste dentro do pacote br.com.joule.Teste.
 5º pronto agora vc pode usar a vontade: Rode o projeto, cadastre-se ou use algum login abaixo.
 
 Aluno: thiago@gmail.com
-Senha: xxx
+Senha: fiap
 
 Administrador: adm@gmail.com
-Senha: xxx
+Senha: fiap

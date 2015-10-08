@@ -107,7 +107,7 @@ public class ResponderQuestaoBean {
 		resposta="0";
 		//0 errou 1 acertou 2 semresposta
 		acertou=2;
-		aluno =(Aluno) LoginBean.pegaUsuarioSessao();
+		aluno =(Aluno) LoginBean.pegaAlunoSessao();
 		carregarCursos();
 	}
 	
@@ -136,6 +136,12 @@ public class ResponderQuestaoBean {
 	
 	public List<Aula> carregarAulas(){
 		FacesMessage msg;
+		if (escolha=="") {
+			msg = new FacesMessage("Informe um curso, se você ainda não fez"
+					+ " uma mátricula vá para a página Meus Cursos!");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			return null;
+		}
 		msg = new FacesMessage("Escolha uma aula");
 		idEscolha =Long.parseLong(escolha);
 		curso = cursoDAO.findById(idEscolha);
@@ -147,10 +153,15 @@ public class ResponderQuestaoBean {
 
 	public Questao carregarQuestoes(){
 		acertou=2;
+		FacesMessage msg;
+		if (escolha=="") {
+			msg = new FacesMessage("Informe uma aula");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			return null;
+		}
+		
 		idEscolha =Long.parseLong(escolha);
 		aula = aulaDAO.findById(idEscolha);
-		
-		FacesMessage msg;
 		if (questaoDAO.buscarPorAula(aula)==null) {
 			msg = new FacesMessage("Esta aula não possui questões!");
 			aula = new Aula();
@@ -212,8 +223,34 @@ public class ResponderQuestaoBean {
 	}
 	
 	
-	public void corrigirQuestao(){
+	public long corrigirQuestao(){
 		acertou=2;
+		FacesMessage msg;
+		if (FacesContext.getCurrentInstance().
+				getExternalContext().getRequestParameterMap().get("resposta")==null) {
+			msg = new FacesMessage("Indique uma resposta");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			return acertou;
+		}
+		
+		if (questoes.size()<index) {
+			msg = new FacesMessage("Esta aula não possui mais questões!");
+			aula = new Aula();
+			questao = new Questao();
+			alternativa1 = new Alternativa();
+			alternativa2 = new Alternativa();
+			alternativa3 = new Alternativa();
+			alternativa4= new Alternativa();
+			alternativa5 = new Alternativa();
+			descricao01 = "";
+			descricao02 = "";
+			descricao03 = "";
+			descricao04 = "";
+			descricao05 = "";
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			return acertou;
+		}
+		
 		resposta = FacesContext.getCurrentInstance().
 				getExternalContext().getRequestParameterMap().get("resposta");
 		resposta01=false;
@@ -316,6 +353,7 @@ public class ResponderQuestaoBean {
 			FacesContext.getCurrentInstance().addMessage(null, msg3);
 		}
 		
+		return acertou;
 	}
 	
 	public Historico getHistorico() {

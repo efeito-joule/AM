@@ -39,18 +39,18 @@ public class AdministradorDAOImpl extends DAOImpl<Administrador, Long> implement
 		sql.append("WHERE (a.nomeUsuario = '" + usuarioOuEmail + "'");
 		sql.append(" OR a.email = '" + usuarioOuEmail + "') AND a.senha = '" + senha + "'");
 		
-		Pessoa aluno = null;
+		Pessoa administrador = null;
 		
 		try {
 			Query query = em.createQuery(sql.toString());
 		
-			aluno = (Administrador) query.getSingleResult();
+			administrador = (Administrador) query.getSingleResult();
 			
-		} catch(Exception e) {
-			e.printStackTrace();
+		} catch(NoResultException nre) {
+			return null;
 		}
 		
-		return (Administrador) aluno;
+		return (Administrador) administrador;
    }
 
 	@SuppressWarnings("unchecked")

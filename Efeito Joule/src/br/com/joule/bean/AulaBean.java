@@ -1,5 +1,6 @@
 package br.com.joule.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -30,6 +31,9 @@ public class AulaBean {
 	private CursoDAO cursoDAO;
 	private Curso curso;
 	private long id;
+	private List<Curso> cursos;
+	private long idResposta;
+	private String resposta;
 
 	@PostConstruct
 	public void init() {
@@ -39,10 +43,29 @@ public class AulaBean {
 		lista = dao.list();
 		cursoDAO = new CursoDAOImpl(em);
 		curso = new Curso();
+		cursos = new ArrayList<Curso>();
+		resposta = null;
+		carregarCursos();
+	}
+	
+	public List<Curso> carregarCursos(){
+		cursos = cursoDAO.list();
+		return cursos;
 	}
 
-	public void cadastrar() {
+	public Aula cadastrar() {
 		FacesMessage msg;
+		if (resposta=="") {
+			msg = new FacesMessage("Informe um curso");
+			curso = new Curso();
+			cursos = new ArrayList<Curso>();
+			aula = new Aula();
+			carregarCursos();
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			return null;
+		}
+		idResposta =Long.parseLong(resposta);
+		curso = cursoDAO.findById(idResposta);
 		if (curso==null) {
 			msg = new FacesMessage("Busque um curso");
 		}else{	
@@ -63,6 +86,8 @@ public class AulaBean {
 		}
 		}
 		FacesContext.getCurrentInstance().addMessage(null, msg);
+		
+		return aula;
 	}
 	
 	public void excluir(Aula a){
@@ -112,18 +137,6 @@ public class AulaBean {
 		aula = a;
 	}
 	
-	
-	public void buscarCurso(){
-		FacesMessage msg;
-		if(nomeCurso==""){
-			msg=new FacesMessage("Informe o nome da aula para a busca");
-		}else{
-			curso=cursoDAO.buscarPorNome(nomeCurso);			
-			msg= new FacesMessage("Busca por: " + nomeCurso);
-		}
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-	}
-	
 	public Aula getAula() {
 		return aula;
 	}
@@ -170,5 +183,23 @@ public class AulaBean {
 	public void setId(long id) {
 		this.id = id;
 	}
+
+	public List<Curso> getCursos() {
+		return cursos;
+	}
+
+	public void setCursos(List<Curso> cursos) {
+		this.cursos = cursos;
+	}
+
+	public String getResposta() {
+		return resposta;
+	}
+
+	public void setResposta(String resposta) {
+		this.resposta = resposta;
+	}
+	
+	
 	
 }

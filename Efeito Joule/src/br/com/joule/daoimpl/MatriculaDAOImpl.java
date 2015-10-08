@@ -7,6 +7,8 @@ import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
 import br.com.joule.dao.MatriculaDAO;
+import br.com.joule.entity.Aluno;
+import br.com.joule.entity.Curso;
 import br.com.joule.entity.Matricula;
 
 public class MatriculaDAOImpl extends DAOImpl<Matricula, Long> implements MatriculaDAO{
@@ -27,12 +29,12 @@ public class MatriculaDAOImpl extends DAOImpl<Matricula, Long> implements Matric
 	}
 
 	@Override
-	public Matricula buscarPorEmailCurso(String email, int codigo) {
+	public Matricula buscarPorAlunoCurso(Aluno aluno, Curso curso) {
 			TypedQuery<Matricula> query = em.createQuery(
-				"from Matricula c where c.aluno.email like :email "
-				+ "and c.curso.codigo like :codigo",Matricula.class);
-			query.setParameter("email", email);
-			query.setParameter("codigo",codigo);
+				"from Matricula c where c.aluno like :aluno "
+				+ "and c.curso like :curso",Matricula.class);
+			query.setParameter("aluno", aluno);
+			query.setParameter("curso",curso);
 			try {
 				return query.getSingleResult();
 			} catch (NoResultException nre) {

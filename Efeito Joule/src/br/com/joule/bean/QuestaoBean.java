@@ -35,6 +35,7 @@ public class QuestaoBean {
 	private Alternativa alternativa4;
 	private Alternativa alternativa5;
 	private List<Questao> questoes;
+	private List<Aula> aulas;
 	private Aula aula;
 	private String descricao01;
 	private boolean resposta01;
@@ -47,27 +48,55 @@ public class QuestaoBean {
 	private String descricao05;
 	private boolean resposta05;
 	private String resposta;
+	private long idEscolha;
+	private String escolha;
 
 	@PostConstruct
 	public void init() {
-		questao = new Questao();
-		aula = new Aula();
 		EntityManager em = EMFactorySingleton.getInstance().createEntityManager();
 		dao = new QuestaoDAOImpl(em);
 		aulaDAO = new AulaDAOImpl(em);
+		aulas = new ArrayList<Aula>();
 		questoes = null;
+		questao = new Questao();
+		aula = new Aula();
 		alternativas = new ArrayList<Alternativa>();
 		alternativa1 = new Alternativa();
 		alternativa2 = new Alternativa();
 		alternativa3 = new Alternativa();
 		alternativa4= new Alternativa();
 		alternativa5 = new Alternativa();
+		carregarAulas();
 	}
 
-	public void cadastrar() {
-		
+	public Questao cadastrar() {
 		FacesMessage msg;
+		if (escolha=="") {
+			msg = new FacesMessage("Informe uma aula");
+			aulas = new ArrayList<Aula>();
+			questoes = null;
+			questao = new Questao();
+			aula = new Aula();
+			alternativas = new ArrayList<Alternativa>();
+			alternativa1 = new Alternativa();
+			alternativa2 = new Alternativa();
+			alternativa3 = new Alternativa();
+			alternativa4= new Alternativa();
+			alternativa5 = new Alternativa();
+			carregarAulas();
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			return null;
+		}
+		idEscolha =Long.parseLong(escolha);
+		aula = aulaDAO.findById(idEscolha);
 		questao.setAula(aula);
+		
+		if (FacesContext.getCurrentInstance().
+				getExternalContext().getRequestParameterMap().get("resposta")==null) {
+			msg = new FacesMessage("Indique uma resposta");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			return null;
+		}
 		
 		resposta = FacesContext.getCurrentInstance().
 				getExternalContext().getRequestParameterMap().get("resposta");
@@ -154,6 +183,7 @@ public class QuestaoBean {
 					}
 			}
 		FacesContext.getCurrentInstance().addMessage(null, msg);
+		return questao;
 	}
 	
 	public void excluir(Questao questao){
@@ -170,22 +200,38 @@ public class QuestaoBean {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 	
-	public void buscarAula(){
-		FacesMessage msg;
-		if(nomeAula==""){
-			msg=new FacesMessage("Informe o nome da aula para a busca");
-		}else{
-			aula=aulaDAO.buscarPorNome(nomeAula);			
-			msg= new FacesMessage("Buscando aula");
-			if (aula!=null) {
-				questoes = dao.buscarPorAula(aula);
-			}
-		}
-		FacesContext.getCurrentInstance().addMessage(null, msg);
+	public List<Aula> carregarAulas(){
+		aulas = aulaDAO.list();
+		return aulas;
 	}
 	
-	public void atualizar() {
+	public Questao atualizar() {
 		FacesMessage msg;
+		if (escolha=="") {
+			msg = new FacesMessage("Informe uma aula");
+			aulas = new ArrayList<Aula>();
+			questoes = null;
+			questao = new Questao();
+			aula = new Aula();
+			alternativas = new ArrayList<Alternativa>();
+			alternativa1 = new Alternativa();
+			alternativa2 = new Alternativa();
+			alternativa3 = new Alternativa();
+			alternativa4= new Alternativa();
+			alternativa5 = new Alternativa();
+			carregarAulas();
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			return null;
+		}
+		idEscolha =Long.parseLong(escolha);
+		aula = aulaDAO.findById(idEscolha);
+		
+		if (FacesContext.getCurrentInstance().
+				getExternalContext().getRequestParameterMap().get("resposta")==null) {
+			msg = new FacesMessage("Indique uma resposta");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			return null;
+		}
 		
 		resposta = FacesContext.getCurrentInstance().
 				getExternalContext().getRequestParameterMap().get("resposta");
@@ -226,7 +272,6 @@ public class QuestaoBean {
 		alternativas.get(4).setResposta(resposta05);
 
 		
-		questao.setAula(aula);
 		questao.setListaAlternativas(alternativas);
 		
 			try {
@@ -251,7 +296,8 @@ public class QuestaoBean {
 				msg = new FacesMessage("Erro ao atualizar!");
 				e.printStackTrace();
 			}
-		FacesContext.getCurrentInstance().addMessage(null, msg);		
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+		return questao;
 	}
 	
 	public void editar(Questao questao){
@@ -261,7 +307,6 @@ public class QuestaoBean {
 	public Questao buscarPorPergunta(String pergunta){
 		return dao.buscarPorPergunda(pergunta);
 	}
-	
 
 	public Questao getQuestao() {
 		return questao;
@@ -279,6 +324,22 @@ public class QuestaoBean {
 		this.nomeAula = nomeAula;
 	}
 
+	public Alternativa getAlternativa1() {
+		return alternativa1;
+	}
+
+	public void setAlternativa1(Alternativa alternativa1) {
+		this.alternativa1 = alternativa1;
+	}
+
+	public Alternativa getAlternativa2() {
+		return alternativa2;
+	}
+
+	public void setAlternativa2(Alternativa alternativa2) {
+		this.alternativa2 = alternativa2;
+	}
+
 	public List<Alternativa> getAlternativas() {
 		return alternativas;
 	}
@@ -287,12 +348,44 @@ public class QuestaoBean {
 		this.alternativas = alternativas;
 	}
 
+	public Alternativa getAlternativa3() {
+		return alternativa3;
+	}
+
+	public void setAlternativa3(Alternativa alternativa3) {
+		this.alternativa3 = alternativa3;
+	}
+
+	public Alternativa getAlternativa4() {
+		return alternativa4;
+	}
+
+	public void setAlternativa4(Alternativa alternativa4) {
+		this.alternativa4 = alternativa4;
+	}
+
+	public Alternativa getAlternativa5() {
+		return alternativa5;
+	}
+
+	public void setAlternativa5(Alternativa alternativa5) {
+		this.alternativa5 = alternativa5;
+	}
+
 	public List<Questao> getQuestoes() {
 		return questoes;
 	}
 
 	public void setQuestoes(List<Questao> questoes) {
 		this.questoes = questoes;
+	}
+
+	public List<Aula> getAulas() {
+		return aulas;
+	}
+
+	public void setAulas(List<Aula> aulas) {
+		this.aulas = aulas;
 	}
 
 	public Aula getAula() {
@@ -383,46 +476,6 @@ public class QuestaoBean {
 		this.resposta05 = resposta05;
 	}
 
-	public Alternativa getAlternativa() {
-		return alternativa1;
-	}
-
-	public void setAlternativa(Alternativa alternativa1) {
-		this.alternativa1 = alternativa1;
-	}
-
-	public Alternativa getAlternativa2() {
-		return alternativa2;
-	}
-
-	public void setAlternativa2(Alternativa alternativa2) {
-		this.alternativa2 = alternativa2;
-	}
-
-	public Alternativa getAlternativa3() {
-		return alternativa3;
-	}
-
-	public void setAlternativa3(Alternativa alternativa3) {
-		this.alternativa3 = alternativa3;
-	}
-
-	public Alternativa getAlternativa4() {
-		return alternativa4;
-	}
-
-	public void setAlternativa4(Alternativa alternativa4) {
-		this.alternativa4 = alternativa4;
-	}
-
-	public Alternativa getAlternativa5() {
-		return alternativa5;
-	}
-
-	public void setAlternativa5(Alternativa alternativa5) {
-		this.alternativa5 = alternativa5;
-	}
-
 	public String getResposta() {
 		return resposta;
 	}
@@ -431,5 +484,21 @@ public class QuestaoBean {
 		this.resposta = resposta;
 	}
 
-	
+	public long getIdEscolha() {
+		return idEscolha;
+	}
+
+	public void setIdEscolha(long idEscolha) {
+		this.idEscolha = idEscolha;
+	}
+
+	public String getEscolha() {
+		return escolha;
+	}
+
+	public void setEscolha(String escolha) {
+		this.escolha = escolha;
+	}
+
+
 }

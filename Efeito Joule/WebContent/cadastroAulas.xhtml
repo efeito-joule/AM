@@ -10,7 +10,7 @@
 		<ui:define name="body">
 		
 		<div class="row" style="margin-top: 20px;">
-			<p>Busque um curso antes de cadastrar a aula</p>
+			<p>Escolha um curso antes de cadastrar a aula</p>
 		</div>
 		<h:form>
 			<div class="row">
@@ -18,33 +18,16 @@
 					<h:messages styleClass="alert alert-info" autoUpdate="true"/>
 				</div>
 			</div>
-			<div class="row"  >
-				<div class="col-md-4">
-				<h:outputLabel>Nome do curso:</h:outputLabel>
-					<h:inputText styleClass="form-control input-sm" id="busca"
-						value="#{aulaBean.nomeCurso}" required="true" requiredMessage="É preciso um nome para a busca!"/>
-				</div>
-			</div>
-			<div class="row" style="margin-top: 10px;">
-				<div class="col-md-3">
-					<h:commandButton styleClass="btn btn-default" value="Buscar"
-						actionListener="#{aulaBean.buscarCurso}" update="tabela"/>
-				</div>
-			</div>
 			<div class="row" style="margin-top: 10px;" >
-				<div class="col-md-4">
-				<div class="panel panel-default">
-  					<div class="panel-body">
-    					<h:outputText value="#{aulaBean.curso.nome}"/>
-  					</div>
-				</div>
-				</div>
-			</div>
-		</h:form>
-		<div class="row" style="margin-top: 20px;">
-		
-		</div>
-			<h:form>
+			<div class="col-md-4" >
+  				<h:selectOneMenu styleClass="form-control" value="#{aulaBean.resposta}">
+  				<f:selectItem itemValue="" itemLabel="Selecione um curso" />
+  				<f:selectItems value="#{aulaBean.cursos}" var="c"
+  				itemLabel="#{c.nome}"
+  				itemValue="#{c.id}"/>
+  				</h:selectOneMenu>
+  			</div>
+  			</div>
 				<div class="row">
 					<h1>Cadastro de Aulas</h1>
 				</div>
