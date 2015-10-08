@@ -58,7 +58,6 @@ public class RankingBean {
 	
 	@PostConstruct
 	public void init() {
-		historico = new Historico();
 		em = EMFactorySingleton.getInstance().createEntityManager();
 		histDAO = new HistoricoDAOImpl(em);
 		matriculaDAO = new MatriculaDAOImpl(em);
@@ -67,6 +66,7 @@ public class RankingBean {
 		cursoDAO = new CursoDAOImpl(em);
 		aula = new Aula();
 		curso = new Curso();
+		historico = new Historico();
 		ranking = new Ranking();
 		rankingsGeral = rankingDAO.ListarTodos();
 		idresposta=0;
@@ -115,22 +115,30 @@ public class RankingBean {
 	public Historico mostrarRanking(){
 		FacesMessage msg;
 		if (resposta=="") {
+			historico = new Historico();
+			ranking = new Ranking();
 			msg = new FacesMessage("Informe uma aula!");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 			return null;
 		}
 		idresposta =Long.parseLong(resposta);
 		if (rankingDAO.buscarPorAluno(aluno.getId())==null) {
-			msg = new FacesMessage("Este ranking não está pronto");
+			historico = new Historico();
+			ranking = new Ranking();
+			msg = new FacesMessage("Você ainda não respondeu as questões"
+					+ " desta aula");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 			return null;
 		}
 		if (histDAO.buscarPorAulaAluno(idresposta, aluno.getId())==null) {
-			msg = new FacesMessage("Este ranking não está pronto");
+			historico = new Historico();
+			ranking = new Ranking();
+			msg = new FacesMessage("Você ainda não respondeu as questões"
+					+ " desta aula");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 			return null;
 		}
-		
+	
 		historico = histDAO.buscarPorAulaAluno(idresposta, aluno.getId());
 		ranking = rankingDAO.buscarPorAluno(aluno.getId());
 		posicaoAulaAluno = historico.getPosicaoAula();

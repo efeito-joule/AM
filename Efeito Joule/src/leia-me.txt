@@ -16,3 +16,10 @@ Senha: fiap
 
 Administrador: adm@gmail.com
 Senha: fiap
+
+OBS.:
+
+Para cadastrar um vídeo é necessário a url do Youtube no formato abaixo:
+https://www.youtube.com/v/CódigoDOVídeo
+exemplo:
+https://www.youtube.com/v/ILrzYSQcwVU

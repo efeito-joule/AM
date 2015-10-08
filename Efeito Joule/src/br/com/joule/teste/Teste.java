@@ -41,7 +41,6 @@ public class Teste {
 		
 		EntityManager em = EMFactorySingleton.getInstance().createEntityManager();
 		
-		
 		/*Criando uma conta de administrador */
 		AdministradorDAO administradorDAO = new AdministradorDAOImpl(em);
 		
@@ -187,28 +186,28 @@ public class Teste {
 		aula1.setCurso(curso1);
 		
 		Aula aula2 = new Aula();
-		aula2.setNome("Espaço");
-		aula2.setUrlVideo("https://www.youtube.com/v/ILrzYSQcwVU");
+		aula2.setNome("Trajetória, Direção e Sentido");
+		aula2.setUrlVideo("https://www.youtube.com/v/XNTgOCBcxxI");
 		aula2.setCurso(curso1);
 		
 		Aula aula3 = new Aula();
 		aula3.setNome("Movimento Circular");
-		aula3.setUrlVideo("https://www.youtube.com/v/ILrzYSQcwVU");
+		aula3.setUrlVideo("https://www.youtube.com/v/lZLxeBuEC5Q");
 		aula3.setCurso(curso1);
 		
 		Aula aula4 = new Aula();
 		aula4.setNome("As Leis de Newton");
-		aula4.setUrlVideo("https://www.youtube.com/v/ILrzYSQcwVU");
+		aula4.setUrlVideo("https://www.youtube.com/v/ZtwPh3yGkO0");
 		aula4.setCurso(curso2);
 		
 		Aula aula5 = new Aula();
 		aula5.setNome("Atrito");
-		aula5.setUrlVideo("https://www.youtube.com/v/ILrzYSQcwVU");
+		aula5.setUrlVideo("https://www.youtube.com/v/9QvFcJEaMhQ");
 		aula5.setCurso(curso2);
 		
 		Aula aula6 = new Aula();
 		aula6.setNome("Torque");
-		aula6.setUrlVideo("https://www.youtube.com/v/ILrzYSQcwVU");
+		aula6.setUrlVideo("https://www.youtube.com/v/hWfXwF2MsOs");
 		aula6.setCurso(curso2);
 		
 		try {
@@ -917,6 +916,5 @@ public class Teste {
 		StoredProcedureQuery query = em.createNamedStoredProcedureQuery("proc");
 		query.execute();
 
-		
 	}
 }

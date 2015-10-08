@@ -275,45 +275,47 @@ public class ResponderQuestaoBean {
 		case "5":
 			resposta05=true;
 			break;
-		default:
-			FacesMessage msg2;
-			msg2 = new FacesMessage("Selecione uma resposta");
-			FacesContext.getCurrentInstance().addMessage(null, msg2);
-			break;
 		}
 		
 		historico.setAluno(aluno);
 		historico.setAula(aula);
 		ranking.setAluno(aluno);
 		
-		if (resposta01==alternativa1.isResposta()&& resposta02==alternativa2.isResposta()
-				&& resposta03==alternativa3.isResposta()&& resposta04==alternativa4.isResposta()
-						&& resposta05==alternativa5.isResposta()) {
-			
-			acertou=1;
-			historico.setNumAcerto(historico.getNumAcerto()+1);
-			historico.setNumErro(historico.getNumErro());
-			ranking.setNumAcerto(1);
-			ranking.setNumErro(0);
-			
-		}else {
-			acertou=0;
-			historico.setNumAcerto(historico.getNumAcerto());
-			historico.setNumErro(historico.getNumErro()+1);
-			ranking.setNumAcerto(0);
-			ranking.setNumErro(1);
-		}
-		
 		if (histDAO.buscarPorAulaAluno(aula.getId(), aluno.getId())==null) {
-			
 			try {
+				if (resposta01==alternativa1.isResposta()&& resposta02==alternativa2.isResposta()
+						&& resposta03==alternativa3.isResposta()&& resposta04==alternativa4.isResposta()
+								&& resposta05==alternativa5.isResposta()) {
+					acertou=1;
+					historico.setNumAcerto(historico.getNumAcerto()+1);
+					historico.setNumErro(historico.getNumErro());
+					
+				}else {
+					acertou=0;
+					historico.setNumAcerto(historico.getNumAcerto());
+					historico.setNumErro(historico.getNumErro()+1);
+				}
 				histDAO.create(historico);
+				
 			} catch (DBCommitException e) {
 				e.printStackTrace();
 			}
 		}else {
 			try {
-				historico.setId(histDAO.buscarPorAulaAluno(aula.getId(), aluno.getId()).getId());
+				historico=histDAO.buscarPorAulaAluno(aula.getId(), aluno.getId());
+				
+				if (resposta01==alternativa1.isResposta()&& resposta02==alternativa2.isResposta()
+						&& resposta03==alternativa3.isResposta()&& resposta04==alternativa4.isResposta()
+								&& resposta05==alternativa5.isResposta()) {
+					acertou=1;
+					historico.setNumAcerto(historico.getNumAcerto()+1);
+					historico.setNumErro(historico.getNumErro());
+					
+				}else {
+					acertou=0;
+					historico.setNumAcerto(historico.getNumAcerto());
+					historico.setNumErro(historico.getNumErro()+1);
+				}
 				histDAO.update(historico);
 			} catch (DBCommitException e) {
 				e.printStackTrace();
@@ -322,14 +324,35 @@ public class ResponderQuestaoBean {
 		
 		if (rankingDAO.buscarPorAluno(aluno.getId())==null) {
 			try {
+				if (resposta01==alternativa1.isResposta()&& resposta02==alternativa2.isResposta()
+						&& resposta03==alternativa3.isResposta()&& resposta04==alternativa4.isResposta()
+								&& resposta05==alternativa5.isResposta()) {
+					ranking.setNumAcerto(1);
+					ranking.setNumErro(0);
+					
+				}else {
+					ranking.setNumAcerto(0);
+					ranking.setNumErro(1);
+				}
 				rankingDAO.create(ranking);
 			} catch (DBCommitException e) {
-			
 				e.printStackTrace();
 			}
 		}else {
 			try {			
-				ranking.setId(rankingDAO.buscarPorAluno(aluno.getId()).getId());
+				ranking=rankingDAO.buscarPorAluno(aluno.getId());
+		
+				if (resposta01==alternativa1.isResposta()&& resposta02==alternativa2.isResposta()
+						&& resposta03==alternativa3.isResposta()&& resposta04==alternativa4.isResposta()
+								&& resposta05==alternativa5.isResposta()) {
+					ranking.setNumAcerto(1);
+					ranking.setNumErro(0);
+					
+				}else {
+					ranking.setNumAcerto(0);
+					ranking.setNumErro(1);
+				}
+				
 				rankingDAO.update(ranking);
 			} catch (DBCommitException e) {
 				e.printStackTrace();
